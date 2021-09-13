@@ -1,0 +1,43 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Raphael
+    network: {{network}}
+    source:
+      address: '{{address}}'
+      abi: Raphael
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Proposal
+        - ProposalContent
+        - Vote
+        - Voter
+      abis:
+        - name: Raphael
+          file: ./abis/Raphael.json
+      eventHandlers:
+        - event: ProposalCreated(uint256,string,uint256,uint256)
+          handler: handleProposalCreated
+        - event: ProposalStatusChanged(uint256,uint8)
+          handler: handleProposalStatusChanged
+        - event: Voted(address,uint256,uint256,bool)
+          handler: handleVoted
+        # - event: NativeTokenChanged(address,address,address)
+        #   handler: handleNativeTokenChanged
+        # - event: NativeTokenTransferred(address,address,uint256)
+        #   handler: handleNativeTokenTransferred
+        # - event: OwnershipTransferred(indexed address,indexed address)
+        #   handler: handleOwnershipTransferred
+        # - event: StakingAddressChanged(address,address,address)
+        #   handler: handleStakingAddressChanged
+        # - event: VotingDelayChanged(uint256)
+        #   handler: handleVotingDelayChanged
+        # - event: VotingDurationChanged(uint256)
+        #   handler: handleVotingDurationChanged
+      file: ./src/mapping.ts

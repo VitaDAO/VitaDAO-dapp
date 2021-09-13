@@ -1,0 +1,89 @@
+enum ProposalStatus {
+  VOTING_NOT_STARTED,
+  VOTING,
+  VOTES_FINISHED,
+  RESOLVED,
+  CANCELLED,
+  QUORUM_FAILED
+}
+
+"""
+On-Chain Proposals
+"""
+type Proposal @entity {
+  id: ID!
+  "title, author and ipfsHash come from the 'details' attribute from the proposal contract data"
+  title: String!
+  author: String!
+  ipfsHash: String!
+  voteStartBlock: BigInt!
+  voteEndBlock: BigInt!
+  status: ProposalStatus!
+  "Is voting currently possible?"
+  votingPossible: Boolean!
+  "Has the proposal passed?"
+  hasPassed: Boolean!
+  createdAt: BigInt!
+  votes: [Vote]! @derivedFrom(field: "proposal")
+  "numTokensYes and numTokensNo show how many staked tokens have been used to vote"
+  numTokensYes: BigDecimal!
+  numTokensNo: BigDecimal!
+  totalVotes: BigDecimal!
+  minVotesNeeded: BigDecimal
+  "This is the proposal content saved on IPFS"
+  proposalContent: ProposalContent!
+}
+
+"""
+IPFS Content for proposals
+"""
+type ProposalContent @entity {
+  id: ID!
+  proposal: [Proposal]! @derivedFrom(field: "proposalContent")
+  type: String!
+  title: String!
+  summary: String!
+  details: String!
+  link: String!
+  project: ProposalProjectContent
+}
+
+"""
+IPFS Content for proposal projects
+"""
+type ProposalProjectContent @entity {
+  id: ID!
+  proposalContent: [ProposalContent]! @derivedFrom(field: "project")
+  fundingStage: String
+  title: String
+  researchLead: String
+  institution: String
+  clinicalStage: String
+  ipStatus: String
+  budget: BigInt
+  budgetCurrency: String
+  summary: String
+  aimsAndHypothesis: String
+}
+
+"""
+On-Chain Votes
+"""
+type Vote @entity {
+  id: ID!
+  proposal: Proposal!
+  "What was the vote? true for Yes, false for No"
+  direction: Boolean!
+  "Number of tokens voted with"
+  weight: BigDecimal!
+  createdAt: BigInt!
+  voter: Voter!
+}
+
+"""
+On-Chain Voters
+"""
+type Voter @entity {
+  id: ID!
+  votes: [Vote]! @derivedFrom(field: "voter")
+}
