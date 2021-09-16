@@ -26,7 +26,12 @@
 
       <main-nav :nav-items="navigationItems" />
 
-      <main class="flex-1 focus:outline-none relative">
+      <main
+        class="flex-1 focus:outline-none relative bg-fixed bg-contain"
+        :style="{
+          'background-image': 'url(' + require('./assets/images/vita_dao_image.png') + ')',
+        }"
+      >
         <div class="flex justify-center pb-20 pt-6 px-6">
           <div class="max-w-7xl w-full flex justify-center">
             <router-view v-slot="{ Component }">
