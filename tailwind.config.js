@@ -22,7 +22,7 @@ module.exports = {
         'vita-accent': '#F9E47A',
       },
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         18: '18rem',
