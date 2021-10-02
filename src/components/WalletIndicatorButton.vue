@@ -2,13 +2,13 @@
   <div>
     <button
       class="
-        bg-gray-700
+        bg-gray-800
         border border-transparent
         duration-150
         flex
         focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2
         font-bold
-        hover:bg-gray-600
+        hover:bg-gray-700
         items-center
         pr-4
         px-3
@@ -22,14 +22,14 @@
     >
       <span
         v-if="!walletIsConnected"
-        class="bg-gray-800 flex h-8 items-center justify-center mr-3 rounded-full text-white w-8"
+        class="bg-gray-900 flex h-8 items-center justify-center mr-3 rounded-full text-white w-8"
         ><fa icon="wallet"
       /></span>
       <template v-else>
         <div
           v-if="isTransacting"
           class="
-            bg-gray-800
+            bg-gray-900
             flex
             h-8
             items-center
@@ -52,7 +52,7 @@
         <div
           v-else
           class="
-            bg-gray-800
+            bg-gray-900
             flex
             h-8
             items-center

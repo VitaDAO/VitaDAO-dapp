@@ -1,7 +1,7 @@
 <template>
   <div
     class="
-      bg-gray-800
+      bg-black
       flex flex-shrink-0
       h-16
       items-center
@@ -23,7 +23,7 @@
           <router-link
             :to="item.to"
             :class="[
-              $route.path === item.to ? 'bg-gray-600 text-white' : 'text-white hover:bg-gray-700',
+              $route.path === item.to ? 'bg-gray-800 text-white' : 'text-white hover:bg-gray-800',
               'group flex items-center px-2 py-2 text-base font-medium rounded-md pr-3',
             ]"
           >

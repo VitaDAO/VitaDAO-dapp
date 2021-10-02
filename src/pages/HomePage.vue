@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <h2 class="font-bold mb-2 text-gray-800 text-xl">Active proposals</h2>
+    <h2 class="font-bold mb-2 text-white text-xl">Active proposals</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading active proposals…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
@@ -19,7 +19,7 @@
         </div>
       </div>
     </transition>
-    <h2 class="mt-10 font-bold mb-2 text-gray-800 text-xl">Last votes</h2>
+    <h2 class="mt-10 font-bold mb-2 text-white text-xl">Last votes</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading votes…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
@@ -30,18 +30,7 @@
         <div
           v-for="vote in result.votes"
           :key="vote.id"
-          class="
-            text-sm text-white
-            rounded-lg
-            px-4
-            sm:px-6
-            py-3
-            sm:py-4
-            shadow-sm
-            bg-gradient-to-b
-            from-gray-600
-            to-gray-700
-          "
+          class="text-sm text-white rounded-lg px-4 sm:px-6 py-3 sm:py-4 shadow-sm bg-gray-900"
         >
           <a
             target="_blank"
