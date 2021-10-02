@@ -5,7 +5,7 @@
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && proposal">
         <nav class="flex max-w-full" aria-label="Breadcrumb">
-          <ol class="bg-black border border-vita-accent flex px-6 rounded-md space-x-4">
+          <ol class="bg-black border border-white flex px-6 rounded-md space-x-4">
             <li class="flex">
               <div class="flex items-center">
                 <router-link to="/" class="hover:text-gray-300 text-white">
@@ -17,7 +17,7 @@
             <li class="flex">
               <div class="flex items-center">
                 <svg
-                  class="flex-shrink-0 h-full text-vita-accent w-6"
+                  class="flex-shrink-0 h-full text-white w-6"
                   viewBox="0 0 24 44"
                   preserveAspectRatio="none"
                   fill="currentColor"
@@ -36,7 +36,7 @@
             <li class="flex">
               <div class="flex items-center">
                 <svg
-                  class="flex-shrink-0 h-full text-vita-accent w-6"
+                  class="flex-shrink-0 h-full text-white w-6"
                   viewBox="0 0 24 44"
                   preserveAspectRatio="none"
                   fill="currentColor"
