@@ -62,7 +62,7 @@
                 :to="item.to"
                 :class="[
                   $route.path === item.to
-                    ? 'bg-gray-600 text-white'
+                    ? 'bg-gray-700 text-white'
                     : 'text-white hover:bg-gray-700',
                   'group flex items-center px-2 py-2 text-base font-medium rounded-md',
                 ]"

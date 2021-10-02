@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xl w-full">
-    <h2 class="font-bold mb-2 text-gray-800 text-xl">Your Wallet</h2>
+    <h2 class="font-bold mb-2 text-white text-xl">Your Wallet</h2>
     <div v-if="walletIsConnected" class="flex flex-col space-y-2">
       <div
         class="
@@ -13,12 +13,10 @@
           py-3
           sm:py-4 sm:text-lg
           shadow-sm
-          bg-gradient-to-b
-          from-gray-600
-          to-gray-700
+          bg-gray-900
         "
       >
-        <span class="font-bold flex-shrink-0">Your Address</span>
+        <span class="font-bold flex-shrink-0 text-vita-accent">Your Address</span>
         <span class="truncate">{{ ensName ? ensName : shortenAddress(connectedAddress, 5) }}</span>
       </div>
       <div
@@ -32,12 +30,10 @@
           py-3
           sm:py-4 sm:text-lg
           shadow-sm
-          bg-gradient-to-b
-          from-gray-500
-          to-gray-600
+          bg-gray-800
         "
       >
-        <span class="font-bold flex-shrink-0">ETH Balance</span>
+        <span class="font-bold flex-shrink-0 text-vita-accent">ETH Balance</span>
         <span><animated-counter :decimals="2" :value="parseFloat(ethBalance)" />Ξ</span>
       </div>
       <div
@@ -51,12 +47,10 @@
           py-3
           sm:py-4 sm:text-lg
           shadow-sm
-          bg-gradient-to-b
-          from-gray-600
-          to-gray-700
+          bg-gray-900
         "
       >
-        <span class="font-bold flex-shrink-0">VITA Balance</span>
+        <span class="font-bold flex-shrink-0 text-vita-accent">VITA Balance</span>
         <span><animated-counter :value="parseFloat(vitaBalance)" /> VITA</span>
       </div>
       <div
@@ -70,12 +64,10 @@
           py-3
           sm:py-4 sm:text-lg
           shadow-sm
-          bg-gradient-to-b
-          from-gray-500
-          to-gray-600
+          bg-gray-800
         "
       >
-        <span class="font-bold flex-shrink-0">Staked VITA</span>
+        <span class="font-bold flex-shrink-0 text-vita-accent">Staked VITA</span>
         <span><animated-counter :value="parseFloat(stakedVitaBalance)" /> VITA</span>
       </div>
       <div
@@ -92,12 +84,10 @@
           py-3
           sm:py-4 sm:text-lg
           shadow-sm
-          bg-gradient-to-b
-          from-gray-600
-          to-gray-700
+          bg-gray-900
         "
       >
-        <span class="font-bold flex-shrink-0">Stake Unlock Time</span>
+        <span class="font-bold flex-shrink-0 text-vita-accent">Stake Unlock Time</span>
         <span>
           in
           {{
@@ -170,6 +160,7 @@ export default defineComponent({
       disconnectWallet,
       shortenAddress,
       blockDistanceInSeconds,
+      dayjs,
     }
   },
 })
