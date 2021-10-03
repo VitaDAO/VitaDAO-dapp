@@ -5,10 +5,10 @@
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && proposal">
         <nav class="flex max-w-full" aria-label="Breadcrumb">
-          <ol class="bg-gray-200 flex px-6 rounded-md space-x-4">
+          <ol class="bg-black border border-white flex px-6 rounded-md space-x-4">
             <li class="flex">
               <div class="flex items-center">
-                <router-link to="/" class="hover:text-gray-500 text-gray-400">
+                <router-link to="/" class="hover:text-gray-300 text-white">
                   <fa icon="home" />
                   <span class="sr-only">Home</span>
                 </router-link>
@@ -17,7 +17,7 @@
             <li class="flex">
               <div class="flex items-center">
                 <svg
-                  class="flex-shrink-0 h-full text-gray-300 w-6"
+                  class="flex-shrink-0 h-full text-white w-6"
                   viewBox="0 0 24 44"
                   preserveAspectRatio="none"
                   fill="currentColor"
@@ -28,7 +28,7 @@
                 </svg>
                 <router-link
                   to="/proposals"
-                  class="font-medium hover:text-gray-700 ml-4 text-gray-500 text-sm"
+                  class="font-medium hover:text-gray-300 ml-4 text-white text-sm"
                   >Proposals</router-link
                 >
               </div>
@@ -36,7 +36,7 @@
             <li class="flex">
               <div class="flex items-center">
                 <svg
-                  class="flex-shrink-0 h-full text-gray-300 w-6"
+                  class="flex-shrink-0 h-full text-white w-6"
                   viewBox="0 0 24 44"
                   preserveAspectRatio="none"
                   fill="currentColor"
@@ -45,25 +45,28 @@
                 >
                   <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
                 </svg>
-                <div class="font-medium hover:text-gray-700 ml-4 text-gray-500 text-sm">
+                <div class="font-medium ml-4 text-gray-400 text-sm">
                   Proposal #{{ proposal.id }}
                 </div>
               </div>
             </li>
           </ol>
         </nav>
-        <h1 class="font-bold leading-tight mt-4 text-2xl text-gray-700">
+        <h1 class="font-bold leading-tight mt-4 text-2xl text-white">
           {{ proposal.proposalContent.title }}
         </h1>
-        <span class="font-medium text-gray-600 text-sm uppercase"
+        <span class="font-medium text-gray-300 text-sm uppercase"
           >{{ proposal.proposalContent.type }} proposal</span
         >
         <span class="font-medium text-gray-400 text-sm">
           (created {{ dayjs.unix(proposal.createdAt).format('MM-DD-YYYY') }})</span
         >
-        <div class="mt-4 lg:hidden">
-          <a class="text-blue-500 hover:underline" href="#vote">↓ Jump to vote</a>
-        </div>
+        <!-- this doesn't seem to work with router hash mode -->
+        <!-- <div class="mt-4 lg:hidden">
+          <router-link class="text-vita-accent hover:underline" to="#vote"
+            >↓ Jump to vote</router-link
+          >
+        </div> -->
         <div class="gap-6 grid grid-cols-12 mt-4 lg:mt-6">
           <div class="col-span-12 lg:col-span-7 xl:col-span-8 space-y-8">
             <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">

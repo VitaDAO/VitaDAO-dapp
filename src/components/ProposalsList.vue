@@ -16,7 +16,7 @@
       <div class="flex flex-1 flex-col px-8 py-6">
         <div
           class="
-            bg-gray-600
+            bg-gray-900
             flex flex-shrink-0
             h-16
             items-center
@@ -129,23 +129,23 @@
         </dl>
       </div>
       <div>
-        <div class="-mt-px divide-gray-200 divide-x flex">
+        <div class="-mt-px divide-gray-600 divide-x flex">
           <div class="flex flex-1 w-0">
             <router-link
               :to="'/proposal/' + proposal.id"
               class="
-                -mr-px
-                border border-transparent
+                bg-vita-accent
+                border border-vita-accent
                 flex-1
                 font-medium
-                hover:text-gray-500
+                hover:text-white hover:bg-gray-900
                 inline-flex
                 items-center
                 justify-center
                 py-4
                 relative
-                rounded-bl-lg
-                text-gray-700 text-sm
+                rounded-bl-lg rounded-br-lg
+                text-black text-sm
                 w-0
               "
             >

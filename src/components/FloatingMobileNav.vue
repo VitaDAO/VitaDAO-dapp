@@ -3,12 +3,12 @@
     <wallet-indicator-button />
     <button
       class="
-        bg-gray-700
+        bg-gray-800
         border border-transparent
         duration-200
         focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2
         font-bold
-        hover:bg-gray-600
+        hover:bg-gray-700
         px-5
         py-3
         rounded-xl
