@@ -25,7 +25,7 @@
       v-if="totalVotes < parseFloat(proposal.minVotesNeeded)"
       class="bg-yellow-100 font-medium px-1.5 py-0.5 rounded-full text-xs text-yellow-800"
     >
-      Quorum not met
+      Quorum not met ({{ quorumPercentage.toFixed(2) }}%)
     </span>
   </div>
 </template>
@@ -86,10 +86,15 @@ export default defineComponent({
       }
     })
 
+    const quorumPercentage = computed(function () {
+      return (totalVotes.value / parseFloat(props.proposal.minVotesNeeded)) * 100.0
+    })
+
     return {
       yesPercentage,
       noPercentage,
       totalVotes,
+      quorumPercentage,
     }
   },
 })
