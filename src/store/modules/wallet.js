@@ -1,4 +1,7 @@
-import { ethers } from 'ethers'
+import { Contract } from '@ethersproject/contracts'
+import { Web3Provider } from '@ethersproject/providers'
+import { getAddress } from '@ethersproject/address'
+import { parseUnits, formatUnits, formatEther } from '@ethersproject/units'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { useToast } from 'vue-toastification'
 import localStorageUtils from '@/utils/localstorage.js'
@@ -94,7 +97,7 @@ const actions = {
     const ensName = await ethersInstance.lookupAddress(state.connectionInfo.address)
     commit('setEnsName', ensName)
 
-    tokenContract = new ethers.Contract(
+    tokenContract = new Contract(
       process.env.VUE_APP_VITA_TOKEN_ADDRESS,
       tokenABI.abi,
       ethersInstance,
@@ -106,18 +109,18 @@ const actions = {
       state.connectionInfo.address,
       process.env.VUE_APP_STAKING_CONTRACT_ADDRESS,
     )
-    if (allowance.gte(ethers.utils.parseUnits(VITA_MAX_APPROVE_AMOUNT, VITA_TOKEN_DECIMALS))) {
+    if (allowance.gte(parseUnits(VITA_MAX_APPROVE_AMOUNT, VITA_TOKEN_DECIMALS))) {
       commit('setVitaIsApproved', true)
     }
 
-    stakingContract = new ethers.Contract(
+    stakingContract = new Contract(
       process.env.VUE_APP_STAKING_CONTRACT_ADDRESS,
       stakingABI.abi,
       ethersInstance,
     )
     stakingContractWithSigner = stakingContract.connect(signer)
 
-    daoContract = new ethers.Contract(
+    daoContract = new Contract(
       process.env.VUE_APP_DAO_CONTRACT_ADDRESS,
       raphaelABI.abi,
       ethersInstance,
@@ -137,10 +140,7 @@ const actions = {
     tokenContract.on(incomingFilter, (from, to, amount) => {
       dispatch('updateUserBalances')
       console.log(`I got ${amount} from ${from}.`)
-      if (
-        ethers.utils.getAddress(from) ==
-        ethers.utils.getAddress(process.env.VUE_APP_STAKING_CONTRACT_ADDRESS)
-      ) {
+      if (getAddress(from) == getAddress(process.env.VUE_APP_STAKING_CONTRACT_ADDRESS)) {
         commit('setUnstakingVita', false)
         toast.success('Unstaking was successful', {
           timeout: 7500,
@@ -152,10 +152,7 @@ const actions = {
     tokenContract.on(outgoingFilter, (from, to, amount) => {
       dispatch('updateUserBalances')
       console.log(`I sent ${amount} to ${to}.`)
-      if (
-        ethers.utils.getAddress(to) ==
-        ethers.utils.getAddress(process.env.VUE_APP_STAKING_CONTRACT_ADDRESS)
-      ) {
+      if (getAddress(to) == getAddress(process.env.VUE_APP_STAKING_CONTRACT_ADDRESS)) {
         commit('setStakingVita', false)
         toast.success('Staking was successful', {
           timeout: 7500,
@@ -170,7 +167,7 @@ const actions = {
         process.env.VUE_APP_STAKING_CONTRACT_ADDRESS,
       ),
       (owner, spender, amount) => {
-        if (amount.gte(ethers.utils.parseUnits(VITA_MAX_APPROVE_AMOUNT, VITA_TOKEN_DECIMALS))) {
+        if (amount.gte(parseUnits(VITA_MAX_APPROVE_AMOUNT, VITA_TOKEN_DECIMALS))) {
           // Approval event seems to fire even when vita is staked/unstaked,
           // so we have to check if we were actually approving the VITA token
           if (state.approvingVita == true) {
@@ -188,9 +185,7 @@ const actions = {
     // Listen for stake balance changes
     stakingContract.on(stakingContract.filters.StakeChanged(null), (address) => {
       dispatch('updateUserBalances')
-      if (
-        ethers.utils.getAddress(address) == ethers.utils.getAddress(state.connectionInfo.address)
-      ) {
+      if (getAddress(address) == getAddress(state.connectionInfo.address)) {
         commit('setStakingVita', false)
         commit('setUnstakingVita', false)
       }
@@ -199,12 +194,12 @@ const actions = {
     // Listen for DAO votes
     daoContract.on('Voted', (voter, proposalId, weight, direction) => {
       console.log(
-        `${voter} voted on ${proposalId} with ${ethers.utils.formatUnits(
+        `${voter} voted on ${proposalId} with ${formatUnits(
           weight,
           VITA_TOKEN_DECIMALS,
         )} VITA with ${direction}`,
       )
-      if (ethers.utils.getAddress(voter) == ethers.utils.getAddress(state.connectionInfo.address)) {
+      if (getAddress(voter) == getAddress(state.connectionInfo.address)) {
         commit('setLastVotedProposalId', parseInt(proposalId))
         commit('setIsVoting', false)
         toast.success('Your vote was successful', {
@@ -249,18 +244,18 @@ const actions = {
   },
   async updateUserBalances({ commit, state }) {
     const ethBalance = await ethersInstance.getBalance(state.connectionInfo.address)
-    commit('setEthBalance', ethers.utils.formatEther(ethBalance))
+    commit('setEthBalance', formatEther(ethBalance))
 
     try {
       const vitaBalance = await tokenContract.balanceOf(state.connectionInfo.address)
-      commit('setVitaBalance', ethers.utils.formatUnits(vitaBalance, VITA_TOKEN_DECIMALS))
+      commit('setVitaBalance', formatUnits(vitaBalance, VITA_TOKEN_DECIMALS))
     } catch {
       commit('setVitaBalance', 0)
     }
 
     try {
       const stakedBalance = await stakingContract.getStakedBalance(state.connectionInfo.address)
-      commit('setStakedVitaBalance', ethers.utils.formatUnits(stakedBalance, VITA_TOKEN_DECIMALS))
+      commit('setStakedVitaBalance', formatUnits(stakedBalance, VITA_TOKEN_DECIMALS))
     } catch {
       commit('setStakedVitaBalance', 0)
     }
@@ -280,7 +275,7 @@ const actions = {
       })
       commit('setProvider', 'injected')
       commit('setAddress', accounts[0])
-      ethersInstance = new ethers.providers.Web3Provider(window.ethereum)
+      ethersInstance = new Web3Provider(window.ethereum)
 
       signer = ethersInstance.getSigner()
 
@@ -302,7 +297,7 @@ const actions = {
     //  Enable session (triggers QR Code modal)
     await provider.enable()
 
-    ethersInstance = new ethers.providers.Web3Provider(provider)
+    ethersInstance = new Web3Provider(provider)
     signer = ethersInstance.getSigner()
     let accounts = await ethersInstance.listAccounts()
     commit('setProvider', 'walletconnect')
@@ -329,14 +324,14 @@ const actions = {
   },
   async stakeVitaTokens({ commit }, amount) {
     commit('setStakingVita', true)
-    await stakingContractWithSigner.stake(ethers.utils.parseUnits(amount, VITA_TOKEN_DECIMALS))
+    await stakingContractWithSigner.stake(parseUnits(amount, VITA_TOKEN_DECIMALS))
     toast.info('Staking Transaction was broadcasted. Please wait for it to confirm.', {
       timeout: 7500,
     })
   },
   async unstakeVitaTokens({ commit }, amount) {
     commit('setUnstakingVita', true)
-    await stakingContractWithSigner.withdraw(ethers.utils.parseUnits(amount, VITA_TOKEN_DECIMALS))
+    await stakingContractWithSigner.withdraw(parseUnits(amount, VITA_TOKEN_DECIMALS))
     toast.info('Unstaking Transaction was broadcasted. Please wait for it to confirm.', {
       timeout: 7500,
     })
