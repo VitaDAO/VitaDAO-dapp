@@ -14,6 +14,10 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.4",
+    "@ethersproject/address": "^5.4.0",
+    "@ethersproject/contracts": "^5.4.1",
+    "@ethersproject/providers": "^5.4.5",
+    "@ethersproject/units": "^5.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
@@ -27,7 +31,6 @@
     "core-js": "^3.6.5",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.6",
-    "ethers": "^5.4.1",
     "graphql": "^15.5.1",
     "graphql-tag": "^2.12.5",
     "markdown-it": "^12.2.0",
