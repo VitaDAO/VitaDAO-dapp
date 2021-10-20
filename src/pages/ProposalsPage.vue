@@ -25,6 +25,7 @@ export const proposalFragment = gql`
     id
     title
     status
+    votingPossible
     hasPassed
     numTokensNo
     numTokensYes

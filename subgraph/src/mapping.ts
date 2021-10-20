@@ -23,7 +23,10 @@ import {
   ProposalContent,
   ProposalProjectContent,
   Vote,
-  Voter
+  Voter,
+  ProposalStatusChanged,
+  ProposalCreated,
+  Voted
 } from "../generated/schema"
 
 const VOTING_NOT_STARTED = 'VOTING_NOT_STARTED';
@@ -242,6 +245,12 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
 
   proposal.proposalContent = event.params.proposalId.toString();
   proposal.save();
+
+  let proposalCreatedEvent = new ProposalCreated(event.block.number.toString().concat('-').concat(event.logIndex.toString()))
+  proposalCreatedEvent.type = "proposalCreated"
+  proposalCreatedEvent.createdAt = event.block.timestamp
+  proposalCreatedEvent.proposal = event.params.proposalId.toString()
+  proposalCreatedEvent.save()
 }
 
 export function proposalPassed(proposal: Proposal) : boolean {
@@ -253,29 +262,40 @@ export function handleProposalStatusChanged(
 ): void {
   let proposal = Proposal.load(event.params.proposalId.toString());
 
+  let statusChangeEvent = new ProposalStatusChanged(event.block.number.toString().concat('-').concat(event.logIndex.toString()))
+  statusChangeEvent.type = "proposalStatusChange"
+  statusChangeEvent.createdAt = event.block.timestamp
+  statusChangeEvent.proposal = proposal.id
+
   switch (event.params.newStatus) {
     case 0:
       proposal.status = VOTING_NOT_STARTED;
+      statusChangeEvent.newStatus = VOTING_NOT_STARTED;
       proposal.votingPossible = false;
       break;
     case 1:
       proposal.status = VOTING;
+      statusChangeEvent.newStatus = VOTING;
       proposal.votingPossible = true;
       break;
     case 2:
       proposal.status = VOTES_FINISHED;
+      statusChangeEvent.newStatus = VOTES_FINISHED;
       proposal.votingPossible = false;
       break;
     case 3:
       proposal.status = RESOLVED;
+      statusChangeEvent.newStatus = RESOLVED;
       proposal.votingPossible = false;
       break;
     case 4:
       proposal.status = CANCELLED;
+      statusChangeEvent.newStatus = CANCELLED;
       proposal.votingPossible = false;
       break;
     case 5:
       proposal.status = QUORUM_FAILED;
+      statusChangeEvent.newStatus = QUORUM_FAILED;
       proposal.votingPossible = false;
       break;
   }
@@ -283,6 +303,7 @@ export function handleProposalStatusChanged(
   proposal.hasPassed = proposalPassed(proposal as Proposal);
 
   proposal.save();
+  statusChangeEvent.save();
 }
 
 export function handleVoted(event: VotedEvent): void {
@@ -311,6 +332,12 @@ export function handleVoted(event: VotedEvent): void {
     voter = new Voter(event.params.voter.toHexString());
     voter.save();
   }
+
+  let votedEvent = new Voted(event.block.number.toString().concat('-').concat(event.logIndex.toString()))
+  votedEvent.type = "voted"
+  votedEvent.createdAt = event.block.timestamp
+  votedEvent.vote = vote.id
+  votedEvent.save()
 }
 
 // export function handleNativeTokenChanged(event: NativeTokenChangedEvent): void {
