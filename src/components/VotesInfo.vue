@@ -20,6 +20,11 @@
     <span class="font-medium text-gray-500 text-xs">
       {{ new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(totalVotes) }}
       Total Votes
+      <span
+        v-if="totalVotes >= parseFloat(proposal.minVotesNeeded) || proposal.votingPossible == false"
+        >({{ Math.round(quorumPercentage) }}% of quorum)</span
+      >
+      <span>{{ proposal.isVoting }}</span>
     </span>
     <span
       v-if="totalVotes < parseFloat(proposal.minVotesNeeded)"
