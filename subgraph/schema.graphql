@@ -87,3 +87,36 @@ type Voter @entity {
   id: ID!
   votes: [Vote]! @derivedFrom(field: "voter")
 }
+
+"""
+DAO Events
+"""
+
+interface DaoEvent {
+  "Concatenation of block number and log ID"
+  id: ID!
+  type: String!
+  createdAt: BigInt!
+}
+
+type ProposalStatusChanged implements DaoEvent @entity {
+  id: ID!
+  type: String!
+  createdAt: BigInt!
+  proposal: Proposal!
+  newStatus: ProposalStatus!
+}
+
+type ProposalCreated implements DaoEvent @entity {
+  id: ID!
+  type: String!
+  createdAt: BigInt!
+  proposal: Proposal!
+}
+
+type Voted implements DaoEvent @entity {
+  id: ID!
+  type: String!
+  createdAt: BigInt!
+  vote: Vote!
+}

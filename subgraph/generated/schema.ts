@@ -619,3 +619,192 @@ export class Voter extends Entity {
     this.set("votes", Value.fromStringArray(value));
   }
 }
+
+export class ProposalStatusChanged extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save ProposalStatusChanged entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ProposalStatusChanged entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ProposalStatusChanged", id.toString(), this);
+  }
+
+  static load(id: string): ProposalStatusChanged | null {
+    return store.get(
+      "ProposalStatusChanged",
+      id
+    ) as ProposalStatusChanged | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get type(): string {
+    let value = this.get("type");
+    return value.toString();
+  }
+
+  set type(value: string) {
+    this.set("type", Value.fromString(value));
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    return value.toBigInt();
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get proposal(): string {
+    let value = this.get("proposal");
+    return value.toString();
+  }
+
+  set proposal(value: string) {
+    this.set("proposal", Value.fromString(value));
+  }
+
+  get newStatus(): string {
+    let value = this.get("newStatus");
+    return value.toString();
+  }
+
+  set newStatus(value: string) {
+    this.set("newStatus", Value.fromString(value));
+  }
+}
+
+export class ProposalCreated extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save ProposalCreated entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save ProposalCreated entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("ProposalCreated", id.toString(), this);
+  }
+
+  static load(id: string): ProposalCreated | null {
+    return store.get("ProposalCreated", id) as ProposalCreated | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get type(): string {
+    let value = this.get("type");
+    return value.toString();
+  }
+
+  set type(value: string) {
+    this.set("type", Value.fromString(value));
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    return value.toBigInt();
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get proposal(): string {
+    let value = this.get("proposal");
+    return value.toString();
+  }
+
+  set proposal(value: string) {
+    this.set("proposal", Value.fromString(value));
+  }
+}
+
+export class Voted extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Voted entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Voted entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Voted", id.toString(), this);
+  }
+
+  static load(id: string): Voted | null {
+    return store.get("Voted", id) as Voted | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get type(): string {
+    let value = this.get("type");
+    return value.toString();
+  }
+
+  set type(value: string) {
+    this.set("type", Value.fromString(value));
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    return value.toBigInt();
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
+
+  get vote(): string {
+    let value = this.get("vote");
+    return value.toString();
+  }
+
+  set vote(value: string) {
+    this.set("vote", Value.fromString(value));
+  }
+}
