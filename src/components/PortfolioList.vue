@@ -3,19 +3,20 @@
     <li
       v-for="ipnft in ipnfts"
       :key="ipnft.id"
-      class="
-        bg-gradient-to-b
-        from-gray-800
-        to-gray-900
-        col-span-1
-        divide-gray-200 divide-y
-        flex flex-col
-        rounded-lg
-        shadow
-      "
+      class="col-span-1 divide-gray-200 divide-y flex flex-col rounded-lg shadow"
     >
       <div class="max-w-lg mx-auto grid gap-5 lg:max-w-none">
-        <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
+        <div
+          class="
+            flex flex-col
+            rounded-lg
+            shadow-lg
+            overflow-hidden
+            bg-gradient-to-b
+            from-gray-800
+            to-gray-900
+          "
+        >
           <div class="flex-shrink-0">
             <img class="h-48 w-full object-cover" :src="ipnft.image" alt="" />
           </div>
@@ -78,6 +79,26 @@
                   {{ ipnft.properties.agreement_type }}
                 </span>
               </a>
+            </div>
+          </div>
+          <div class="mt-12 p-4 grid grid-cols-3 xl:mt-0 col-span-3 bg-gray-600">
+            <div>
+              <h3 class="text-xs font-semibold text-gray-300 tracking-wider uppercase">
+                Fractions
+              </h3>
+              <span class="text-base font-semibold text-white">17b</span>
+            </div>
+            <div>
+              <h3 class="text-xs font-semibold text-gray-300 tracking-wider uppercase">
+                Collectable/ DAO Owned
+              </h3>
+              <span class="text-base font-semibold text-white">20%/80%</span>
+            </div>
+            <div>
+              <h3 class="text-xs font-semibold text-gray-300 tracking-wider uppercase">
+                Implied Valuation
+              </h3>
+              <span class="text-base font-semibold text-white">$28,317,448</span>
             </div>
           </div>
         </div>
