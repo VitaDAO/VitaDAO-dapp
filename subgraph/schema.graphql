@@ -97,15 +97,31 @@ type FractionalVault @entity {
   id: ID!
   nft: IPNFT!
   nftContract: String!
+  "Id of the Vault in the Fractional system"
   vaultId: String!
   "Reserve price in ETH"
   price: BigDecimal!
 }
 
 type IPNFT @entity {
+  "This Id is also the ERC721 Token Id"
   id: ID!
+  tokenContract: String!
   owner: Account!
   tokenURI: String!
+  fractionalVault: FractionalVault! @derivedFrom(field: "nft")
+  name: String!
+  description: String!
+  externalUrl: String!
+  image: String!
+  nvmMetadata: String
+  agreementType: String
+  industry: String
+  researchLead: String
+  timeline: String
+  duration: String
+  requiredFunding: String
+  evaluationWriteup: String
 }
 
 """
