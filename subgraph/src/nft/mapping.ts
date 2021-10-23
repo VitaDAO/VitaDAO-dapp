@@ -4,12 +4,33 @@
 import {
   Transfer as TransferEvent
 } from "../../generated/NFT/NFT"
+import { NFT as TokenContract } from "../../generated/NFT/NFT"
 import {
   IPNFT,
+  Account
 } from "../../generated/schema"
 
 export function handleTransfer(event: TransferEvent): void {
-  let token = new IPNFT(event.params.tokenId.toString())
-  token.save();
+  let token = IPNFT.load(event.params.tokenId.toString());
+
+  let recipient = Account.load(event.params.to.toHexString())
+
+  if(!recipient) {
+    recipient = new Account(event.params.to.toHexString())
+    recipient.save()
+  }
+
+  if(token) {
+    token.owner = event.params.to.toHexString();
+    token.save();
+  } else {
+    let tokenContract = TokenContract.bind(event.address);
+
+    token = new IPNFT(event.params.tokenId.toString())
+    token.owner = event.params.to.toHexString();
+    token.tokenURI = tokenContract.tokenURI(event.params.tokenId);
+
+    token.save();
+  }
 }
 

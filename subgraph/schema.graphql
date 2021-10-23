@@ -93,12 +93,30 @@ IP NFT Entities below
 """
 
 type FractionalVault @entity {
+  "The address of the vault serves as the id and this is also the address for the fraction ERC-20 token"
   id: ID!
+  nft: IPNFT!
+  nftContract: String!
+  vaultId: String!
+  "Reserve price in ETH"
+  price: BigDecimal!
 }
 
 type IPNFT @entity {
   id: ID!
+  owner: Account!
+  tokenURI: String!
 }
+
+"""
+Accounts that hold NFTs/fractions
+"""
+
+type Account @entity {
+  id: ID!
+  nfts: [IPNFT]! @derivedFrom(field: "owner")
+}
+
 
 
 

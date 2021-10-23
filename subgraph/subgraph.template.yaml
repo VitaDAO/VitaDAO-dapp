@@ -74,6 +74,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - IPNFT
+        - Account
       abis:
         - name: NFT
           file: ./abis/NFT.json
