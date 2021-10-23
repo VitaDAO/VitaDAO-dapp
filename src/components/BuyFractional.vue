@@ -30,12 +30,14 @@
         <div class="border border-black rounded-xl shadow-lg p-4">
           <div class="flex flex-row justify-between">
             <label class="block font-medium text-gray-700 text-sm">From</label>
-            <p class="font-medium text-black-700 text-sm">
-              <span class="uppercase">Balance:</span> 0 ETH
+            <p class="font-medium text-gray-500 text-sm">
+              <span class="">Balance:</span>
+              &nbsp;
+              <span><animated-counter :decimals="2" :value="parseFloat(ethBalance)" />Ξ</span>
             </p>
           </div>
-          <div class="flex mt-1 rounded-md shadow-sm">
-            <div class="flex flex-grow focus-within:z-10 items-stretch relative">
+          <div class="flex mt-1">
+            <div class="flex flex-grow focus-within:z-10 items-stretch relative text-black text-lg">
               <input
                 placeholder="0.0"
                 min="0"
@@ -49,60 +51,36 @@
                 type="text"
                 class="
                   block
-                  border-gray-300
-                  focus:border-gray-400 focus:ring-gray-400
+                  border-0
                   rounded-l-md rounded-none
+                  focus:outline-none focus-ring-1 focus-border-gray-400
+                  text-2xl
                   sm:text-sm
                   w-full
                 "
               />
-            </div>
-            <button
-              class="
-                -ml-px
-                bg-gray-50
-                border border-gray-300
-                focus:border-gray-400 focus:outline-none focus:ring-1 focus:border-gray-400
-                font-medium
-                hover:bg-gray-100
-                inline-flex
-                items-center
-                px-4
-                py-2
-                relative
-                space-x-2
-                text-gray-700 text-sm
-              "
-            >
-              <span class="text-xs">MAX</span>
-            </button>
-            <div class="inset-y-0 right-0 flex items-center">
-              <label for="currency" class="sr-only">Currency</label>
-              <select
-                id="currency"
-                name="currency"
+              <span
                 class="
+                  flex
+                  items-center
                   bg-gray-50
-                  border border-gray-300
-                  focus:border-gray-400 focus:outline-none focus-ring-1 focus-border-gray-400
+                  border-0
                   h-full
                   py-0
                   pl-2
                   pr-7
                   border-transparent
                   bg-transparent
-                  text-gray-500
                   sm:text-sm
                   rounded-r-md
                 "
               >
-                <option>ETH</option>
-                <option>...</option>
-                <option>...</option>
-              </select>
+                <img class="w-6 h-6 mr-2" src="../assets/ethereum-eth.svg" />
+                ETH
+              </span>
             </div>
           </div>
-          <div class="flex justify-start mt-2 ml-2">
+          <div class="flex justify-start">
             <p class="text-sm text-gray-500">$424.54</p>
           </div>
         </div>
@@ -153,8 +131,6 @@
                   text-2xl
                   sm:text-sm
                   w-full
-                  pt-4
-                  pb-4
                 "
               />
               <span
@@ -178,7 +154,7 @@
               </span>
             </div>
           </div>
-          <div class="flex justify-start mt-2">
+          <div class="flex justify-start">
             <p class="text-sm text-gray-500">$424.54</p>
           </div>
           <div class="text-red-500 mt-2">Insufficient balance</div>
@@ -214,11 +190,13 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
 import BaseButton from '@/components/BaseButton'
+import AnimatedCounter from '@/components/AnimatedCounter'
 
 export default defineComponent({
-  components: { BaseButton },
+  components: { BaseButton, AnimatedCounter },
   props: {
     ipnft: {
       type: Object,
@@ -226,7 +204,10 @@ export default defineComponent({
     },
   },
   setup() {
-    return {}
+    const store = useStore()
+    return {
+      ethBalance: computed(() => store.state.wallet.ethBalance),
+    }
   },
 })
 </script>
