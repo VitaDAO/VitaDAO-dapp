@@ -735,6 +735,24 @@ export class IPNFT extends Entity {
     this.set("owner", Value.fromString(value));
   }
 
+  get tokenURI(): string {
+    let value = this.get("tokenURI");
+    return value.toString();
+  }
+
+  set tokenURI(value: string) {
+    this.set("tokenURI", Value.fromString(value));
+  }
+
+  get fractionalVault(): string {
+    let value = this.get("fractionalVault");
+    return value.toString();
+  }
+
+  set fractionalVault(value: string) {
+    this.set("fractionalVault", Value.fromString(value));
+  }
+
   get name(): string {
     let value = this.get("name");
     return value.toString();
@@ -771,22 +789,140 @@ export class IPNFT extends Entity {
     this.set("image", Value.fromString(value));
   }
 
-  get tokenURI(): string {
-    let value = this.get("tokenURI");
-    return value.toString();
+  get nvmMetadata(): string | null {
+    let value = this.get("nvmMetadata");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set tokenURI(value: string) {
-    this.set("tokenURI", Value.fromString(value));
+  set nvmMetadata(value: string | null) {
+    if (value === null) {
+      this.unset("nvmMetadata");
+    } else {
+      this.set("nvmMetadata", Value.fromString(value as string));
+    }
   }
 
-  get fractionalVault(): string {
-    let value = this.get("fractionalVault");
-    return value.toString();
+  get agreementType(): string | null {
+    let value = this.get("agreementType");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set fractionalVault(value: string) {
-    this.set("fractionalVault", Value.fromString(value));
+  set agreementType(value: string | null) {
+    if (value === null) {
+      this.unset("agreementType");
+    } else {
+      this.set("agreementType", Value.fromString(value as string));
+    }
+  }
+
+  get industry(): string | null {
+    let value = this.get("industry");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set industry(value: string | null) {
+    if (value === null) {
+      this.unset("industry");
+    } else {
+      this.set("industry", Value.fromString(value as string));
+    }
+  }
+
+  get researchLead(): string | null {
+    let value = this.get("researchLead");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set researchLead(value: string | null) {
+    if (value === null) {
+      this.unset("researchLead");
+    } else {
+      this.set("researchLead", Value.fromString(value as string));
+    }
+  }
+
+  get timeline(): string | null {
+    let value = this.get("timeline");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set timeline(value: string | null) {
+    if (value === null) {
+      this.unset("timeline");
+    } else {
+      this.set("timeline", Value.fromString(value as string));
+    }
+  }
+
+  get duration(): string | null {
+    let value = this.get("duration");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set duration(value: string | null) {
+    if (value === null) {
+      this.unset("duration");
+    } else {
+      this.set("duration", Value.fromString(value as string));
+    }
+  }
+
+  get requiredFunding(): string | null {
+    let value = this.get("requiredFunding");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set requiredFunding(value: string | null) {
+    if (value === null) {
+      this.unset("requiredFunding");
+    } else {
+      this.set("requiredFunding", Value.fromString(value as string));
+    }
+  }
+
+  get evaluationWriteup(): string | null {
+    let value = this.get("evaluationWriteup");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set evaluationWriteup(value: string | null) {
+    if (value === null) {
+      this.unset("evaluationWriteup");
+    } else {
+      this.set("evaluationWriteup", Value.fromString(value as string));
+    }
   }
 }
 

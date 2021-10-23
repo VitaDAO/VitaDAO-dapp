@@ -32,6 +32,7 @@ function getMetaDataFromIPFS(token: IPNFT | null): void {
       let description: JSONValue | null = null;
       let externalUrl: JSONValue | null = null;
       let image: JSONValue | null = null;
+      let properties: JSONValue | null = null;
 
       name = metaDataDataObj.get('name');
       if(name) {
@@ -59,6 +60,55 @@ function getMetaDataFromIPFS(token: IPNFT | null): void {
         token.externalUrl = externalUrl.toString();
       } else {
         token.externalUrl = NA;
+      }
+
+      properties = metaDataDataObj.get('properties');
+      if(properties.isNull()) {
+        log.warning('nft properties are null: {}', [
+          token.id.toString()
+        ]);
+      } else {
+        let propertiesData = properties.toObject()
+
+        let nvmMetadata: JSONValue | null = propertiesData.get('nvm_metadata')
+        if(nvmMetadata) {
+          token.nvmMetadata = nvmMetadata.toString()
+        }
+
+        let agreementType: JSONValue | null = propertiesData.get('agreement_type')
+        if(agreementType) {
+          token.agreementType = agreementType.toString()
+        }
+
+        let industry: JSONValue | null = propertiesData.get('industry')
+        if(industry) {
+          token.industry = industry.toString()
+        }
+
+        let researchLead: JSONValue | null = propertiesData.get('research_lead')
+        if(researchLead) {
+          token.researchLead = researchLead.toString()
+        }
+
+        let timeline: JSONValue | null = propertiesData.get('timeline')
+        if(timeline) {
+          token.timeline = timeline.toString()
+        }
+
+        let duration: JSONValue | null = propertiesData.get('duration')
+        if(duration) {
+          token.duration = duration.toString()
+        }
+
+        let requiredFunding: JSONValue | null = propertiesData.get('required_funding')
+        if(requiredFunding) {
+          token.requiredFunding = requiredFunding.toString()
+        }
+
+        let evaluationWriteup: JSONValue | null = propertiesData.get('evaluation_writeup')
+        if(evaluationWriteup) {
+          token.evaluationWriteup = evaluationWriteup.toString()
+        }
       }
     }
   } else {

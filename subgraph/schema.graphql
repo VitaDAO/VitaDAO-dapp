@@ -108,12 +108,20 @@ type IPNFT @entity {
   id: ID!
   tokenContract: String!
   owner: Account!
+  tokenURI: String!
+  fractionalVault: FractionalVault! @derivedFrom(field: "nft")
   name: String!
   description: String!
   externalUrl: String!
   image: String!
-  tokenURI: String!
-  fractionalVault: FractionalVault! @derivedFrom(field: "nft")
+  nvmMetadata: String
+  agreementType: String
+  industry: String
+  researchLead: String
+  timeline: String
+  duration: String
+  requiredFunding: String
+  evaluationWriteup: String
 }
 
 """
