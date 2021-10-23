@@ -87,3 +87,13 @@ type Voter @entity {
   id: ID!
   votes: [Vote]! @derivedFrom(field: "voter")
 }
+
+"""
+IP NFT Entities below
+"""
+
+type FractionalVault @entity {
+  id: ID!
+}
+
+

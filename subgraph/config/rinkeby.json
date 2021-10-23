@@ -1,5 +1,11 @@
 {
   "network": "rinkeby",
-  "address": "0xa582e94080a45402aa46683f08db6e974ec3135c",
-  "startBlock": 8882829
+  "raphael": {
+    "address": "0xa582e94080a45402aa46683f08db6e974ec3135c",
+    "startBlock": 8882829
+  },
+  "fractional": {
+    "address": "0x458556c097251f52ca89cB81316B4113aC734BD1",
+    "startBlock": 8866281
+  }
 }
