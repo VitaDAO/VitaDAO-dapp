@@ -84,6 +84,11 @@ export default defineComponent({
         to: '/proposals',
         icon: 'vote-yea',
       },
+      {
+        name: 'Portfolio',
+        to: '/portfolio',
+        icon: 'users',
+      },
       { name: 'Wallet', to: '/wallet', icon: 'wallet' },
     ]
 
