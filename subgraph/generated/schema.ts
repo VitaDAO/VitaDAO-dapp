@@ -717,6 +717,15 @@ export class IPNFT extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get tokenContract(): string {
+    let value = this.get("tokenContract");
+    return value.toString();
+  }
+
+  set tokenContract(value: string) {
+    this.set("tokenContract", Value.fromString(value));
+  }
+
   get owner(): string {
     let value = this.get("owner");
     return value.toString();
@@ -726,6 +735,42 @@ export class IPNFT extends Entity {
     this.set("owner", Value.fromString(value));
   }
 
+  get name(): string {
+    let value = this.get("name");
+    return value.toString();
+  }
+
+  set name(value: string) {
+    this.set("name", Value.fromString(value));
+  }
+
+  get description(): string {
+    let value = this.get("description");
+    return value.toString();
+  }
+
+  set description(value: string) {
+    this.set("description", Value.fromString(value));
+  }
+
+  get externalUrl(): string {
+    let value = this.get("externalUrl");
+    return value.toString();
+  }
+
+  set externalUrl(value: string) {
+    this.set("externalUrl", Value.fromString(value));
+  }
+
+  get image(): string {
+    let value = this.get("image");
+    return value.toString();
+  }
+
+  set image(value: string) {
+    this.set("image", Value.fromString(value));
+  }
+
   get tokenURI(): string {
     let value = this.get("tokenURI");
     return value.toString();
@@ -733,6 +778,15 @@ export class IPNFT extends Entity {
 
   set tokenURI(value: string) {
     this.set("tokenURI", Value.fromString(value));
+  }
+
+  get fractionalVault(): string {
+    let value = this.get("fractionalVault");
+    return value.toString();
+  }
+
+  set fractionalVault(value: string) {
+    this.set("fractionalVault", Value.fromString(value));
   }
 }
 
