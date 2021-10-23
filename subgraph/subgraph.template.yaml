@@ -81,4 +81,6 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
+        - event: TokenURLUpdated(uint256,string)
+          handler: handleTokenURLUpdated
       file: ./src/nft/mapping.ts

@@ -2,7 +2,8 @@
 // import { tokenAmountToDecimal } from './utils'
 // import { BI_18, NA, ZERO_BD } from './utils/constants'
 import {
-  Transfer as TransferEvent
+  Transfer as TransferEvent,
+  TokenURLUpdated as TokenURLUpdatedEvent
 } from "../../generated/NFT/NFT"
 import { NFT as TokenContract } from "../../generated/NFT/NFT"
 import {
@@ -32,5 +33,11 @@ export function handleTransfer(event: TransferEvent): void {
 
     token.save();
   }
+}
+
+export function handleTokenURLUpdated(event: TokenURLUpdatedEvent): void {
+  let token = IPNFT.load(event.params.tokenId.toString());
+  token.tokenURI = event.params.url
+  token.save()
 }
 
