@@ -265,10 +265,13 @@
                 />
               </div>
             </div>
-            <div class="mt-4">
+            <div v-if="result.ipnft.fractionalVault" class="mt-4">
               <iframe
                 id="myId"
-                src="https://app.uniswap.org/#/swap?theme=light&inputCurrency=ETH&outputCurrency=0x92fb912b99a6dfe72e5b6e05ecd63b0e6e71059d"
+                :src="
+                  'https://app.uniswap.org/#/swap?theme=light&inputCurrency=ETH&outputCurrency=' +
+                  result.ipnft.fractionalVault.id
+                "
                 height="660px"
                 width="100%"
                 style="
@@ -337,6 +340,9 @@ export default defineComponent({
             agreementType
             timeline
             evaluationWriteup
+            fractionalVault {
+              id
+            }
           }
         }
       `,
