@@ -58,11 +58,17 @@
               {{ result.ipnft.name }}
             </h1>
             <span class="font-medium text-gray-300 text-sm"
-              >0xdf83baabf91236b5b329abc45616cc0fab2bf6aa (IP-NFT Address)
+              >{{ result.ipnft.tokenContract }} (IP-NFT Address)
             </span>
             <span class="font-medium text-gray-400 text-sm">
               <a
-                href="https://testnets.opensea.io/assets/0xdf83baabf91236b5b329abc45616cc0fab2bf6aa/47"
+                target="_blank"
+                :href="
+                  'https://testnets.opensea.io/assets/' +
+                  result.ipnft.tokenContract +
+                  '/' +
+                  result.ipnft.id
+                "
               >
                 view on OpenSea
               </a></span
