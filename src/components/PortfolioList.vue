@@ -82,7 +82,10 @@
                 </a>
               </div>
             </div>
-            <div class="mt-12 p-4 grid grid-cols-3 xl:mt-0 col-span-3 bg-gray-600">
+            <div
+              v-if="fractionalized"
+              class="mt-12 p-4 grid grid-cols-3 xl:mt-0 col-span-3 bg-gray-600"
+            >
               <div>
                 <h3 class="text-xs font-semibold text-gray-300 tracking-wider uppercase">
                   Fractions
@@ -117,6 +120,10 @@ export default defineComponent({
     ipnfts: {
       type: Array,
       required: true,
+    },
+    fractionalized: {
+      type: Boolean,
+      default: true,
     },
   },
   setup() {

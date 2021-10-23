@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <transition name="fade" mode="out-in">
-      <loading-indicator v-if="loading">Loading proposal…</loading-indicator>
+      <loading-indicator v-if="loading">Loading token…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && result.ipnft">
         <nav class="flex max-w-full" aria-label="Breadcrumb">

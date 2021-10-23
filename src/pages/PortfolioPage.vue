@@ -10,7 +10,11 @@
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading tokens…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
-      <portfolio-list v-else-if="nonFractionalizedTokens" :ipnfts="nonFractionalizedTokens" />
+      <portfolio-list
+        v-else-if="nonFractionalizedTokens"
+        :ipnfts="nonFractionalizedTokens"
+        :fractionalized="false"
+      />
     </transition>
   </div>
 </template>
