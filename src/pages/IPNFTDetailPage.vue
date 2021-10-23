@@ -167,12 +167,12 @@
                   <dd class="mt-1 text-base text-white">$350.000</dd>
                 </div>
                 <div class="sm:col-span-1">
-                  <dt class="text-sm font-medium text-gray-400">Patent</dt>
-                  <dd class="mt-1 text-base text-white">Not Filled Yet</dd>
+                  <dt class="text-sm font-medium text-gray-400">Initiated</dt>
+                  <dd class="mt-1 text-base text-white">08/2021</dd>
                 </div>
                 <div class="sm:col-span-1">
-                  <dt class="text-sm font-medium text-gray-400">Unique Owners</dt>
-                  <dd class="mt-1 text-base text-white">602</dd>
+                  <dt class="text-sm font-medium text-gray-400">Patent</dt>
+                  <dd class="mt-1 text-base text-white">Not Filled Yet</dd>
                 </div>
               </dl>
             </div>
@@ -260,8 +260,29 @@
               </div>
             </div>
             <buy-fractional :ipnft="result.ipnft" />
+            <div class="py-5">
+              <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                <div class="sm:col-span-1">
+                  <dt class="text-sm font-semibold text-white">Collectable Supply</dt>
+                  <dd class="mt-1 text-lg font-semibold text-white">20%</dd>
+                </div>
+                <div class="sm:col-span-1">
+                  <dt class="text-sm font-semibold text-white">Implied Valuation</dt>
+                  <dd class="mt-1 text-lg font-semibold text-white">Ξ 350</dd>
+                </div>
+                <div class="sm:col-span-1">
+                  <dt class="text-sm font-semibold text-white">Total Supply</dt>
+                  <dd class="mt-1 text-lg font-semibold text-white">1,000,000 MSK</dd>
+                </div>
+                <div class="sm:col-span-1">
+                  <dt class="text-sm font-semibold text-white">Trading Fee</dt>
+                  <dd class="mt-1 text-lg font-semibold text-white">1%</dd>
+                </div>
+              </dl>
+            </div>
           </div>
         </div>
+        <vault-owners-list />
       </div>
     </transition>
   </div>
