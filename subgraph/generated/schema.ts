@@ -619,3 +619,34 @@ export class Voter extends Entity {
     this.set("votes", Value.fromStringArray(value));
   }
 }
+
+export class FractionalVault extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save FractionalVault entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save FractionalVault entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("FractionalVault", id.toString(), this);
+  }
+
+  static load(id: string): FractionalVault | null {
+    return store.get("FractionalVault", id) as FractionalVault | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+}

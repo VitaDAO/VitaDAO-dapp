@@ -6,9 +6,9 @@ dataSources:
     name: Raphael
     network: {{network}}
     source:
-      address: '{{address}}'
+      address: '{{raphael.address}}'
       abi: Raphael
-      startBlock: {{startBlock}}
+      startBlock: {{raphael.startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -41,3 +41,23 @@ dataSources:
         # - event: VotingDurationChanged(uint256)
         #   handler: handleVotingDurationChanged
       file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: Fractional
+    network: {{network}}
+    source:
+      address: '{{fractional.address}}'
+      abi: Fractional
+      startBlock: {{fractional.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - FractionalVault
+      abis:
+        - name: Fractional
+          file: ./abis/Fractional.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,uint256,address,uint256)
+          handler: handleMint
+      file: ./src/fractional/mapping.ts
