@@ -111,7 +111,7 @@
                 />
               </div>
             </div>
-            <h2 class="text-white p-12 text-center bg-gray-500">placeholder @Alexander</h2>
+            <buy-fractional :ipnft="result.ipnft" />
           </div>
         </div>
       </div>
@@ -121,8 +121,10 @@
 
 <script>
 import { defineComponent } from 'vue'
+import BuyFractional from '@/components/BuyFractional'
 
 export default defineComponent({
+  components: { BuyFractional },
   setup() {
     const loading = false
     const error = null
