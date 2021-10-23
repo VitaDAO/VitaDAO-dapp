@@ -744,13 +744,21 @@ export class IPNFT extends Entity {
     this.set("tokenURI", Value.fromString(value));
   }
 
-  get fractionalVault(): string {
+  get fractionalVault(): string | null {
     let value = this.get("fractionalVault");
-    return value.toString();
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
   }
 
-  set fractionalVault(value: string) {
-    this.set("fractionalVault", Value.fromString(value));
+  set fractionalVault(value: string | null) {
+    if (value === null) {
+      this.unset("fractionalVault");
+    } else {
+      this.set("fractionalVault", Value.fromString(value as string));
+    }
   }
 
   get name(): string {
