@@ -55,7 +55,7 @@ function getMetaDataFromIPFS(token: IPNFT | null): void {
         token.image = NA;
       }
 
-      externalUrl = metaDataDataObj.get('externalUrl');
+      externalUrl = metaDataDataObj.get('external_url');
       if(externalUrl) {
         token.externalUrl = externalUrl.toString();
       } else {
