@@ -122,6 +122,12 @@ type IPNFT @entity {
   duration: String
   requiredFunding: String
   evaluationWriteup: String
+  area: String
+  stage: String
+  status: String
+  investment: String
+  initiated: String
+  patent: String
 }
 
 """

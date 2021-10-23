@@ -924,6 +924,108 @@ export class IPNFT extends Entity {
       this.set("evaluationWriteup", Value.fromString(value as string));
     }
   }
+
+  get area(): string | null {
+    let value = this.get("area");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set area(value: string | null) {
+    if (value === null) {
+      this.unset("area");
+    } else {
+      this.set("area", Value.fromString(value as string));
+    }
+  }
+
+  get stage(): string | null {
+    let value = this.get("stage");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set stage(value: string | null) {
+    if (value === null) {
+      this.unset("stage");
+    } else {
+      this.set("stage", Value.fromString(value as string));
+    }
+  }
+
+  get status(): string | null {
+    let value = this.get("status");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set status(value: string | null) {
+    if (value === null) {
+      this.unset("status");
+    } else {
+      this.set("status", Value.fromString(value as string));
+    }
+  }
+
+  get investment(): string | null {
+    let value = this.get("investment");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set investment(value: string | null) {
+    if (value === null) {
+      this.unset("investment");
+    } else {
+      this.set("investment", Value.fromString(value as string));
+    }
+  }
+
+  get initiated(): string | null {
+    let value = this.get("initiated");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set initiated(value: string | null) {
+    if (value === null) {
+      this.unset("initiated");
+    } else {
+      this.set("initiated", Value.fromString(value as string));
+    }
+  }
+
+  get patent(): string | null {
+    let value = this.get("patent");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set patent(value: string | null) {
+    if (value === null) {
+      this.unset("patent");
+    } else {
+      this.set("patent", Value.fromString(value as string));
+    }
+  }
 }
 
 export class Account extends Entity {

@@ -109,6 +109,36 @@ function getMetaDataFromIPFS(token: IPNFT | null): void {
         if(evaluationWriteup) {
           token.evaluationWriteup = evaluationWriteup.toString()
         }
+
+        let area: JSONValue | null = propertiesData.get('area')
+        if(area) {
+          token.area = area.toString()
+        }
+
+        let stage: JSONValue | null = propertiesData.get('stage')
+        if(stage) {
+          token.stage = stage.toString()
+        }
+
+        let status: JSONValue | null = propertiesData.get('status')
+        if(status) {
+          token.status = status.toString()
+        }
+
+        let investment: JSONValue | null = propertiesData.get('investment')
+        if(investment) {
+          token.investment = investment.toString()
+        }
+
+        let initiated: JSONValue | null = propertiesData.get('initiated')
+        if(initiated) {
+          token.initiated = initiated.toString()
+        }
+
+        let patent: JSONValue | null = propertiesData.get('patent')
+        if(patent) {
+          token.patent = patent.toString()
+        }
       }
     }
   } else {
