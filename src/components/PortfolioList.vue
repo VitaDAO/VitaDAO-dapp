@@ -32,11 +32,11 @@
               </div>
               <div class="mt-6 flex items-center justify-between">
                 <p class="text-sm font-medium text-white">
-                  <a href="#" class="hover:underline"> {{ ipnft.properties.research_lead }} </a>
+                  <a href="#" class="hover:underline"> {{ ipnft.researchLead }} </a>
                 </p>
                 <div class="flex truncate">
                   <a href="#">
-                    <span class="sr-only">{{ ipnft.properties.research_lead }}</span>
+                    <span class="sr-only">{{ ipnft.researchLead }}</span>
                     <img
                       class="h-10 w-10 rounded-full"
                       src="https://pbs.twimg.com/profile_images/1170739893422755840/WrQL2WoC_400x400.jpg"
@@ -60,7 +60,7 @@
                       text-green-800
                     "
                   >
-                    {{ ipnft.properties.industry }}
+                    {{ ipnft.industry }}
                   </span>
                 </a>
                 <a href="#" class="inline-block px-1">
@@ -77,7 +77,7 @@
                       text-blue-800
                     "
                   >
-                    {{ ipnft.properties.agreement_type }}
+                    {{ ipnft.agreementType }}
                   </span>
                 </a>
               </div>
