@@ -61,3 +61,23 @@ dataSources:
         - event: Mint(indexed address,uint256,uint256,address,uint256)
           handler: handleMint
       file: ./src/fractional/mapping.ts
+  - kind: ethereum/contract
+    name: NFT
+    network: {{network}}
+    source:
+      address: '{{nft.address}}'
+      abi: NFT
+      startBlock: {{nft.startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - IPNFT
+      abis:
+        - name: NFT
+          file: ./abis/NFT.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/nft/mapping.ts

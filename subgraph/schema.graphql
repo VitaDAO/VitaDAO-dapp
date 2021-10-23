@@ -96,4 +96,10 @@ type FractionalVault @entity {
   id: ID!
 }
 
+type IPNFT @entity {
+  id: ID!
+}
+
+
+
 
