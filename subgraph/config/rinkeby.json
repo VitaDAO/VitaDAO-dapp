@@ -7,5 +7,9 @@
   "fractional": {
     "address": "0x458556c097251f52ca89cB81316B4113aC734BD1",
     "startBlock": 8866281
+  },
+  "nft": {
+    "address": "0x93F1554c9Ac9b7cA1a0cd3d8263b152eD710d0F9",
+    "startBlock": 9515603
   }
 }

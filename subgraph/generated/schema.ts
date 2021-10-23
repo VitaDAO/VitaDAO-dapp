@@ -649,4 +649,129 @@ export class FractionalVault extends Entity {
   set id(value: string) {
     this.set("id", Value.fromString(value));
   }
+
+  get nft(): string {
+    let value = this.get("nft");
+    return value.toString();
+  }
+
+  set nft(value: string) {
+    this.set("nft", Value.fromString(value));
+  }
+
+  get nftContract(): string {
+    let value = this.get("nftContract");
+    return value.toString();
+  }
+
+  set nftContract(value: string) {
+    this.set("nftContract", Value.fromString(value));
+  }
+
+  get vaultId(): string {
+    let value = this.get("vaultId");
+    return value.toString();
+  }
+
+  set vaultId(value: string) {
+    this.set("vaultId", Value.fromString(value));
+  }
+
+  get price(): BigDecimal {
+    let value = this.get("price");
+    return value.toBigDecimal();
+  }
+
+  set price(value: BigDecimal) {
+    this.set("price", Value.fromBigDecimal(value));
+  }
+}
+
+export class IPNFT extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save IPNFT entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save IPNFT entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("IPNFT", id.toString(), this);
+  }
+
+  static load(id: string): IPNFT | null {
+    return store.get("IPNFT", id) as IPNFT | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get owner(): string {
+    let value = this.get("owner");
+    return value.toString();
+  }
+
+  set owner(value: string) {
+    this.set("owner", Value.fromString(value));
+  }
+
+  get tokenURI(): string {
+    let value = this.get("tokenURI");
+    return value.toString();
+  }
+
+  set tokenURI(value: string) {
+    this.set("tokenURI", Value.fromString(value));
+  }
+}
+
+export class Account extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Account entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Account entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Account", id.toString(), this);
+  }
+
+  static load(id: string): Account | null {
+    return store.get("Account", id) as Account | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get nfts(): Array<string | null> {
+    let value = this.get("nfts");
+    return value.toStringArray();
+  }
+
+  set nfts(value: Array<string | null>) {
+    this.set("nfts", Value.fromStringArray(value));
+  }
 }
