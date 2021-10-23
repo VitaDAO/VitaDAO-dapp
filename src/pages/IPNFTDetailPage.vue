@@ -259,7 +259,22 @@
                 />
               </div>
             </div>
-            <buy-fractional :ipnft="result.ipnft" />
+            <div class="mt-4">
+              <iframe
+                id="myId"
+                src="https://app.uniswap.org/#/swap?theme=light&inputCurrency=ETH&outputCurrency=0x92fb912b99a6dfe72e5b6e05ecd63b0e6e71059d"
+                height="660px"
+                width="100%"
+                style="
+                  border: 0;
+                  margin: 0 auto;
+                  display: block;
+                  border-radius: 10px;
+                  max-width: 600px;
+                  min-width: 300px;
+                "
+              />
+            </div>
             <div class="py-5">
               <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div class="sm:col-span-1">
@@ -282,7 +297,6 @@
             </div>
           </div>
         </div>
-        <vault-owners-list />
       </div>
     </transition>
   </div>
@@ -290,11 +304,10 @@
 
 <script>
 import { defineComponent } from 'vue'
-import BuyFractional from '@/components/BuyFractional'
 import ParsedMarkdown from '@/components/ParsedMarkdown'
 
 export default defineComponent({
-  components: { BuyFractional, ParsedMarkdown },
+  components: { ParsedMarkdown },
   setup() {
     const loading = false
     const error = null
