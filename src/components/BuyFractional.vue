@@ -55,7 +55,6 @@
                   rounded-l-md rounded-none
                   focus:outline-none focus-ring-1 focus-border-gray-400
                   text-2xl
-                  sm:text-sm
                   w-full
                 "
               />
@@ -71,7 +70,6 @@
                   pr-7
                   border-transparent
                   bg-transparent
-                  sm:text-sm
                   rounded-r-md
                 "
               >
@@ -129,7 +127,6 @@
                   rounded-l-md rounded-none
                   focus:outline-none focus-ring-1 focus-border-gray-400
                   text-2xl
-                  sm:text-sm
                   w-full
                 "
               />
@@ -145,7 +142,6 @@
                   pr-7
                   border-transparent
                   bg-transparent
-                  sm:text-sm
                   rounded-r-md
                 "
               >
