@@ -152,7 +152,7 @@
               <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3">
                 <div class="sm:col-span-1">
                   <dt class="text-sm font-medium text-gray-400">Area</dt>
-                  <dd class="mt-1 text-base text-white">{{ result.ipnft.properties.industry }}</dd>
+                  <dd class="mt-1 text-base text-white">{{ result.ipnft.industry }}</dd>
                 </div>
                 <div class="sm:col-span-1">
                   <dt class="text-sm font-medium text-gray-400">Stage</dt>
@@ -244,7 +244,7 @@
               <div class="mt-2 space-y-2">
                 <parsed-markdown
                   class="font-medium text-white text-sm"
-                  :source="result.ipnft.evaluation_writeup"
+                  :source="result.ipnft.evaluationWriteup"
                 />
               </div>
             </div>
@@ -304,36 +304,40 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { useRoute } from 'vue-router'
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
+import LoadingIndicator from '@/components/LoadingIndicator'
 import ParsedMarkdown from '@/components/ParsedMarkdown'
 
 export default defineComponent({
-  components: { ParsedMarkdown },
+  components: { ParsedMarkdown, LoadingIndicator },
   setup() {
-    const loading = false
-    const error = null
-    const result = {
-      ipnft: {
-        id: 1,
-        name: 'The Longevity Molecule (IPNFT)',
-        description:
-          'The Scheibye-Knudsen lab has analyzed 1.5 billion prescriptions from 4.8 million individuals over 40 years in The Danish National Health Service Prescription Database and correlated this with the survival of individuals prescribed certain drugs. The Scheibye-Knudsen Lab has identified several FDA-approved medications that appear to have a strong effect on lifespan following analysis. This project focuses on testing and developing three of these small molecules as possible interventions in aging, with the first series of experiments testing these therapies in fruit flies and human cells. This is an exclusive license agreement for the IP resulting from these experiments.',
-        timeline: `(Currently) Pre-Clinical Studies 1: Testing in Fruit Flies and Human Cells
-- Required Funding: $500,000
-- Status: Ongoing
-- Duration: 24 Months
+    const route = useRoute()
 
-Testing the identified drugs ability to attenuate features of aging in a controlled laboratory setting. Here, we will test the molecules in human cells and in the animal model drosophila melanogaster (fruit flies). We are testing the drugs in human cells to rapidly understand how the molecules affect human cellular aging. Fruit flies are used extensively in biomedical research and particular aging research as they have a short lifespan of about 60 days.`,
-        evaluation_writeup: `This program focuses on testing and developing three of these small molecules as possible interventions in aging. Specifically, we will test the drugs on human cell cultures and in various animal models. Importantly, the current anti-aging market stands at 200 billion USD, even without a single scientifically proven treatment. Our molecules targets this specific market with the aim of letting everyone live healthier, happier and longer lives.`,
-        external_url: 'https://dao.vitadao.com/#/proposals/funding/3',
-        image: 'https://arweave.net/gQm_NpkJIjEFD6sOVHLEJ-tZIKhRvgmYEl5es0g-YdQ',
-        properties: {
-          nvm_metadata: 'https://arweave.net:443/qGsHltU0PTfGTSNfYipLWnFwTi6g8Q-JRzJzhFDOio4',
-          agreement_type: 'License Agreement',
-          industry: 'Pharmaceutical R&D',
-          research_lead: 'The Scheibye-Knudsen Lab',
-        },
-      },
-    }
+    const { result, loading, error } = useQuery(
+      gql`
+        query getTokenById($id: ID!) {
+          ipnft(id: $id) {
+            id
+            tokenURI
+            tokenContract
+            name
+            description
+            image
+            externalUrl
+            researchLead
+            industry
+            agreementType
+            timeline
+            evaluationWriteup
+          }
+        }
+      `,
+      () => ({
+        id: route.params.id,
+      }),
+    )
 
     return {
       loading,
