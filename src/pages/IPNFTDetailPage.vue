@@ -73,12 +73,12 @@
                 view on OpenSea
               </a></span
             >
-            <div class="mt-4 space-y-6">
+            <div class="bg-black overflow-hidden py-6 px-4 rounded-lg shadow-md">
               <p class="text-sm text-white">
                 {{ result.ipnft.description }}
               </p>
             </div>
-            <div class="flex space-x-2">
+            <div class="flex space-x-2 px-4">
               <div>
                 <a
                   href="https://discover.molecule.to/project-details/the-longevity-molecule-1603031933959x305091127349719700"
@@ -154,7 +154,7 @@
                 </a>
               </div>
             </div>
-            <div class="py-5">
+            <div class="bg-black overflow-hidden py-5 px-4 rounded-lg shadow-md">
               <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-3">
                 <div class="sm:col-span-1">
                   <dt class="text-sm font-medium text-gray-400">Area</dt>
@@ -182,7 +182,7 @@
                 </div>
               </dl>
             </div>
-            <div>
+            <div class="bg-black overflow-hidden py-5 px-4 rounded-lg shadow-md">
               <div class="flex justify-between">
                 <h2 class="font-bold mb-2 text-white text-xl">Timeline</h2>
                 <a
@@ -218,7 +218,7 @@
                 />
               </div>
             </div>
-            <div>
+            <div class="bg-black overflow-hidden py-5 px-4 rounded-lg shadow-md">
               <div class="flex justify-between">
                 <h2 class="font-bold mb-2 text-white text-xl">Evaluation Writeup</h2>
                 <a
@@ -284,7 +284,7 @@
                 "
               />
             </div>
-            <div class="py-5">
+            <div class="bg-black overflow-hidden py-5 px-4 rounded-lg shadow-md">
               <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                 <div class="sm:col-span-1">
                   <dt class="text-sm font-semibold text-white">Collectable Supply</dt>

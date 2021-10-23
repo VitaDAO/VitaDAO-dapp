@@ -32,7 +32,7 @@
               </div>
               <div class="mt-6 flex items-center justify-between">
                 <p class="text-sm font-medium text-white">
-                  <a href="#" class="hover:underline"> {{ ipnft.researchLead }} </a>
+                  <a href="#" class="hover:underline text-lg"> {{ ipnft.researchLead }} </a>
                 </p>
                 <div class="flex truncate">
                   <a href="#">
@@ -94,9 +94,9 @@
               </div>
               <div>
                 <h3 class="text-xs font-semibold text-gray-300 tracking-wider uppercase">
-                  Collectable/ DAO Owned
+                  Collectable Supply
                 </h3>
-                <span class="text-base font-semibold text-white">20%/80%</span>
+                <span class="text-base font-semibold text-white">20%</span>
               </div>
               <div>
                 <h3 class="text-xs font-semibold text-gray-300 tracking-wider uppercase">
