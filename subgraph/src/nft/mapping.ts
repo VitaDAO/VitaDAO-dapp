@@ -15,7 +15,7 @@ function getMetaDataFromIPFS(token: IPNFT | null): void {
   let ipfsURI = token.tokenURI
   // We have to check for this default token URI and replace it, because TheGraph doesn't support ARWeave yet
   if(ipfsURI == "https://arweave.net/eUDLZaySoywhvtVySxbRdLiarmXsW2Zu5nQxMksVcyM") {
-    ipfsURI = "ipfs://QmPqKbJZUAGYvzGFuGxG7CqqWKsQH2ucU4WdCTFoyLP21Y"
+    ipfsURI = "ipfs://QmRzMJ6ft2hMn4HpMzvKo1z1aQFXYzKMEnzRk9m6PQoV82"
     log.warning("Replacing default ARWeave Token URI for token {}", [
       token.id.toString()
     ]);
