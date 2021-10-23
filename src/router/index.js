@@ -18,6 +18,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "PortfolioPage" */ '../pages/PortfolioPage.vue'),
   },
   {
+    path: '/portfolio/:id',
+    name: 'IPNFTDetailPage',
+    component: () =>
+      import(/* webpackChunkName: "IPNFTDetailPage" */ '../pages/IPNFTDetailPage.vue'),
+  },
+  {
     path: '/wallet',
     name: 'WalletPage',
     component: () => import(/* webpackChunkName: "WalletPage" */ '../pages/WalletPage.vue'),
