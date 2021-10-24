@@ -197,6 +197,13 @@ export function handleTokenURLUpdated(event: TokenURLUpdatedEvent): void {
       newURL
     ]);
   }
+  if (newURL.startsWith("https://ipfs.io/ipfs/")){
+    newURL = "ipfs://" + newURL.split("https://ipfs.io/ipfs/")[1]
+    log.warning("correcting tokenURL for token {} to {}", [
+      event.params.tokenId.toString(),
+      newURL
+    ]);
+  }
 
   let token = IPNFT.load(event.params.tokenId.toString());
   token.tokenURI = newURL
