@@ -174,6 +174,7 @@ export function handleTransfer(event: TransferEvent): void {
     token.owner = event.params.to.toHexString();
     token.tokenURI = tokenContract.tokenURI(event.params.tokenId);
     token.tokenContract = event.address.toHexString();
+    token.createdAt = event.block.timestamp;
 
     getMetaDataFromIPFS(token);
 

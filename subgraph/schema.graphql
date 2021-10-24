@@ -101,6 +101,7 @@ type FractionalVault @entity {
   vaultId: String!
   "Reserve price in ETH"
   price: BigDecimal!
+  createdAt: BigInt!
 }
 
 type IPNFT @entity {
@@ -128,6 +129,7 @@ type IPNFT @entity {
   investment: String
   initiated: String
   patent: String
+  createdAt: BigInt!
 }
 
 """

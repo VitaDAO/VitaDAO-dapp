@@ -685,6 +685,15 @@ export class FractionalVault extends Entity {
   set price(value: BigDecimal) {
     this.set("price", Value.fromBigDecimal(value));
   }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    return value.toBigInt();
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
+  }
 }
 
 export class IPNFT extends Entity {
@@ -1033,6 +1042,15 @@ export class IPNFT extends Entity {
     } else {
       this.set("patent", Value.fromString(value as string));
     }
+  }
+
+  get createdAt(): BigInt {
+    let value = this.get("createdAt");
+    return value.toBigInt();
+  }
+
+  set createdAt(value: BigInt) {
+    this.set("createdAt", Value.fromBigInt(value));
   }
 }
 

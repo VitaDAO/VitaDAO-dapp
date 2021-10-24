@@ -19,6 +19,7 @@ export function handleMint(event: MintEvent): void {
     vault.vaultId = event.params.vaultId.toString()
     let reservePrice = tokenAmountToDecimal(event.params.price, BI_18);
     vault.price = reservePrice;
+    vault.createdAt = event.block.timestamp;
 
     vault.save();
   }
