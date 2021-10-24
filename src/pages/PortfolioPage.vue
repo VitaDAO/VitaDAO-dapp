@@ -31,7 +31,7 @@ export default defineComponent({
   setup() {
     const { result, loading, error } = useQuery(gql`
       query getVaultsAndTokens {
-        fractionalVaults(first: 99) {
+        fractionalVaults(first: 99, orderBy: vaultId, orderDirection: asc) {
           id
           price
           vaultId
