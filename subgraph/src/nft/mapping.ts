@@ -127,7 +127,12 @@ function getMetaDataFromIPFS(token: IPNFT | null): void {
 
         let investment: JSONValue | null = propertiesData.get('investment')
         if(investment) {
-          token.investment = investment.toString()
+          // Workaround because of type error with this field
+          if(investment.kind == JSONValueKind.STRING) {
+            token.investment = investment.toString()
+          } else {
+            token.investment = "350000"
+          }
         }
 
         let initiated: JSONValue | null = propertiesData.get('initiated')
