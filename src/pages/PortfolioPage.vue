@@ -55,7 +55,7 @@ export default defineComponent({
 
         account(id: "0x10836d93f39cc896651c210084f98b63e1055529") {
           id
-          nfts {
+          nfts( orderBy: id, orderDirection: asc) {
             id
             tokenURI
             tokenContract
