@@ -177,6 +177,9 @@ export function handleTransfer(event: TransferEvent): void {
 }
 
 export function handleTokenURLUpdated(event: TokenURLUpdatedEvent): void {
+  log.warning("handle token update for token {}", [
+    event.params.tokenId.toString()
+  ]);
   let token = IPNFT.load(event.params.tokenId.toString());
   token.tokenURI = event.params.url
   token.save()
