@@ -53,7 +53,7 @@ export default defineComponent({
           }
         }
 
-        account(id: "0x10836d93f39cc896651c210084f98b63e1055529") {
+        account(id: "0xc8848446683fdDe10745eBB74086329BA2936d2A") {
           id
           nfts( orderBy: id, orderDirection: asc) {
             id
