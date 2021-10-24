@@ -177,11 +177,23 @@ export function handleTransfer(event: TransferEvent): void {
 }
 
 export function handleTokenURLUpdated(event: TokenURLUpdatedEvent): void {
+  let newURL = event.params.url
+
   log.warning("handle token update for token {}", [
     event.params.tokenId.toString()
   ]);
+
+  // Workaround if the new URL is not in the ipfs:// format
+  if (newURL.startsWith("https://vitadao.mypinata.cloud/ipfs/")){
+    newURL = "ipfs://" + newURL.split("https://vitadao.mypinata.cloud/ipfs/")[1]
+    log.warning("correcting tokenURL for token {} to {}", [
+      event.params.tokenId.toString(),
+      newURL
+    ]);
+  }
+
   let token = IPNFT.load(event.params.tokenId.toString());
-  token.tokenURI = event.params.url
+  token.tokenURI = newURL
   token.save()
   getMetaDataFromIPFS(token);
 }
