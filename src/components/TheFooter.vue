@@ -14,7 +14,7 @@
   >
     <p>© {{ dayjs().format('YYYY') }} VitaDAO. All rights reserved</p>
     <div class="flex mt-2 space-x-2">
-      <a href="https://discord.com/invite/3S3ftnm" class="hover:text-vita-accent" target="_blank"
+      <a href="https://discord.gg/d9zjyGU9ZP" class="hover:text-vita-accent" target="_blank"
         ><fa :icon="['fab', 'discord']" size="lg"
       /></a>
       <a href="https://gov.vitadao.com/" class="hover:text-vita-accent" target="_blank"
