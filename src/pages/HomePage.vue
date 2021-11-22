@@ -39,8 +39,8 @@
             >{{ shortenAddress(vote.voter.id) }}</a
           >
           voted
-          <span v-if="vote.direction == true" class="text-green-400">Yes</span>
-          <span v-else class="text-red-400">No</span> on »<router-link
+          <span v-if="vote.direction == true" class="text-success">Yes</span>
+          <span v-else class="text-danger">No</span> on »<router-link
             class="font-bold hover:underline"
             :to="'/proposal/' + vote.proposal.id"
             >{{ vote.proposal.proposalContent.title }}</router-link

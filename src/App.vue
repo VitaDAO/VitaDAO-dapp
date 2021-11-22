@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black flex min-h-screen">
+  <div class="flex min-h-screen">
     <mobile-main-nav v-model:open="sidebarOpen" :nav-items="navigationItems" />
 
     <div class="flex flex-1 flex-col overflow-hidden w-0">
@@ -26,12 +26,7 @@
 
       <main-nav :nav-items="navigationItems" />
 
-      <main
-        class="flex-1 focus:outline-none relative bg-fixed bg-no-repeat bg-contain bg-bottom"
-        :style="{
-          'background-image': 'url(' + require('./assets/bg.png') + ')',
-        }"
-      >
+      <main class="flex-1 focus:outline-none relative bg-fixed bg-no-repeat bg-contain bg-bottom">
         <div class="flex justify-center pb-20 pt-6 px-6">
           <div class="max-w-7xl w-full flex justify-center">
             <router-view v-slot="{ Component }">

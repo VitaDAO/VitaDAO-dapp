@@ -64,7 +64,7 @@
             w-8
           "
         >
-          <img src="@/assets/walletConnect.svg" class="h-3 w-auto" />
+          <img src="@/assets/images/walletConnect.svg" class="h-3 w-auto" />
         </div>
       </template>
 

@@ -16,7 +16,7 @@
           bg-gray-900
         "
       >
-        <span class="font-bold flex-shrink-0 text-vita-accent">Your Address</span>
+        <span class="font-bold flex-shrink-0 text-vita-sunrise">Your Address</span>
         <span class="truncate">{{ ensName ? ensName : shortenAddress(connectedAddress, 5) }}</span>
       </div>
       <div
@@ -33,7 +33,7 @@
           bg-gray-800
         "
       >
-        <span class="font-bold flex-shrink-0 text-vita-accent">ETH Balance</span>
+        <span class="font-bold flex-shrink-0 text-vita-sunrise">ETH Balance</span>
         <span><animated-counter :decimals="2" :value="parseFloat(ethBalance)" />Ξ</span>
       </div>
       <div
@@ -50,7 +50,7 @@
           bg-gray-900
         "
       >
-        <span class="font-bold flex-shrink-0 text-vita-accent">VITA Balance</span>
+        <span class="font-bold flex-shrink-0 text-vita-sunrise">VITA Balance</span>
         <span><animated-counter :value="parseFloat(vitaBalance)" /> VITA</span>
       </div>
       <div
@@ -67,7 +67,7 @@
           bg-gray-800
         "
       >
-        <span class="font-bold flex-shrink-0 text-vita-accent">Staked VITA</span>
+        <span class="font-bold flex-shrink-0 text-vita-sunrise">Staked VITA</span>
         <span><animated-counter :value="parseFloat(stakedVitaBalance)" /> VITA</span>
       </div>
       <div
@@ -87,7 +87,7 @@
           bg-gray-900
         "
       >
-        <span class="font-bold flex-shrink-0 text-vita-accent">Stake Unlock Time</span>
+        <span class="font-bold flex-shrink-0 text-vita-sunrise">Stake Unlock Time</span>
         <span>
           in
           {{

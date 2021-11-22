@@ -1,7 +1,7 @@
 <template>
   <div
     class="
-      bg-black
+      bg-white
       flex flex-shrink-0
       h-16
       items-center
@@ -9,13 +9,13 @@
       px-6
       relative
       shadow
-      text-white
+      text-black
       z-10
     "
     :class="{ 'mt-16': isWrongNetwork }"
   >
     <router-link class="block" to="/"
-      ><img src="../assets/logo.svg" class="h-6 w-auto"
+      ><img src="../assets/images/logo.svg" class="h-6 w-auto"
     /></router-link>
     <div class="hidden lg:flex lg:items-center">
       <ul class="flex space-x-4">
@@ -23,13 +23,13 @@
           <router-link
             :to="item.to"
             :class="[
-              $route.path === item.to ? 'bg-gray-800 text-white' : 'text-white hover:bg-gray-800',
+              $route.path === item.to ? ' text-black' : 'text-black',
               'group flex items-center px-2 py-2 text-base font-medium rounded-md pr-3',
             ]"
           >
             <fa
               fixed-width
-              class="flex-shrink-0 ml-1 mr-3 text-vita-accent"
+              class="flex-shrink-0 ml-1 mr-3 text-vita-sunrise"
               :icon="item.icon"
               aria-hidden="true"
               size="lg"

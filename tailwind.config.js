@@ -19,7 +19,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        'vita-accent': '#F9E47A',
+        'vita-sunrise': '#FFDD35',
+        'vita-purple': '#6256ec',
+        'vita-teal': '#41f4d4',
+        success: '#16BD9F',
+        danger: '#FF6D90',
       },
       fontFamily: {
         sans: ['TT Hoves', ...defaultTheme.fontFamily.sans],

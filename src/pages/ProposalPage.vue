@@ -5,10 +5,10 @@
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && proposal">
         <nav class="flex max-w-full" aria-label="Breadcrumb">
-          <ol class="bg-black border border-white flex px-6 rounded-md space-x-4">
+          <ol class="border border-gray-200 flex px-6 rounded-md space-x-4">
             <li class="flex">
               <div class="flex items-center">
-                <router-link to="/" class="hover:text-gray-300 text-white">
+                <router-link to="/" class="hover:text-gray-300 text-black">
                   <fa icon="home" />
                   <span class="sr-only">Home</span>
                 </router-link>
@@ -17,7 +17,7 @@
             <li class="flex">
               <div class="flex items-center">
                 <svg
-                  class="flex-shrink-0 h-full text-white w-6"
+                  class="flex-shrink-0 h-full text-gray-200 w-6"
                   viewBox="0 0 24 44"
                   preserveAspectRatio="none"
                   fill="currentColor"
@@ -28,7 +28,7 @@
                 </svg>
                 <router-link
                   to="/proposals"
-                  class="font-medium hover:text-gray-300 ml-4 text-white text-sm"
+                  class="font-medium hover:text-gray-300 ml-4 text-black text-sm"
                   >Proposals</router-link
                 >
               </div>
@@ -36,7 +36,7 @@
             <li class="flex">
               <div class="flex items-center">
                 <svg
-                  class="flex-shrink-0 h-full text-white w-6"
+                  class="flex-shrink-0 h-full text-gray-200 w-6"
                   viewBox="0 0 24 44"
                   preserveAspectRatio="none"
                   fill="currentColor"
@@ -52,7 +52,7 @@
             </li>
           </ol>
         </nav>
-        <h1 class="font-bold leading-tight mt-4 text-2xl text-white">
+        <h1 class="font-bold leading-tight mt-4 text-2xl text-black">
           {{ proposal.proposalContent.title }}
         </h1>
         <span class="font-medium text-gray-300 text-sm uppercase"
@@ -63,7 +63,7 @@
         >
         <!-- this doesn't seem to work with router hash mode -->
         <!-- <div class="mt-4 lg:hidden">
-          <router-link class="text-vita-accent hover:underline" to="#vote"
+          <router-link class="text-vita-sunrise hover:underline" to="#vote"
             >↓ Jump to vote</router-link
           >
         </div> -->
