@@ -82,7 +82,7 @@ export default {
 }
 
 .btn-primary {
-  @apply text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600;
+  @apply text-white bg-success focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success;
 }
 
 .btn-primary.btn-disabled {

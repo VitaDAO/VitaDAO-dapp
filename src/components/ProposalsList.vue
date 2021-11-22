@@ -9,7 +9,7 @@
         divide-gray-200 divide-y
         flex flex-col
         rounded-lg
-        shadow
+        border border-gray-300
         text-center
       "
     >

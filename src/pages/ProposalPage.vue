@@ -69,17 +69,23 @@
         </div> -->
         <div class="gap-6 grid grid-cols-12 mt-4 lg:mt-6">
           <div class="col-span-12 lg:col-span-7 xl:col-span-8 space-y-8">
-            <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">
+            <div
+              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+            >
               <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">Proposal Summary</h2>
               <parsed-markdown :source="proposal.proposalContent.summary" />
             </div>
 
-            <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">
+            <div
+              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+            >
               <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">Proposal Details</h2>
               <parsed-markdown :source="proposal.proposalContent.details" />
             </div>
             <div v-if="project">
-              <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">
+              <div
+                class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+              >
                 <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">
                   Project Aims & Hypothesis
                 </h2>
@@ -87,7 +93,9 @@
               </div>
             </div>
 
-            <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">
+            <div
+              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+            >
               <h2 class="leading-snug text-gray-600 text-xl font-medium">Proposal Link</h2>
               <a
                 class="text-blue-500 hover:underline"
@@ -98,7 +106,7 @@
             </div>
           </div>
           <div id="vote" class="mt-2 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8">
-            <div class="bg-white rounded-lg shadow-md">
+            <div class="bg-white rounded-lg border border-gray-300">
               <div class="px-4 py-5 sm:px-6">
                 <h3 class="font-medium leading-6 text-gray-900 text-lg">Vote</h3>
               </div>
@@ -138,7 +146,7 @@
                 </transition>
               </div>
             </div>
-            <div v-if="project" class="bg-white overflow-hidden rounded-lg shadow-md">
+            <div v-if="project" class="bg-white overflow-hidden rounded-lg border border-gray-300">
               <div class="px-4 py-5 sm:px-6">
                 <h3 class="font-medium leading-6 text-gray-900 text-lg">Project Details</h3>
               </div>
