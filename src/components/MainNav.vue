@@ -1,44 +1,30 @@
 <template>
   <div
-    class="
-      bg-black
-      flex flex-shrink-0
-      h-16
-      items-center
-      justify-between
-      px-6
-      relative
-      shadow
-      text-white
-      z-10
-    "
+    class="bg-white px-6 relative text-black z-10 flex justify-center py-5"
     :class="{ 'mt-16': isWrongNetwork }"
   >
-    <router-link class="block" to="/"
-      ><img src="../assets/logo.svg" class="h-6 w-auto"
-    /></router-link>
-    <div class="hidden lg:flex lg:items-center">
-      <ul class="flex space-x-4">
-        <li v-for="item in navItems" :key="item.name">
-          <router-link
-            :to="item.to"
-            :class="[
-              $route.path === item.to ? 'bg-gray-800 text-white' : 'text-white hover:bg-gray-800',
-              'group flex items-center px-2 py-2 text-base font-medium rounded-md pr-3',
-            ]"
-          >
-            <fa
-              fixed-width
-              class="flex-shrink-0 ml-1 mr-3 text-vita-accent"
-              :icon="item.icon"
-              aria-hidden="true"
-              size="lg"
-            />
-            {{ item.name }}
-          </router-link>
-        </li>
-      </ul>
-      <wallet-indicator-button class="ml-4" />
+    <div class="flex flex-shrink-0 items-center justify-between max-w-8xl w-full">
+      <router-link class="block" to="/"
+        ><img src="../assets/images/logo.svg" class="h-8 w-auto"
+      /></router-link>
+      <div class="hidden lg:flex lg:items-center">
+        <ul class="flex space-x-8">
+          <li v-for="item in navItems" :key="item.name">
+            <router-link
+              :to="item.to"
+              :class="[
+                $route.path === item.to ? ' text-black' : 'text-black',
+                'group flex items-center px-2 py-2 text-lg font-medium rounded-md pr-3',
+              ]"
+            >
+              {{ item.name }}
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <div class="hidden lg:flex lg:items-center">
+        <wallet-indicator-button />
+      </div>
     </div>
   </div>
 </template>

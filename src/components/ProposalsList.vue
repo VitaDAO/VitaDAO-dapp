@@ -9,7 +9,7 @@
         divide-gray-200 divide-y
         flex flex-col
         rounded-lg
-        shadow
+        border border-gray-300
         text-center
       "
     >
@@ -134,8 +134,8 @@
             <router-link
               :to="'/proposal/' + proposal.id"
               class="
-                bg-vita-accent
-                border border-vita-accent
+                bg-vita-sunrise
+                border border-vita-sunrise
                 flex-1
                 font-medium
                 hover:text-white hover:bg-gray-900

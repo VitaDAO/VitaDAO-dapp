@@ -3,8 +3,26 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-family: 'TT Hoves';
+    font-weight: 400;
+    src: url('./assets/fonts/TTHovesRegular/font.woff2') format('woff2'), url('./assets/fonts/TTHovesRegular/font.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'TT Hoves';
+    font-weight: 500;
+    src: url('./assets/fonts/TTHovesMedium/font.woff2') format('woff2'), url('./assets/fonts/TTHovesMedium/font.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'TT Hoves';
+    font-weight: 600;
+    src: url('./assets/fonts/TTHovesDemiBold/font.woff2') format('woff2'), url('./assets/fonts/TTHovesDemiBold/font.woff') format('woff');
+  }
+
   body {
-    @apply bg-gray-100;
+    @apply bg-white;
   }
 }
 

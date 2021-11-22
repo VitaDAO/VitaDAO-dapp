@@ -5,10 +5,10 @@
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && proposal">
         <nav class="flex max-w-full" aria-label="Breadcrumb">
-          <ol class="bg-black border border-white flex px-6 rounded-md space-x-4">
+          <ol class="border border-gray-200 flex px-6 rounded-md space-x-4">
             <li class="flex">
               <div class="flex items-center">
-                <router-link to="/" class="hover:text-gray-300 text-white">
+                <router-link to="/" class="hover:text-gray-300 text-black">
                   <fa icon="home" />
                   <span class="sr-only">Home</span>
                 </router-link>
@@ -17,7 +17,7 @@
             <li class="flex">
               <div class="flex items-center">
                 <svg
-                  class="flex-shrink-0 h-full text-white w-6"
+                  class="flex-shrink-0 h-full text-gray-200 w-6"
                   viewBox="0 0 24 44"
                   preserveAspectRatio="none"
                   fill="currentColor"
@@ -28,7 +28,7 @@
                 </svg>
                 <router-link
                   to="/proposals"
-                  class="font-medium hover:text-gray-300 ml-4 text-white text-sm"
+                  class="font-medium hover:text-gray-300 ml-4 text-black text-sm"
                   >Proposals</router-link
                 >
               </div>
@@ -36,7 +36,7 @@
             <li class="flex">
               <div class="flex items-center">
                 <svg
-                  class="flex-shrink-0 h-full text-white w-6"
+                  class="flex-shrink-0 h-full text-gray-200 w-6"
                   viewBox="0 0 24 44"
                   preserveAspectRatio="none"
                   fill="currentColor"
@@ -52,7 +52,7 @@
             </li>
           </ol>
         </nav>
-        <h1 class="font-bold leading-tight mt-4 text-2xl text-white">
+        <h1 class="font-bold leading-tight mt-4 text-2xl text-black">
           {{ proposal.proposalContent.title }}
         </h1>
         <span class="font-medium text-gray-300 text-sm uppercase"
@@ -63,23 +63,29 @@
         >
         <!-- this doesn't seem to work with router hash mode -->
         <!-- <div class="mt-4 lg:hidden">
-          <router-link class="text-vita-accent hover:underline" to="#vote"
+          <router-link class="text-vita-sunrise hover:underline" to="#vote"
             >↓ Jump to vote</router-link
           >
         </div> -->
         <div class="gap-6 grid grid-cols-12 mt-4 lg:mt-6">
           <div class="col-span-12 lg:col-span-7 xl:col-span-8 space-y-8">
-            <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">
+            <div
+              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+            >
               <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">Proposal Summary</h2>
               <parsed-markdown :source="proposal.proposalContent.summary" />
             </div>
 
-            <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">
+            <div
+              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+            >
               <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">Proposal Details</h2>
               <parsed-markdown :source="proposal.proposalContent.details" />
             </div>
             <div v-if="project">
-              <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">
+              <div
+                class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+              >
                 <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">
                   Project Aims & Hypothesis
                 </h2>
@@ -87,7 +93,9 @@
               </div>
             </div>
 
-            <div class="bg-white overflow-hidden px-5 py-6 rounded-lg shadow-md sm:px-8">
+            <div
+              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+            >
               <h2 class="leading-snug text-gray-600 text-xl font-medium">Proposal Link</h2>
               <a
                 class="text-blue-500 hover:underline"
@@ -98,7 +106,7 @@
             </div>
           </div>
           <div id="vote" class="mt-2 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8">
-            <div class="bg-white rounded-lg shadow-md">
+            <div class="bg-white rounded-lg border border-gray-300">
               <div class="px-4 py-5 sm:px-6">
                 <h3 class="font-medium leading-6 text-gray-900 text-lg">Vote</h3>
               </div>
@@ -138,7 +146,7 @@
                 </transition>
               </div>
             </div>
-            <div v-if="project" class="bg-white overflow-hidden rounded-lg shadow-md">
+            <div v-if="project" class="bg-white overflow-hidden rounded-lg border border-gray-300">
               <div class="px-4 py-5 sm:px-6">
                 <h3 class="font-medium leading-6 text-gray-900 text-lg">Project Details</h3>
               </div>

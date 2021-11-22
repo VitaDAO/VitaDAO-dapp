@@ -31,7 +31,7 @@
         "
         @click="connectInjectedWallet"
       >
-        <img class="h-6 sm:h-10 w-auto" src="@/assets/metamask.svg" />
+        <img class="h-6 sm:h-10 w-auto" src="@/assets/images/metamask.svg" />
         <div class="mt-2 sm:mt-3">
           <span>Metamask</span>
         </div>
@@ -57,7 +57,7 @@
         "
         @click="connectWalletConnect"
       >
-        <img class="h-6 sm:h-10 w-auto" src="@/assets/walletConnect.svg" />
+        <img class="h-6 sm:h-10 w-auto" src="@/assets/images/walletConnect.svg" />
         <div class="mt-2 sm:mt-3">
           <span>WalletConnect</span>
         </div>

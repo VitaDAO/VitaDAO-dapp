@@ -2,13 +2,13 @@
   <div class="flex flex-col items-center">
     <div class="bg-gray-400 flex h-8 overflow-hidden rounded-lg w-full">
       <div
-        class="bg-green-400 duration-1000 ease-in-out h-full transition-all"
+        class="bg-success duration-1000 ease-in-out h-full transition-all"
         :style="{
           width: yesPercentage + '%',
         }"
       />
       <div
-        class="bg-red-400 duration-1000 ease-in-out h-full transition-all"
+        class="bg-danger duration-1000 ease-in-out h-full transition-all"
         :style="{
           width: noPercentage + '%',
         }"
