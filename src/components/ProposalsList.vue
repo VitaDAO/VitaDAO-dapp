@@ -131,23 +131,9 @@
       <votes-info :proposal="proposal" />
 
       <div>
-        <router-link
-          :to="'/proposal/' + proposal.id"
-          class="
-            inline-flex
-            items-center
-            border border-transparent
-            transition-all
-            duration-150
-            text-white
-            bg-vita-purple
-            px-12
-            py-1.5
-            text-lg
-            rounded-full
-          "
-          >Review & Vote</router-link
-        >
+        <router-link v-slot="{ navigate, href }" :to="'/proposal/' + proposal.id">
+          <base-button type="secondary" :href="href" @click="navigate">Review & Vote</base-button>
+        </router-link>
       </div>
     </li>
   </ul>
@@ -157,9 +143,10 @@
 import { defineComponent } from 'vue'
 import VotesInfo from '@/components/VotesInfo'
 import ProposalStatus from '@/components/ProposalStatus'
+import BaseButton from '@/components/BaseButton.vue'
 
 export default defineComponent({
-  components: { VotesInfo, ProposalStatus },
+  components: { VotesInfo, ProposalStatus, BaseButton },
   props: {
     proposals: {
       type: Array,

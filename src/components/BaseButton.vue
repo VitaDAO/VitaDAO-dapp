@@ -61,8 +61,6 @@ export default {
 
   setup(props, { emit }) {
     function handleClick(evt) {
-      evt.preventDefault()
-
       if (!props.disabled) {
         emit('click', evt)
       }
