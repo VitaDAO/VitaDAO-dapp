@@ -1,6 +1,7 @@
 <template>
   <div class="w-full">
-    <h2 class="font-bold mb-2 text-black text-xl">All proposals</h2>
+    <hr class="border-black mb-8" />
+    <h2 class="font-medium mb-4 text-black text-3xl">All proposals</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading proposals…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
