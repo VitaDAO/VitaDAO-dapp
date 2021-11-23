@@ -17,7 +17,7 @@
         </div>
         <div>
           <ul>
-            <li><a class="underline-animated" href="#">Aply for funding</a></li>
+            <li><a class="underline-animated" href="#">Apply for funding</a></li>
             <li><a class="underline-animated" href="#">Join the community</a></li>
           </ul>
         </div>
