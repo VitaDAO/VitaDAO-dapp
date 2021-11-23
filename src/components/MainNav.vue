@@ -14,7 +14,7 @@
             <li v-for="item in navItems" :key="item.name">
               <router-link
                 :to="item.to"
-                class="nav-link"
+                class="underline-animated"
                 :class="['group flex items-center text-lg font-medium rounded-md']"
               >
                 {{ item.name }}
@@ -86,37 +86,6 @@ export default defineComponent({
 
 .not-top {
   @apply lg:shadow-lg;
-}
-
-.nav-link {
-  cursor: pointer;
-  position: relative;
-}
-
-.nav-link::before,
-.nav-link::after {
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  background: currentColor;
-  top: 100%;
-  left: 0;
-  pointer-events: none;
-}
-
-.nav-link::before {
-  content: '';
-}
-
-.nav-link::before {
-  transform-origin: 100% 50%;
-  transform: scale3d(0, 1, 1);
-  transition: transform 0.3s;
-}
-
-.nav-link:hover::before {
-  transform-origin: 0% 50%;
-  transform: scale3d(1, 1, 1);
 }
 
 .router-link-active {

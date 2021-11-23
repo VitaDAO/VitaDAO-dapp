@@ -32,6 +32,11 @@ module.exports = {
         18: '18rem',
         '8xl': '90rem',
       },
+      backgroundSize: {
+        25: '25%',
+        33: '33%',
+        50: '50%',
+      },
     },
   },
   variants: {
