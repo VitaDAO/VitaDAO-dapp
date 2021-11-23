@@ -2,7 +2,7 @@
   <div class="flex min-h-screen">
     <mobile-main-nav v-model:open="sidebarOpen" :nav-items="navigationItems" />
 
-    <div class="flex flex-1 flex-col overflow-hidden w-0">
+    <div class="flex flex-1 flex-col w-0">
       <div
         v-if="isWrongNetwork"
         class="
