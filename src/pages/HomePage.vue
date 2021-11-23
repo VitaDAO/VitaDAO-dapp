@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <hr class="border-black mb-8" />
-    <h1 class="font-medium mb-4 text-black text-3xl">Active proposals</h1>
+    <h2 class="font-medium mb-4 text-black text-3xl">Active proposals</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading active proposals…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
@@ -32,7 +32,7 @@
         <div
           v-for="vote in result.votes"
           :key="vote.id"
-          class="text-sm text-white rounded-lg px-4 sm:px-6 py-3 sm:py-4 shadow-sm bg-gray-900"
+          class="text-sm text-black rounded-2xl px-4 sm:px-6 py-3 sm:py-4 border border-gray-300"
         >
           <a
             target="_blank"

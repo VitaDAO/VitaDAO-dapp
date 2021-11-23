@@ -8,7 +8,7 @@
         col-span-1
         divide-gray-200 divide-y
         flex flex-col
-        rounded-lg
+        rounded-2xl
         border border-gray-300
         text-center
       "
@@ -144,7 +144,7 @@
                 justify-center
                 py-4
                 relative
-                rounded-bl-lg rounded-br-lg
+                rounded-bl-2xl rounded-br-2xl
                 text-black text-sm
                 w-0
               "
