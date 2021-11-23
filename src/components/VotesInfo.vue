@@ -1,16 +1,17 @@
 <template>
   <div class="flex flex-col items-center">
-    <div class="bg-gray-400 flex h-8 overflow-hidden rounded-lg w-full">
+    <div class="bg-gray-400 flex h-1.5 overflow-hidden w-full">
       <div
         class="bg-success duration-1000 ease-in-out h-full transition-all"
         :style="{
-          width: yesPercentage + '%',
+          width: yesPercentage - 0.5 + '%',
         }"
       />
+      <div class="bg-white" style="width: 1%" />
       <div
         class="bg-danger duration-1000 ease-in-out h-full transition-all"
         :style="{
-          width: noPercentage + '%',
+          width: noPercentage - 0.5 + '%',
         }"
       />
     </div>
