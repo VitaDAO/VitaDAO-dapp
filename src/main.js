@@ -22,7 +22,7 @@ import Toast from 'vue-toastification'
 import localStorageUtils from '@/utils/localstorage.js'
 import { injectedWalletAvailable } from '@/utils'
 import 'vue-toastification/dist/index.css'
-import './index.scss'
+import './index.css'
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
