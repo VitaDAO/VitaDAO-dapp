@@ -135,7 +135,6 @@
               :to="'/proposal/' + proposal.id"
               class="
                 bg-vita-sunrise
-                border border-vita-sunrise
                 flex-1
                 font-medium
                 hover:text-white hover:bg-gray-900
