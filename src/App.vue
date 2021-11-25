@@ -21,7 +21,9 @@
           z-20
         "
       >
-        You're connected to the wrong network. Please connect to {{ correctNetwork.name }}
+        You're connected to the wrong network ({{ capitalize(currentNetwork.name) }}). Please
+        connect to
+        {{ capitalize(correctNetwork.name) }}
       </div>
 
       <main-nav :nav-items="navigationItems" />
@@ -49,6 +51,7 @@
 import { defineComponent, computed, watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { capitalize } from '@/utils'
 import MobileMainNav from '@/components/MobileMainNav'
 import FloatingMobileNav from '@/components/FloatingMobileNav'
 import BaseModal from '@/components/BaseModal'
@@ -92,8 +95,10 @@ export default defineComponent({
     return {
       isWrongNetwork: computed(() => store.getters['wallet/isWrongNetwork']),
       correctNetwork: computed(() => store.getters['wallet/correctNetwork']),
+      currentNetwork: computed(() => store.getters['wallet/currentNetwork']),
       navigationItems,
       sidebarOpen,
+      capitalize,
     }
   },
 })
