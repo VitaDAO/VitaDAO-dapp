@@ -20,7 +20,7 @@ export default defineComponent({
   setup() {
     const { result, loading, error } = useQuery(
       gql`
-        query Proposal {
+        query SnapshotProposal {
           proposal(id: "0xabe5c679efde41029e7c879f048c265c261aadb4459c49b1488e94d4033db0de") {
             id
             title
