@@ -58,7 +58,7 @@
 
 @layer utilities {}
 
-// Vue transitions
+/* Vue transitions */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.15s ease;
