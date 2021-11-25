@@ -79,7 +79,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="postcss" scoped>
+<style scoped>
 .main-nav {
   transition: box-shadow 0.15s ease-in-out;
 }

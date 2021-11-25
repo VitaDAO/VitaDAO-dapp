@@ -118,7 +118,7 @@ export default {
 }
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
 .ens-shortened {
   max-width: 9rem;
 }

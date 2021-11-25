@@ -73,7 +73,7 @@ export default {
 }
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
 .btn {
   @apply inline-flex items-center border border-transparent transition-all duration-150;
 }
