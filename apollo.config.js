@@ -6,4 +6,11 @@ module.exports = {
     },
     includes: ['src/**/*.vue', 'src/**/*.js'],
   },
+  client: {
+    service: {
+      name: 'snapshot-app',
+      url: 'https://hub.snapshot.org/graphql',
+    },
+    includes: ['src/**/*.vue', 'src/**/*.js'],
+  },
 }

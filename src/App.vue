@@ -79,6 +79,7 @@ export default defineComponent({
         to: '/proposals',
         icon: 'vote-yea',
       },
+      { name: 'Snapshot', to: '/snapshot', icon: 'vote-yea' },
       { name: 'Wallet', to: '/wallet', icon: 'wallet' },
     ]
 

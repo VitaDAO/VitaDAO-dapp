@@ -2,8 +2,8 @@ import { createApp, provide, h } from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
-import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import { ApolloClients } from '@vue/apollo-composable'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faHome,
@@ -30,6 +30,11 @@ const httpLink = createHttpLink({
   uri: process.env.VUE_APP_SUBGRAPH_URL,
 })
 
+const snapshotHttpLink = createHttpLink({
+  // You should use an absolute URL here
+  uri: process.env.VUE_APP_SNAPSHOT_SUBGRAPH_URL,
+})
+
 // Cache implementation
 const cache = new InMemoryCache()
 
@@ -37,6 +42,11 @@ const cache = new InMemoryCache()
 const apolloClient = new ApolloClient({
   link: httpLink,
   cache,
+})
+
+const snapshotClient = new ApolloClient({
+  link: snapshotHttpLink,
+  cache: new InMemoryCache(),
 })
 
 library.add(
@@ -71,7 +81,10 @@ if (isConnected) {
 
 createApp({
   setup() {
-    provide(DefaultApolloClient, apolloClient)
+    provide(ApolloClients, {
+      default: apolloClient,
+      snapshot: snapshotClient,
+    })
   },
 
   render: () => h(App),
