@@ -48,9 +48,9 @@
     "@storybook/addon-actions": "^6.3.12",
     "@storybook/addon-essentials": "^6.3.12",
     "@storybook/addon-links": "^6.3.12",
+    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/builder-webpack5": "^6.3.12",
     "@storybook/manager-webpack5": "^6.3.12",
-    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/vue3": "^6.3.12",
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/typography": "^0.4.1",
@@ -78,7 +78,8 @@
     "stream-http": "^3.2.0",
     "tailwindcss": "^2.2.19",
     "util": "^0.12.4",
-    "vue-loader": "^16.8.3"
+    "vue-loader": "^16.8.3",
+    "postcss-import": "^14.0.2"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
