@@ -94,6 +94,10 @@ export default {
   @apply text-white bg-vita-purple focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
 }
 
+.btn-secondary:hover {
+  background-color: color-mod(theme('colors.vita-purple') lightness(-3%));
+}
+
 .btn-secondary.btn-disabled {
   @apply bg-gray-300 focus:ring-0;
 }
