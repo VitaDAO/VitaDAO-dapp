@@ -133,11 +133,16 @@ export default {
 
 /* Teal Button */
 .btn-teal {
-  @apply text-black bg-vita-teal focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
+  @apply text-black bg-vita-teal focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-black;
+}
+
+.btn-teal:hover {
+  background-color: color-mod(theme('colors.vita-teal') lightness(+15%));
 }
 
 .btn-teal.btn-disabled {
-  @apply bg-gray-300 focus:ring-0;
+  @apply focus:ring-0 text-gray-500;
+  background-color: color-mod(theme('colors.vita-teal') lightness(+30%));
 }
 
 /* Danger Button */
