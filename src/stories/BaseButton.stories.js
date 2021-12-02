@@ -5,7 +5,7 @@ export default {
   title: 'Components/BaseButton',
   argTypes: {
     type: {
-      options: ['default', 'primary', 'secondary'],
+      options: ['default', 'primary', 'secondary', 'outline', 'teal', 'danger', 'success'],
       control: { type: 'select' },
     },
     size: {

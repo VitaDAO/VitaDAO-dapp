@@ -120,14 +120,18 @@ export default {
   @apply border-gray-300 text-gray-400 focus:ring-0;
 }
 
+/* Outline Button */
 .btn-outline {
-  @apply text-vita-purple border border-vita-purple focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
+  @apply text-vita-purple border border-vita-purple hover:bg-vita-purple bg-white hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-vita-purple;
 }
 
 .btn-outline.btn-disabled {
-  @apply bg-gray-300 focus:ring-0;
+  @apply focus:ring-0 hover:bg-white;
+  color: color-mod(theme('colors.vita-purple') lightness(+10%));
+  border-color: color-mod(theme('colors.vita-purple') lightness(+20%));
 }
 
+/* Teal Button */
 .btn-teal {
   @apply text-black bg-vita-teal focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
 }
@@ -136,6 +140,7 @@ export default {
   @apply bg-gray-300 focus:ring-0;
 }
 
+/* Danger Button */
 .btn-danger {
   @apply text-white bg-danger hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500;
 }
@@ -144,6 +149,7 @@ export default {
   @apply bg-red-100 text-red-300 focus:ring-0 border-transparent;
 }
 
+/* Success Button */
 .btn-success {
   @apply text-white bg-success hover:bg-success focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500;
 }
