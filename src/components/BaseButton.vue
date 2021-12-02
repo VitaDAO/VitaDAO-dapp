@@ -110,12 +110,13 @@ export default {
   @apply bg-gray-300 focus:ring-0;
 }
 
+/* Default Button */
 .btn-default {
-  @apply border border-gray-400 text-black bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600;
+  @apply border border-gray-400 text-black bg-white hover:bg-gray-50 hover:border-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400;
 }
 
 .btn-default.btn-disabled {
-  @apply text-gray-300 focus:ring-0;
+  @apply border-gray-300 text-gray-400 focus:ring-0;
 }
 
 .btn-outline {
