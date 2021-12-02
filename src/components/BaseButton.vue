@@ -99,15 +99,16 @@ export default {
 
 /* Secondary Button */
 .btn-secondary {
-  @apply text-white bg-vita-purple focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
+  @apply text-white bg-vita-purple focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-black;
 }
 
 .btn-secondary:hover {
-  background-color: color-mod(theme('colors.vita-purple') lightness(-3%));
+  background-color: color-mod(theme('colors.vita-purple') lightness(-5%));
 }
 
 .btn-secondary.btn-disabled {
-  @apply bg-gray-300 focus:ring-0;
+  @apply focus:ring-0;
+  background-color: color-mod(theme('colors.vita-purple') lightness(+20%));
 }
 
 /* Default Button */
@@ -124,14 +125,6 @@ export default {
 }
 
 .btn-outline.btn-disabled {
-  @apply bg-gray-300 focus:ring-0;
-}
-
-.btn-secondary {
-  @apply text-white bg-vita-purple focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
-}
-
-.btn-secondary.btn-disabled {
   @apply bg-gray-300 focus:ring-0;
 }
 
