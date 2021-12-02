@@ -181,7 +181,7 @@ export default {
 }
 
 .btn-md {
-  @apply px-6 py-1.5 text-lg rounded-full;
+  @apply px-6 py-2 text-lg font-medium rounded-full;
 }
 
 .btn-lg {
