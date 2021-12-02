@@ -147,11 +147,15 @@ export default {
 
 /* Danger Button */
 .btn-danger {
-  @apply text-white bg-danger hover:bg-red-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500;
+  @apply text-white bg-danger focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-danger;
+}
+
+.btn-danger:hover {
+  background-color: color-mod(theme('colors.danger') lightness(+8%));
 }
 
 .btn-danger.btn-disabled {
-  @apply bg-red-100 text-red-300 focus:ring-0 border-transparent;
+  @apply bg-red-50 text-red-300 focus:ring-0;
 }
 
 /* Success Button */
