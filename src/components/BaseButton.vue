@@ -75,21 +75,29 @@ export default {
 
 <style scoped>
 .btn {
-  @apply inline-flex items-center border border-transparent transition-all duration-150;
+  @apply inline-flex items-center border border-transparent transition-all;
+  transition: 150ms cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .btn-disabled {
   @apply cursor-not-allowed;
 }
 
+/* Primary Button */
 .btn-primary {
-  @apply text-black bg-vita-sunrise focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
+  @apply text-black bg-vita-sunrise focus:outline-none focus:ring-2 focus:ring-black;
+}
+
+.btn-primary:hover {
+  background-color: color-mod(theme('colors.vita-sunrise') lightness(+10%));
 }
 
 .btn-primary.btn-disabled {
-  @apply bg-gray-200 focus:ring-0;
+  @apply focus:ring-0 text-gray-500;
+  background-color: color-mod(theme('colors.vita-sunrise') lightness(+30%));
 }
 
+/* Secondary Button */
 .btn-secondary {
   @apply text-white bg-vita-purple focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
 }
