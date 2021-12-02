@@ -11,10 +11,10 @@
         :block-number="blockNumber"
       />
       <div v-else>
-        <div class="border-2 border-dashed border-gray-300 p-6 rounded-lg text-center w-full">
-          <fa icon="folder-open" class="text-gray-300" size="2x" />
-          <span class="block font-medium mt-2 text-black text-sm">
-            Currently no active proposals.
+        <div class="border-2 border-dashed border-gray-300 p-6 rounded-xl text-center w-full">
+          <fa icon="folder-open" class="text-vita-purple" size="2x" />
+          <span class="block font-medium mt-2 text-black">
+            Currently there are no active proposals.
             <router-link class="underline" to="/proposals">See all proposals</router-link>
           </span>
         </div>
