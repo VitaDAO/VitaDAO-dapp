@@ -1,6 +1,7 @@
 <template>
   <div class="max-w-xl w-full">
-    <h2 class="font-bold mb-2 text-white text-xl">Your Wallet</h2>
+    <hr class="border-black mb-8" />
+    <h1 class="font-medium mb-4 text-black text-3xl">Your Wallet</h1>
     <div v-if="walletIsConnected" class="flex flex-col space-y-2">
       <div
         class="
