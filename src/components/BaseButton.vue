@@ -158,12 +158,13 @@ export default {
   @apply bg-red-100 text-red-300 focus:ring-0 border-transparent;
 }
 
+/* Button Sizes */
 .btn-xs {
-  @apply px-2.5 py-1.5 text-xs font-medium rounded shadow-sm;
+  @apply px-3 py-1 text-sm rounded-full;
 }
 
 .btn-sm {
-  @apply px-3 py-2 text-sm leading-4 font-medium rounded-md shadow-sm;
+  @apply px-4 py-1 text-base rounded-full;
 }
 
 .btn-md {
@@ -175,9 +176,10 @@ export default {
 }
 
 .btn-xl {
-  @apply px-6 py-3 text-base font-medium rounded-md shadow-sm;
+  @apply px-7 py-4 text-xl font-semibold rounded-full;
 }
 
+/* Utility */
 .btn-fullwidth {
   @apply w-full justify-center;
 }
