@@ -160,11 +160,15 @@ export default {
 
 /* Success Button */
 .btn-success {
-  @apply text-white bg-success hover:bg-success focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500;
+  @apply text-white bg-success focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success;
+}
+
+.btn-success:hover {
+  background-color: color-mod(theme('colors.success') lightness(+5%));
 }
 
 .btn-success.btn-disabled {
-  @apply bg-red-100 text-red-300 focus:ring-0 border-transparent;
+  @apply bg-green-100 text-green-300 focus:ring-0;
 }
 
 /* Button Sizes */
