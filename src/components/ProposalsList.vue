@@ -1,5 +1,5 @@
 <template>
-  <ul role="list" class="gap-6 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
+  <ul role="list" class="gap-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
     <li
       v-for="proposal in proposals"
       :key="proposal.id"
