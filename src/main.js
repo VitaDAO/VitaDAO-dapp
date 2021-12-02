@@ -15,6 +15,9 @@ import {
   faClock,
   faFolderOpen,
   faVoteYea,
+  faThumbsUp,
+  faThumbsDown,
+  faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons'
 import { faDiscord, faDiscourse } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -51,6 +54,9 @@ library.add(
   faDiscord,
   faDiscourse,
   faVoteYea,
+  faThumbsUp,
+  faThumbsDown,
+  faExclamationTriangle,
 )
 
 // Metamask or similar available?

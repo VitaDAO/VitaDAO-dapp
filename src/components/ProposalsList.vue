@@ -306,24 +306,54 @@
       </div>
 
       <div>
-        <span class="uppercase bg-gray-200 inline px-4 py-1 rounded-full font-medium">{{
-          proposal.proposalContent.type
-        }}</span>
+        <span
+          class="
+            proposal-type-label
+            uppercase
+            inline
+            px-8
+            py-1
+            rounded-full
+            font-medium
+            text-vita-purple
+          "
+          >{{ proposal.proposalContent.type }}</span
+        >
       </div>
 
-      <h2 class="text-2xl font-semibold leading-tight">{{ proposal.proposalContent.title }}</h2>
+      <h2
+        class="
+          text-2xl
+          font-semibold
+          leading-tight
+          hover:text-vita-purple
+          transition-colors
+          duration-150
+        "
+      >
+        <router-link :to="'/proposal/' + proposal.id">{{
+          proposal.proposalContent.title
+        }}</router-link>
+      </h2>
 
       <div>
         <proposal-status :proposal="proposal" :block-number="blockNumber" />
       </div>
 
-      <div class="flex-grow" />
-
       <votes-info :proposal="proposal" />
 
-      <div>
+      <div class="flex-grow" />
+
+      <div class="pt-2">
         <router-link v-slot="{ navigate, href }" :to="'/proposal/' + proposal.id">
-          <base-button type="secondary" :href="href" @click="navigate">Review & Vote</base-button>
+          <base-button
+            v-if="proposal.status == 'VOTING'"
+            type="secondary"
+            :href="href"
+            @click="navigate"
+            >Review & Vote</base-button
+          >
+          <base-button v-else type="outline" :href="href" @click="navigate">Review</base-button>
         </router-link>
       </div>
     </li>
@@ -353,3 +383,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.proposal-type-label {
+  background: color-mod(theme('colors.vita-purple') lightness(+33%));
+}
+</style>
