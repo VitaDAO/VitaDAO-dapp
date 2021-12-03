@@ -2,7 +2,7 @@
   <div
     class="border-l-4 p-4 font-medium"
     :class="{
-      'bg-yellow-50 border-yellow-400': type === 'warning',
+      'bg-orange-50 border-orange-300': type === 'warning',
       'bg-red-50 border-danger': type === 'danger',
     }"
   >
@@ -11,7 +11,7 @@
         <svg
           class="h-5 w-5"
           :class="{
-            'text-yellow-400': type === 'warning',
+            'text-orange-300': type === 'warning',
             'text-danger': type === 'danger',
           }"
           xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@
         <div
           class="text-sm"
           :class="{
-            'text-yellow-700': type === 'warning',
+            'text-orange-600': type === 'warning',
             'text-danger': type === 'danger',
           }"
         >
