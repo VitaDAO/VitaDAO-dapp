@@ -4,71 +4,20 @@
       <loading-indicator v-if="loading">Loading proposal…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && proposal">
-        <nav class="flex max-w-full" aria-label="Breadcrumb">
-          <ol class="border border-gray-200 flex px-6 rounded-md space-x-4">
-            <li class="flex">
-              <div class="flex items-center">
-                <router-link to="/" class="hover:text-gray-300 text-black">
-                  <fa icon="home" />
-                  <span class="sr-only">Home</span>
-                </router-link>
-              </div>
-            </li>
-            <li class="flex">
-              <div class="flex items-center">
-                <svg
-                  class="flex-shrink-0 h-full text-gray-200 w-6"
-                  viewBox="0 0 24 44"
-                  preserveAspectRatio="none"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
-                </svg>
-                <router-link
-                  to="/proposals"
-                  class="font-medium hover:text-gray-300 ml-4 text-black text-sm"
-                  >Proposals</router-link
-                >
-              </div>
-            </li>
-            <li class="flex">
-              <div class="flex items-center">
-                <svg
-                  class="flex-shrink-0 h-full text-gray-200 w-6"
-                  viewBox="0 0 24 44"
-                  preserveAspectRatio="none"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
-                </svg>
-                <div class="font-medium ml-4 text-gray-400 text-sm">
-                  Proposal #{{ proposal.id }}
-                </div>
-              </div>
-            </li>
-          </ol>
-        </nav>
-        <h1 class="font-bold leading-tight mt-4 text-2xl text-black">
-          {{ proposal.proposalContent.title }}
-        </h1>
-        <span class="font-medium text-gray-300 text-sm uppercase"
-          >{{ proposal.proposalContent.type }} proposal</span
-        >
-        <span class="font-medium text-gray-400 text-sm">
-          (created {{ dayjs.unix(proposal.createdAt).format('MM-DD-YYYY') }})</span
-        >
-        <!-- this doesn't seem to work with router hash mode -->
-        <!-- <div class="mt-4 lg:hidden">
-          <router-link class="text-vita-sunrise hover:underline" to="#vote"
-            >↓ Jump to vote</router-link
-          >
-        </div> -->
-        <div class="gap-6 grid grid-cols-12 mt-4 lg:mt-6">
+        <div class="gap-8 grid grid-cols-12">
           <div class="col-span-12 lg:col-span-7 xl:col-span-8 space-y-8">
+            <hr class="border-black mb-8" />
+
+            <h1 class="font-bold leading-tight mt-4 text-2xl text-black">
+              {{ proposal.proposalContent.title }}
+            </h1>
+            <span class="font-medium text-gray-300 text-sm uppercase"
+              >{{ proposal.proposalContent.type }} proposal</span
+            >
+            <span class="font-medium text-gray-400 text-sm">
+              (created {{ dayjs.unix(proposal.createdAt).format('MM-DD-YYYY') }})</span
+            >
+
             <div
               class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
             >
@@ -106,17 +55,15 @@
             </div>
           </div>
           <div id="vote" class="mt-2 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8">
-            <div class="bg-white rounded-lg border border-gray-300">
-              <div class="px-4 py-5 sm:px-6">
-                <h3 class="font-medium leading-6 text-gray-900 text-lg">Vote</h3>
-              </div>
-              <div class="border-gray-200 border-t px-4 py-5 space-y-4">
-                <div class="flex">
+            <div class="bg-white rounded-xl border border-gray-300 px-6 py-8">
+              <div>
+                <h3 class="font-semibold leading-6 text-black text-center text-xl">
+                  Vote on this proposal
+                </h3>
+                <div class="flex justify-center mt-8">
                   <proposal-status :proposal="proposal" :block-number="blockNumber" />
                 </div>
-                <votes-info :proposal="proposal" :votes-data="votesData" />
-              </div>
-              <div class="border-gray-200 border-t px-4 py-5 space-y-4">
+                <votes-info class="mt-3 mb-8" :proposal="proposal" :votes-data="votesData" />
                 <transition name="fade" mode="out-in">
                   <div v-if="!walletIsConnected" key="connectWalletFirst">
                     <base-button full-width type="primary" @click="openConnectWalletModal"
@@ -129,24 +76,28 @@
                     >
                   </div>
                   <div v-else-if="alreadyVoted || lastVoteWasThis" key="votedAlready">
-                    <warning-box>You have already voted on this proposal. </warning-box>
+                    <notice-box>You have already voted on this proposal. </notice-box>
                   </div>
                   <div v-else-if="stakedVitaBalance > 0" key="vote" class="flex space-x-3">
-                    <base-button full-width @click="voteYes">Vote Yes</base-button>
-                    <base-button full-width @click="voteNo">Vote No</base-button>
+                    <base-button icon="thumbs-up" type="success" full-width @click="voteYes"
+                      >Vote Yes</base-button
+                    >
+                    <base-button icon="thumbs-down" type="danger" full-width @click="voteNo"
+                      >Vote No</base-button
+                    >
                   </div>
                   <div v-else key="stakeFirst">
-                    <warning-box
+                    <notice-box
                       >You have to stake some VITA before being able to vote. Go to the
                       <router-link class="underline" to="/wallet"
                         >Staking Page</router-link
-                      ></warning-box
+                      ></notice-box
                     >
                   </div>
                 </transition>
               </div>
             </div>
-            <div v-if="project" class="bg-white overflow-hidden rounded-lg border border-gray-300">
+            <div v-if="project" class="bg-white overflow-hidden rounded-xl border border-gray-300">
               <div class="px-4 py-5 sm:px-6">
                 <h3 class="font-medium leading-6 text-gray-900 text-lg">Project Details</h3>
               </div>
@@ -156,7 +107,7 @@
                     v-if="project.title"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Title</dt>
+                    <dt class="font-medium text-vita-purple text-sm">Title</dt>
                     <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
                       {{ project.title }}
                     </dd>
@@ -165,7 +116,7 @@
                     v-if="project.summary"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Summary</dt>
+                    <dt class="font-medium text-vita-purple text-sm">Summary</dt>
                     <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
                       {{ project.summary }}
                     </dd>
@@ -174,7 +125,7 @@
                     v-if="project.institution"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Institution</dt>
+                    <dt class="font-medium text-vita-purple text-sm">Institution</dt>
                     <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
                       {{ project.institution }}
                     </dd>
@@ -183,7 +134,7 @@
                     v-if="project.researchLead"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Research Lead</dt>
+                    <dt class="font-medium text-vita-purple text-sm">Research Lead</dt>
                     <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
                       {{ project.researchLead }}
                     </dd>
@@ -192,7 +143,7 @@
                     v-if="project.fundingStage"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Funding Stage</dt>
+                    <dt class="font-medium text-vita-purple text-sm">Funding Stage</dt>
                     <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
                       {{ project.fundingStage }}
                     </dd>
@@ -201,7 +152,7 @@
                     v-if="project.clinicalStage"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Clinical Stage</dt>
+                    <dt class="font-medium text-vita-purple text-sm">Clinical Stage</dt>
                     <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
                       {{ project.clinicalStage }}
                     </dd>
@@ -210,7 +161,7 @@
                     v-if="project.ipStatus"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">IP Status</dt>
+                    <dt class="font-medium text-vita-purple text-sm">IP Status</dt>
                     <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
                       {{ project.ipStatus }}
                     </dd>
@@ -219,7 +170,7 @@
                     v-if="project.budget"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Budget</dt>
+                    <dt class="font-medium text-vita-purple text-sm">Budget</dt>
                     <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
                       {{
                         new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(
@@ -250,7 +201,7 @@ import ParsedMarkdown from '@/components/ParsedMarkdown'
 import VotesInfo from '@/components/VotesInfo'
 import ProposalStatus from '@/components/ProposalStatus'
 import BaseButton from '@/components/BaseButton'
-import WarningBox from '@/components/WarningBox'
+import NoticeBox from '@/components/NoticeBox'
 import LoadingIndicator from '@/components/LoadingIndicator'
 
 export default defineComponent({
@@ -259,7 +210,7 @@ export default defineComponent({
     VotesInfo,
     ProposalStatus,
     BaseButton,
-    WarningBox,
+    NoticeBox,
     LoadingIndicator,
   },
   setup() {
