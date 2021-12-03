@@ -30,7 +30,7 @@
     </span>
     <div
       v-if="totalVotes < parseFloat(proposal.minVotesNeeded)"
-      class="mt-2 bg-orange-100 font-medium px-4 py-1 rounded-full text-orange-400"
+      class="mt-2 bg-orange-50 font-medium px-4 py-1 rounded-full text-orange-400"
     >
       <fa icon="exclamation-triangle" class="mr-0.5 text-orange-300" />
       Quorum not met ({{ quorumPercentage.toFixed(2) }}%)
