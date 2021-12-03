@@ -344,7 +344,7 @@
 
       <div class="flex-grow" />
 
-      <div class="pt-2">
+      <div class="pt-1">
         <router-link v-slot="{ navigate, href }" :to="'/proposal/' + proposal.id">
           <base-button
             v-if="proposal.status == 'VOTING'"
