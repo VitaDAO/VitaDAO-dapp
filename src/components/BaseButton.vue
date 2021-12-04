@@ -1,6 +1,6 @@
 <template>
   <button
-            type="button"
+    type="button"
     class="btn"
     :class="{
       'btn-primary': type === 'primary',
@@ -21,7 +21,7 @@
     @click="handleClick"
   >
     <transition name="fade" mode="out-in">
-                <fa v-if="loading" icon="spinner" spin class="mr-2" />
+      <fa v-if="loading" icon="spinner" spin class="mr-2" />
       <fa v-else-if="icon" :icon="icon" class="mr-2" />
     </transition>
     <slot />
