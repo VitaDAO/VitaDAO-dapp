@@ -10,9 +10,9 @@
     "serve": "serve -s dist",
     "test:e2e": "vue-cli-service test:e2e --mode rinkeby",
     "lint": "vue-cli-service lint",
-    "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/client": "^3.4.4",
@@ -69,7 +69,7 @@
     "eslint-plugin-vue": "^8.0.3",
     "https-browserify": "^1.0.0",
     "husky": ">=6",
-    "lint-staged": "^10.5.4",
+    "lint-staged": ">=10",
     "os-browserify": "^0.3.0",
     "postcss": "^8.4.4",
     "postcss-color-mod-function": "^3.0.3",
@@ -81,9 +81,6 @@
     "tailwindcss": "^2.2.19",
     "util": "^0.12.4",
     "vue-loader": "^16.8.3"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,vue}": [
