@@ -25,7 +25,7 @@ import 'vue-toastification/dist/index.css'
 import './index.scss'
 
 // HTTP connection to the API
-const httpLink = createHttpLink({
+const vitaSubgraphHttpLink = createHttpLink({
   // You should use an absolute URL here
   uri: process.env.VUE_APP_SUBGRAPH_URL,
 })
@@ -35,13 +35,10 @@ const snapshotHttpLink = createHttpLink({
   uri: process.env.VUE_APP_SNAPSHOT_SUBGRAPH_URL,
 })
 
-// Cache implementation
-const cache = new InMemoryCache()
-
 // Create the apollo client
-const apolloClient = new ApolloClient({
-  link: httpLink,
-  cache,
+const vitaSubgraphClient = new ApolloClient({
+  link: vitaSubgraphHttpLink,
+  cache: new InMemoryCache(),
 })
 
 const snapshotClient = new ApolloClient({
@@ -82,7 +79,7 @@ if (isConnected) {
 createApp({
   setup() {
     provide(ApolloClients, {
-      default: apolloClient,
+      default: vitaSubgraphClient,
       snapshot: snapshotClient,
     })
   },

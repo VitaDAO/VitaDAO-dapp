@@ -4,14 +4,14 @@
     <div id="queryWrapper">
       <loading-indicator v-if="loading">Loading proposals…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
-      <div v-else-if="result">Result: {{ result.data }}</div>
+      <div v-else-if="result">Result: {{ result.proposal }}</div>
     </div>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { useQuery, useResult } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 import LoadingIndicator from '@/components/LoadingIndicator'
 
@@ -45,18 +45,14 @@ export default defineComponent({
           }
         }
       `,
-      {
-        client: 'snapshot',
-      },
+      null,
+      { clientId: 'snapshot' },
     )
-
-    const blockNumber = useResult(result, null, (data) => data._meta.block.number)
 
     return {
       loading,
       result,
       error,
-      blockNumber,
     }
   },
 })
