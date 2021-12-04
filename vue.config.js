@@ -25,4 +25,16 @@ module.exports = defineConfig({
       },
     },
   },
+  chainWebpack: (config) => {
+    config.module
+      .rule('vue')
+      .test(/\.vue$/)
+      .use('vue-loader')
+      .tap((options) => {
+        options.compilerOptions = {
+          isCustomElement: (tag) => tag === 'lottie-player',
+        }
+        return options
+      })
+  },
 })
