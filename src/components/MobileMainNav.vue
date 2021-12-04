@@ -34,16 +34,7 @@
             <div class="-mr-12 absolute bottom-0 pb-5 right-0">
               <button
                 type="button"
-                class="
-                  flex
-                  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white
-                  h-10
-                  items-center
-                  justify-center
-                  ml-1
-                  rounded-full
-                  w-10
-                "
+                class="flex focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white h-10 items-center justify-center ml-1 rounded-full w-10"
                 @click="close"
               >
                 <span class="sr-only">Close sidebar</span>

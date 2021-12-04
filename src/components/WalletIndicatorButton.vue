@@ -1,23 +1,7 @@
 <template>
   <div>
     <button
-      class="
-        bg-gray-800
-        border border-transparent
-        duration-150
-        flex
-        focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2
-        font-bold
-        hover:bg-gray-700
-        items-center
-        pr-4
-        px-3
-        py-1.5
-        rounded-xl
-        shadow-lg
-        text-sm text-white
-        transition-all
-      "
+      class="bg-gray-800 border border-transparent duration-150 flex focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 font-bold hover:bg-gray-700 items-center pr-4 px-3 py-1.5 rounded-xl shadow-lg text-sm text-white transition-all"
       @click="openConnectWalletModal"
     >
       <span
@@ -28,18 +12,7 @@
       <template v-else>
         <div
           v-if="isTransacting"
-          class="
-            bg-gray-900
-            flex
-            h-8
-            items-center
-            justify-center
-            mr-3
-            overflow-hidden
-            rounded-full
-            text-white
-            w-8
-          "
+          class="bg-gray-900 flex h-8 items-center justify-center mr-3 overflow-hidden rounded-full text-white w-8"
         >
           <fa icon="spinner" spin />
         </div>
@@ -51,18 +24,7 @@
         </div>
         <div
           v-else
-          class="
-            bg-gray-900
-            flex
-            h-8
-            items-center
-            justify-center
-            mr-3
-            overflow-hidden
-            rounded-full
-            text-white
-            w-8
-          "
+          class="bg-gray-900 flex h-8 items-center justify-center mr-3 overflow-hidden rounded-full text-white w-8"
         >
           <img src="@/assets/images/walletConnect.svg" class="h-3 w-auto" />
         </div>

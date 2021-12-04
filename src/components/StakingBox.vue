@@ -70,36 +70,12 @@
                       inputmode="decimal"
                       pattern="^[0-9]*[.]?[0-9]*$"
                       type="text"
-                      class="
-                        block
-                        border-gray-300
-                        focus:border-transparent
-                        focus:outline-none
-                        focus:ring-2
-                        focus:ring-offset-0
-                        focus:ring-vita-purple
-                        rounded-xl
-                        text-sm
-                        sm:text-base
-                        w-full
-                        py-2.5
-                      "
+                      class="block border-gray-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-vita-purple rounded-xl text-sm sm:text-base w-full py-2.5"
                       @keypress="validateNumber"
                     />
                     <button
                       @click="setStakingMax"
-                      class="
-                        bg-vita-sunrise
-                        px-3
-                        py-1
-                        absolute
-                        right-2
-                        top-2
-                        uppercase
-                        rounded-lg
-                        text-sm
-                        font-medium
-                      "
+                      class="bg-vita-sunrise px-3 py-1 absolute right-2 top-2 uppercase rounded-lg text-sm font-medium"
                     >
                       Max
                     </button>
@@ -157,36 +133,12 @@
                       inputmode="decimal"
                       pattern="^[0-9]*[.]?[0-9]*$"
                       type="text"
-                      class="
-                        block
-                        border-gray-300
-                        focus:border-transparent
-                        focus:outline-none
-                        focus:ring-2
-                        focus:ring-offset-0
-                        focus:ring-vita-purple
-                        rounded-xl
-                        text-sm
-                        sm:text-base
-                        w-full
-                        py-2.5
-                      "
+                      class="block border-gray-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-vita-purple rounded-xl text-sm sm:text-base w-full py-2.5"
                       @keypress="validateNumber"
                     />
                     <button
                       @click="setUnstakingMax"
-                      class="
-                        bg-vita-sunrise
-                        px-3
-                        py-1
-                        absolute
-                        right-2
-                        top-2
-                        uppercase
-                        rounded-lg
-                        text-sm
-                        font-medium
-                      "
+                      class="bg-vita-sunrise px-3 py-1 absolute right-2 top-2 uppercase rounded-lg text-sm font-medium"
                     >
                       Max
                     </button>

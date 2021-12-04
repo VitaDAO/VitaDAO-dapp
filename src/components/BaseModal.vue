@@ -3,17 +3,7 @@
   <transition-root as="template" :show="open">
     <Dialog as="div" static class="fixed inset-0 overflow-y-auto z-10" :open="open" @close="close">
       <div
-        class="
-          flex
-          items-end
-          justify-center
-          min-h-screen
-          pb-28
-          pt-4
-          px-4
-          sm:block sm:p-0
-          text-center
-        "
+        class="flex items-end justify-center min-h-screen pb-28 pt-4 px-4 sm:block sm:p-0 text-center"
       >
         <transition-child
           as="template"
@@ -41,21 +31,7 @@
           leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
         >
           <div
-            class="
-              align-bottom
-              bg-white
-              inline-block
-              overflow-hidden
-              pb-4
-              pt-5
-              px-4
-              rounded-lg
-              shadow-xl
-              sm:align-middle sm:max-w-sm sm:my-8 sm:p-6 sm:w-full
-              text-left
-              transform
-              transition-all
-            "
+            class="align-bottom bg-white inline-block overflow-hidden pb-4 pt-5 px-4 rounded-lg shadow-xl sm:align-middle sm:max-w-sm sm:my-8 sm:p-6 sm:w-full text-left transform transition-all"
           >
             <slot />
           </div>

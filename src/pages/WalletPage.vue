@@ -34,14 +34,7 @@
       </div>
       <div
         v-if="vitaLocked"
-        class="
-          flex
-          justify-between
-          text-black
-          py-3
-          sm:py-4 sm:text-lg
-          border-t border-b border-gray-300
-        "
+        class="flex justify-between text-black py-3 sm:py-4 sm:text-lg border-t border-b border-gray-300"
       >
         <span class="font-medium flex-shrink-0">Stake Unlock Time</span>
         <span class="font-medium truncate text-vita-purple">

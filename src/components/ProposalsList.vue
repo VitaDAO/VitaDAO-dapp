@@ -3,17 +3,7 @@
     <li
       v-for="proposal in proposals"
       :key="proposal.id"
-      class="
-        bg-white
-        col-span-1
-        flex flex-col
-        rounded-2xl
-        border border-gray-300
-        text-center
-        px-10
-        py-8
-        space-y-4
-      "
+      class="bg-white col-span-1 flex flex-col rounded-2xl border border-gray-300 text-center px-10 py-8 space-y-4"
     >
       <div class="flex flex-shrink-0 items-center w-20 h-20 justify-center mx-auto">
         <svg
@@ -307,29 +297,13 @@
 
       <div>
         <span
-          class="
-            proposal-type-label
-            uppercase
-            inline
-            px-8
-            py-1
-            rounded-full
-            font-medium
-            text-vita-purple
-          "
+          class="proposal-type-label uppercase inline px-8 py-1 rounded-full font-medium text-vita-purple"
           >{{ proposal.proposalContent.type }}</span
         >
       </div>
 
       <h2
-        class="
-          text-2xl
-          font-semibold
-          leading-tight
-          hover:text-vita-purple
-          transition-colors
-          duration-150
-        "
+        class="text-2xl font-semibold leading-tight hover:text-vita-purple transition-colors duration-150"
       >
         <router-link :to="'/proposal/' + proposal.id">{{
           proposal.proposalContent.title
