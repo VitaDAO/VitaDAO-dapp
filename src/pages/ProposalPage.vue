@@ -5,53 +5,41 @@
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && proposal">
         <div class="gap-8 grid grid-cols-12">
-          <div class="col-span-12 lg:col-span-7 xl:col-span-8 space-y-8">
-            <hr class="border-black mb-8" />
+          <div class="col-span-12 lg:col-span-7 xl:col-span-8">
+            <hr class="border-black mb-6" />
 
-            <h1 class="font-bold leading-tight mt-4 text-2xl text-black">
-              {{ proposal.proposalContent.title }}
-            </h1>
-            <span class="font-medium text-gray-300 text-sm uppercase"
+            <span class="font-medium text-black capitalize"
               >{{ proposal.proposalContent.type }} proposal</span
             >
-            <span class="font-medium text-gray-400 text-sm">
-              (created {{ dayjs.unix(proposal.createdAt).format('MM-DD-YYYY') }})</span
+            <span class="text-gray-500">
+              | Created {{ dayjs.unix(proposal.createdAt).format('DD MMMM YYYY') }}</span
             >
 
-            <div
-              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
-            >
-              <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">Proposal Summary</h2>
-              <parsed-markdown :source="proposal.proposalContent.summary" />
-            </div>
+            <h1 class="font-medium leading-tight text-5xl text-black mt-2">
+              {{ proposal.proposalContent.title }}
+            </h1>
 
-            <div
-              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+            <p class="mt-2 text-vita-purple font-medium text-xl max-w-prose leading-normal">
+              <parsed-markdown
+                :apply-prose-styles="false"
+                :source="proposal.proposalContent.summary"
+              />
+            </p>
+
+            <a :href="proposal.proposalContent.link" target="_blank">
+              <base-button icon="discourse" icon-pack="fab" class="mt-4" type="outline"
+                >View Discourse Proposal</base-button
+              ></a
             >
-              <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">Proposal Details</h2>
+
+            <div class="mt-8 border-t border-gray-300 pt-6">
+              <h2 class="text-black text-2xl font-semibold mb-2">Proposal Details</h2>
               <parsed-markdown :source="proposal.proposalContent.details" />
             </div>
-            <div v-if="project">
-              <div
-                class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
-              >
-                <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">
-                  Project Aims & Hypothesis
-                </h2>
-                <parsed-markdown :source="project.aimsAndHypothesis" />
-              </div>
-            </div>
 
-            <div
-              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
-            >
-              <h2 class="leading-snug text-gray-600 text-xl font-medium">Proposal Link</h2>
-              <a
-                class="text-blue-500 hover:underline"
-                :href="proposal.proposalContent.link"
-                target="_blank"
-                >»{{ proposal.proposalContent.title }}« on Discourse</a
-              >
+            <div v-if="project" class="mt-8 border-t border-gray-300 pt-6">
+              <h2 class="text-black text-2xl font-semibold mb-2">Project Aims & Hypothesis</h2>
+              <parsed-markdown :source="project.aimsAndHypothesis" />
             </div>
           </div>
           <div id="vote" class="mt-2 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8">
@@ -102,7 +90,7 @@
                 <h3 class="font-medium leading-6 text-gray-900 text-lg">Project Details</h3>
               </div>
               <div class="border-gray-200 border-t px-4 py-5 sm:p-0">
-                <dl class="sm:divide-gray-200 sm:divide-y">
+                <dl>
                   <div
                     v-if="project.title"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"

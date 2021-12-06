@@ -22,7 +22,7 @@
   >
     <transition name="fade" mode="out-in">
       <fa v-if="loading" icon="spinner" spin class="mr-2" />
-      <fa v-else-if="icon" :icon="icon" class="mr-2" />
+      <fa v-else-if="icon" :icon="[iconPack, icon]" class="mr-2" />
     </transition>
     <slot />
   </button>
@@ -43,6 +43,10 @@ export default {
     icon: {
       type: String,
       default: '',
+    },
+    iconPack: {
+      type: String,
+      default: 'fas',
     },
     disabled: {
       type: Boolean,
