@@ -181,7 +181,7 @@ export default {
 }
 
 .btn-sm {
-  @apply px-4 py-1 text-base rounded-full;
+  @apply px-4 py-1.5 text-base font-medium rounded-full;
 }
 
 .btn-md {
