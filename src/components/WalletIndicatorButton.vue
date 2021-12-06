@@ -11,7 +11,7 @@
     <div
       v-else
       @click="openConnectWalletModal"
-      class="cursor-pointer pl-1 pr-3.5 py-1 text-base font-medium rounded-full border border-gray-300 flex items-center"
+      class="bg-white cursor-pointer pl-1 pr-3.5 py-1 text-base font-medium rounded-full border border-gray-300 flex items-center"
     >
       <div
         v-if="isTransacting"

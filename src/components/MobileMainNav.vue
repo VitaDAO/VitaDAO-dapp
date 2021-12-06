@@ -43,7 +43,7 @@
             </div>
           </transition-child>
           <div class="flex flex-shrink-0 items-center px-5">
-            <img src="../assets/images/logo.svg" class="h-6 w-auto" alt="VitaDAO" />
+            <img src="../assets/images/logo_white.svg" class="h-6 w-auto" alt="VitaDAO" />
           </div>
           <div class="flex-1 h-0 mt-5 overflow-y-auto">
             <nav class="px-5 space-y-1">
