@@ -15,11 +15,11 @@
   </span>
   <span
     v-else-if="proposal.status === 'VOTING' && blockNumber > parseInt(proposal.voteEndBlock)"
-    class="font-medium text-gray-500"
+    class="font-medium text-gray-600"
   >
     Vote ended, status pending
   </span>
-  <span v-else-if="proposal.status === 'VOTING'" class="font-medium text-gray-500">
+  <span v-else-if="proposal.status === 'VOTING'" class="font-medium text-gray-600">
     <fa icon="vote-yea" class="mr-0.5 text-gray-400" />
     Voting (ends in
     {{ voteEndTime }})
@@ -31,16 +31,16 @@
     v-else-if="
       proposal.status === 'VOTING_NOT_STARTED' && blockNumber > parseInt(proposal.voteEndBlock)
     "
-    class="font-medium text-gray-500"
+    class="font-medium text-gray-600"
   >
     Expired without Vote
   </span>
-  <span v-else-if="proposal.status === 'VOTING_NOT_STARTED'" class="font-medium text-gray-500">
+  <span v-else-if="proposal.status === 'VOTING_NOT_STARTED'" class="font-medium text-gray-600">
     <fa icon="clock" class="mr-0.5 text-gray-400" />
     Vote starting in
     {{ voteStartTime }}
   </span>
-  <span v-else-if="proposal.status === 'CANCELLED'" class="font-medium text-gray-500">
+  <span v-else-if="proposal.status === 'CANCELLED'" class="font-medium text-gray-600">
     Cancelled
   </span>
   <span v-else class="font-medium text-gray-500">

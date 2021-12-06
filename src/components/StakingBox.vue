@@ -8,7 +8,7 @@
               'w-full text-lg py-3 leading-5 font-medium rounded-full',
               selected
                 ? 'text-vita-purple border border-vita-purple bg-white'
-                : 'text-gray-700 hover:text-gray-700',
+                : 'text-gray-600 hover:text-gray-800',
             ]"
           >
             Stake
@@ -20,7 +20,7 @@
               'w-full text-lg py-3 leading-5 font-medium rounded-full',
               selected
                 ? 'text-vita-purple border border-vita-purple bg-white'
-                : 'text-gray-700 hover:text-gray-700',
+                : 'text-gray-600 hover:text-gray-800',
             ]"
           >
             Unstake

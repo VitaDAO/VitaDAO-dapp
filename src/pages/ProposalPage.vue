@@ -87,7 +87,7 @@
             </div>
             <div v-if="project" class="bg-white overflow-hidden rounded-xl border border-gray-300">
               <div class="px-4 py-5 sm:px-6">
-                <h3 class="font-medium leading-6 text-gray-900 text-lg">Project Details</h3>
+                <h3 class="font-medium leading-6 text-black text-lg">Project Details</h3>
               </div>
               <div class="border-gray-200 border-t px-4 py-5 sm:p-0">
                 <dl>
@@ -96,7 +96,7 @@
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
                     <dt class="font-medium text-vita-purple text-sm">Title</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.title }}
                     </dd>
                   </div>
@@ -105,7 +105,7 @@
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
                     <dt class="font-medium text-vita-purple text-sm">Summary</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.summary }}
                     </dd>
                   </div>
@@ -114,7 +114,7 @@
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
                     <dt class="font-medium text-vita-purple text-sm">Institution</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.institution }}
                     </dd>
                   </div>
@@ -123,7 +123,7 @@
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
                     <dt class="font-medium text-vita-purple text-sm">Research Lead</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.researchLead }}
                     </dd>
                   </div>
@@ -132,7 +132,7 @@
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
                     <dt class="font-medium text-vita-purple text-sm">Funding Stage</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.fundingStage }}
                     </dd>
                   </div>
@@ -141,7 +141,7 @@
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
                     <dt class="font-medium text-vita-purple text-sm">Clinical Stage</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.clinicalStage }}
                     </dd>
                   </div>
@@ -150,7 +150,7 @@
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
                     <dt class="font-medium text-vita-purple text-sm">IP Status</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.ipStatus }}
                     </dd>
                   </div>
@@ -159,7 +159,7 @@
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
                     <dt class="font-medium text-vita-purple text-sm">Budget</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{
                         new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(
                           parseFloat(project.budget),

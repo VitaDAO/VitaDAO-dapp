@@ -5,7 +5,7 @@
     <div class="flex flex-1 flex-col w-0">
       <div
         v-if="isWrongNetwork"
-        class="bg-red-600 fixed flex font-bold h-16 items-center justify-center left-0 px-4 text-center text-sm text-white top-0 w-full z-20"
+        class="bg-danger fixed flex font-bold h-16 items-center justify-center left-0 px-4 text-center text-sm text-white top-0 w-full z-20"
       >
         You're connected to the wrong network. Please connect to {{ correctNetwork.name }}
       </div>
