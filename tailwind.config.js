@@ -23,6 +23,7 @@ module.exports = {
         'vita-sunrise': '#FFDD35',
         'vita-purple': '#6256ec',
         'vita-teal': '#41f4d4',
+        'vita-gray': '#B1AAF6',
         success: '#16BD9F',
         danger: '#FF6D90',
       },

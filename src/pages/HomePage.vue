@@ -1,6 +1,48 @@
 <template>
   <div class="w-full">
     <hr class="border-black mb-8" />
+    <h2 class="font-medium mb-4 text-black text-3xl">DAO Snapshot</h2>
+
+
+    <div class="flex space-x-5">
+     
+    <div class="w-80 h-48 bg-vita-purple rounded-2xl inline-block">
+      <div class="pl-8 pt-6">
+        <h2 class="text-white text-3xl font-bold">$ 25,016,640</h2>
+
+        <p class="inline-block text-white place-items-center">+14% ($3,709,104)</p>
+        <p class="inline-block pl-2 text-vita-gray">weekly</p>
+
+        <p class="text-red-50 align-bottom pt-14">Treasury Value</p>
+      </div>
+    </div>
+
+    <div class="w-80 h-48 bg-vita-sunrise rounded-2xl inline-block">
+      <div class="pl-8 pt-6">
+        <h2 class="text-black text-3xl font-bold"> 19.483.234</h2>
+        <p class="text-black align-bottom pt-20">Circulating Supply</p>
+      </div>
+    </div>
+
+    <div class="w-80 h-48 bg-vita-sunrise rounded-2xl inline-block">
+      <div class="pl-8 pt-6">
+        <h2 class="text-black text-3xl font-bold">$ 25,000,000</h2>
+        <p class="text-black align-bottom pt-20">VitaDAO Market Cap</p>
+      </div>
+    </div>
+
+    <div class="w-80 h-48 bg-vita-sunrise rounded-2xl inline-block">
+      <div class="pl-8 pt-6">
+        <h2 class="text-black text-3xl font-bold">$ 350,000</h2>
+        <p class="text-black align-bottom pt-20">Invested in ressearch</p>
+      </div>
+    </div>
+
+    </div>
+
+
+
+    <hr class="border-black mb-8 mt-8" />
     <h2 class="font-medium mb-4 text-black text-3xl">Active proposals</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading active proposals…</loading-indicator>
