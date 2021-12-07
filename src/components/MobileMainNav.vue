@@ -34,16 +34,7 @@
             <div class="-mr-12 absolute bottom-0 pb-5 right-0">
               <button
                 type="button"
-                class="
-                  flex
-                  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white
-                  h-10
-                  items-center
-                  justify-center
-                  ml-1
-                  rounded-full
-                  w-10
-                "
+                class="flex focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white h-10 items-center justify-center ml-1 rounded-full w-10"
                 @click="close"
               >
                 <span class="sr-only">Close sidebar</span>
@@ -52,7 +43,7 @@
             </div>
           </transition-child>
           <div class="flex flex-shrink-0 items-center px-5">
-            <img src="../assets/images/logo.svg" class="h-6 w-auto" alt="VitaDAO" />
+            <img src="../assets/images/logo_white.svg" class="h-6 w-auto" alt="VitaDAO" />
           </div>
           <div class="flex-1 h-0 mt-5 overflow-y-auto">
             <nav class="px-5 space-y-1">

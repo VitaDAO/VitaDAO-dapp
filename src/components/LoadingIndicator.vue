@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center px-3 py-4 w-full">
     <lottie-player autoplay loop mode="normal" src="loading.json" class="w-32" />
-    <div class="font-medium text-black text-sm"><slot /></div>
+    <div class="font-medium text-black"><slot /></div>
   </div>
 </template>
 

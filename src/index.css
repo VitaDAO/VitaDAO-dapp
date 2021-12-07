@@ -26,11 +26,39 @@
   }
 }
 
-@layer components {}
+@layer components {
+  .underline-animated {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .underline-animated::before,
+  .underline-animated::after {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    top: 100%;
+    left: 0;
+    pointer-events: none;
+  }
+
+  .underline-animated::before {
+    content: '';
+    transform-origin: 100% 50%;
+    transform: scale3d(0, 1, 1);
+    transition: transform 0.3s;
+  }
+
+  .underline-animated:hover::before {
+    transform-origin: 0% 50%;
+    transform: scale3d(1, 1, 1);
+  }
+}
 
 @layer utilities {}
 
-// Vue transitions
+/* Vue transitions */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.15s ease;

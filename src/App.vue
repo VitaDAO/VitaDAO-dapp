@@ -2,24 +2,10 @@
   <div class="flex min-h-screen">
     <mobile-main-nav v-model:open="sidebarOpen" :nav-items="navigationItems" />
 
-    <div class="flex flex-1 flex-col overflow-hidden w-0">
+    <div class="flex flex-1 flex-col w-0">
       <div
         v-if="isWrongNetwork"
-        class="
-          bg-red-600
-          fixed
-          flex
-          font-bold
-          h-16
-          items-center
-          justify-center
-          left-0
-          px-4
-          text-center text-sm text-white
-          top-0
-          w-full
-          z-20
-        "
+        class="bg-danger fixed flex font-bold h-16 items-center justify-center left-0 px-4 text-center text-sm text-white top-0 w-full z-20"
       >
         You're connected to the wrong network ({{ capitalize(currentNetwork.name) }}). Please
         connect to
@@ -29,7 +15,7 @@
       <main-nav :nav-items="navigationItems" />
 
       <main class="flex-1 focus:outline-none relative bg-fixed bg-no-repeat bg-contain bg-bottom">
-        <div class="flex justify-center pb-20 pt-6 px-6">
+        <div class="flex justify-center pb-20 pt-20 px-6">
           <div class="max-w-8xl w-full flex justify-center">
             <router-view v-slot="{ Component }">
               <transition name="fade" mode="out-in">

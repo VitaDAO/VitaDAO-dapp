@@ -1,12 +1,14 @@
 <template>
-  <div class="w-full">
+  <div class="w-full border border-gray-300 rounded-xl px-7 py-8">
     <tab-group>
-      <tab-list class="bg-gray-300 flex p-1 rounded-xl space-x-1">
+      <tab-list class="bg-gray-100 rounded-full border border-gray-300 flex space-x-1">
         <tab v-slot="{ selected }" as="template">
           <button
             :class="[
-              'w-full py-2.5 text-sm leading-5 font-medium text-gray-700 rounded-lg',
-              selected ? 'bg-white shadow' : 'text-white hover:bg-white/[0.12] hover:text-gray-800',
+              'w-full text-lg py-3 leading-5 font-medium rounded-full',
+              selected
+                ? 'text-vita-purple border border-vita-purple bg-white'
+                : 'text-gray-600 hover:text-gray-800',
             ]"
           >
             Stake
@@ -15,8 +17,10 @@
         <tab v-slot="{ selected }" as="template">
           <button
             :class="[
-              'w-full py-2.5 text-sm leading-5 font-medium text-gray-700 rounded-lg',
-              selected ? 'bg-white shadow' : 'text-white hover:bg-white/[0.12] hover:text-gray-800',
+              'w-full text-lg py-3 leading-5 font-medium rounded-full',
+              selected
+                ? 'text-vita-purple border border-vita-purple bg-white'
+                : 'text-gray-600 hover:text-gray-800',
             ]"
           >
             Unstake
@@ -24,17 +28,18 @@
         </tab>
       </tab-list>
 
-      <tab-panels class="mt-4">
-        <tab-panel :class="['bg-white rounded-xl px-6 py-8 shadow-md']">
+      <tab-panels class="mt-7">
+        <tab-panel :class="['bg-white rounded-xl']">
           <transition name="fade" mode="out-in">
             <div v-if="!vitaIsApproved" key="approveFirst">
-              <warning-box v-if="vitaBalance == 0" class="mb-4"
+              <notice-box v-if="vitaBalance == 0" class="mb-4"
                 ><p>
                   You have to enable the VITA token to be able to interact with the VITA DAO
                   contract
-                </p></warning-box
+                </p></notice-box
               >
               <base-button
+                type="teal"
                 full-width
                 :disabled="approvingVita"
                 :loading="approvingVita"
@@ -44,15 +49,15 @@
               </base-button>
             </div>
             <div v-else key="staking">
-              <warning-box v-if="vitaBalance == 0" class="mb-4"
+              <notice-box v-if="vitaBalance == 0" class="mb-4"
                 ><p>
                   Your VITA balance is zero at the moment. Please get or unstake some VITA first.
-                </p></warning-box
+                </p></notice-box
               >
-              <div class="mb-2">
-                <label class="block font-medium text-gray-700 text-sm">Amount</label>
-                <div class="flex mt-1 rounded-md shadow-sm">
-                  <div class="flex flex-grow focus-within:z-10 items-stretch relative">
+              <div class="mb-6">
+                <label class="block font-semibold text-black text-sm">Amount</label>
+                <div class="flex mt-1 rounded-xl">
+                  <div class="w-full relative">
                     <input
                       v-model="stakingAmount"
                       placeholder="0.0"
@@ -65,42 +70,20 @@
                       inputmode="decimal"
                       pattern="^[0-9]*[.]?[0-9]*$"
                       type="text"
-                      class="
-                        block
-                        border-gray-300
-                        focus:border-gray-400 focus:ring-gray-400
-                        rounded-l-md rounded-none
-                        sm:text-sm
-                        w-full
-                      "
+                      class="block border-gray-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-vita-purple rounded-xl text-sm sm:text-base w-full py-2.5"
                       @keypress="validateNumber"
                     />
+                    <button
+                      @click="setStakingMax"
+                      class="bg-vita-sunrise px-3 py-1 absolute right-2 top-2 uppercase rounded-lg text-sm font-medium"
+                    >
+                      Max
+                    </button>
                   </div>
-                  <button
-                    class="
-                      -ml-px
-                      bg-gray-50
-                      border border-gray-300
-                      focus:border-gray-400 focus:outline-none focus:ring-1 focus:border-gray-400
-                      font-medium
-                      hover:bg-gray-100
-                      inline-flex
-                      items-center
-                      px-4
-                      py-2
-                      relative
-                      rounded-r-md
-                      space-x-2
-                      text-gray-700 text-sm
-                    "
-                    @click="setStakingMax"
-                  >
-                    <span class="text-xs">MAX</span>
-                  </button>
                 </div>
               </div>
               <base-button
-                type="primary"
+                type="secondary"
                 full-width
                 :loading="stakingVita"
                 :disabled="stakingAmount == 0 || stakingVita"
@@ -111,16 +94,17 @@
             </div>
           </transition>
         </tab-panel>
-        <tab-panel :class="['bg-white rounded-xl px-6 py-8 shadow-md']">
+        <tab-panel :class="['bg-white rounded-xl']">
           <transition name="fade" mode="out-in">
             <div v-if="!vitaIsApproved" key="approveFirst">
-              <warning-box v-if="vitaBalance == 0" class="mb-4"
+              <notice-box v-if="vitaBalance == 0" class="mb-4"
                 ><p>
                   You have to enable the VITA token to be able to interact with the VITA DAO
                   contract
-                </p></warning-box
+                </p></notice-box
               >
               <base-button
+                type="teal"
                 full-width
                 :disabled="approvingVita"
                 :loading="approvingVita"
@@ -130,13 +114,13 @@
               </base-button>
             </div>
             <div v-else key="unstaking">
-              <warning-box v-if="stakedVitaBalance == 0" class="mb-4"
-                ><p>You haven't staked any VITA at the moment.</p></warning-box
+              <notice-box v-if="stakedVitaBalance == 0" class="mb-4"
+                ><p>You don't have any staked VITA at the moment.</p></notice-box
               >
-              <div class="mb-2">
-                <label class="block font-medium text-gray-700 text-sm">Amount</label>
-                <div class="flex mt-1 rounded-md shadow-sm">
-                  <div class="flex flex-grow focus-within:z-10 items-stretch relative">
+              <div class="mb-6">
+                <label class="block font-semibold text-black text-sm">Amount</label>
+                <div class="flex mt-1 rounded-xl">
+                  <div class="w-full relative">
                     <input
                       v-model="unstakingAmount"
                       placeholder="0.0"
@@ -149,42 +133,20 @@
                       inputmode="decimal"
                       pattern="^[0-9]*[.]?[0-9]*$"
                       type="text"
-                      class="
-                        block
-                        border-gray-300
-                        focus:border-gray-400 focus:ring-gray-400
-                        rounded-l-md rounded-none
-                        sm:text-sm
-                        w-full
-                      "
+                      class="block border-gray-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-vita-purple rounded-xl text-sm sm:text-base w-full py-2.5"
                       @keypress="validateNumber"
                     />
+                    <button
+                      @click="setUnstakingMax"
+                      class="bg-vita-sunrise px-3 py-1 absolute right-2 top-2 uppercase rounded-lg text-sm font-medium"
+                    >
+                      Max
+                    </button>
                   </div>
-                  <button
-                    class="
-                      -ml-px
-                      bg-gray-50
-                      border border-gray-300
-                      focus:border-gray-400 focus:outline-none focus:ring-1 focus:border-gray-400
-                      font-medium
-                      hover:bg-gray-100
-                      inline-flex
-                      items-center
-                      px-4
-                      py-2
-                      relative
-                      rounded-r-md
-                      space-x-2
-                      text-gray-700 text-sm
-                    "
-                    @click="setUnstakingMax"
-                  >
-                    <span>MAX</span>
-                  </button>
                 </div>
               </div>
               <base-button
-                type="primary"
+                type="secondary"
                 full-width
                 :loading="unstakingVita"
                 :disabled="unstakingAmount == 0 || unstakingVita"
@@ -205,7 +167,7 @@ import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import BaseButton from '@/components/BaseButton'
-import WarningBox from '@/components/WarningBox'
+import NoticeBox from '@/components/NoticeBox'
 
 export default {
   components: {
@@ -215,7 +177,7 @@ export default {
     TabPanels,
     TabPanel,
     BaseButton,
-    WarningBox,
+    NoticeBox,
   },
   setup() {
     const store = useStore()
