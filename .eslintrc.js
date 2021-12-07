@@ -8,7 +8,7 @@ module.exports = {
   },
   extends: ['plugin:vue/vue3-essential', 'eslint:recommended', 'plugin:prettier/recommended'],
   rules: {
-    'prettier/prettier': ['off', { endOfLine: 'auto' }],
+    'prettier/prettier': ['warn', { endOfLine: 'auto' }],
     'no-console': 'off',
     'no-debugger': 'warn',
     'no-unused-vars': 'warn',

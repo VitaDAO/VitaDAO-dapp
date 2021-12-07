@@ -3,45 +3,39 @@
     <hr class="border-black mb-8" />
     <h2 class="font-medium mb-4 text-black text-3xl">DAO Snapshot</h2>
 
-   
-    
-      <div class="">
-        <div class="xl:flex grid grid-cols-1 gap-x-14 gap-4 md:grid-cols-2 ">
-    <div class="w-96 min-w-full md:min-w-max  h-52 bg-vita-purple rounded-2xl inline-block">
-      <div class="pl-8 pt-8">
-        <h2 class="text-white text-3xl font-bold">$25,016,640</h2>
+    <div class="">
+      <div class="xl:flex grid grid-cols-1 gap-x-14 gap-4 md:grid-cols-2">
+        <div class="w-96 min-w-full md:min-w-max h-52 bg-vita-purple rounded-2xl inline-block">
+          <div class="pl-8 pt-8">
+            <h2 class="text-white text-3xl font-bold">$25,016,640</h2>
+            <p class="inline-block text-white place-items-center">+14% ($3,709,104)</p>
+            <p class="inline-block pl-2 text-vita-gray">weekly</p>
+            <p class="text-red-50 align-bottom pt-14">Treasury Value</p>
+          </div>
+        </div>
 
-        <p class="inline-block text-white place-items-center">+14% ($3,709,104)</p>
-        <p class="inline-block pl-2 text-vita-gray">weekly</p>
+        <div class="w-96 h-52 bg-vita-sunrise min-w-full md:min-w-max rounded-2xl inline-block">
+          <div class="pl-8 pt-8">
+            <h2 class="text-black text-3xl font-bold">19.483.234</h2>
+            <p class="text-black align-bottom pt-20">Circulating Supply</p>
+          </div>
+        </div>
 
-        <p class="text-red-50 align-bottom pt-14">Treasury Value</p>
+        <div class="w-96 h-52 bg-vita-sunrise min-w-full md:min-w-max rounded-2xl inline-block">
+          <div class="pl-8 pt-8">
+            <h2 class="text-black text-3xl font-bold">$25,000,000</h2>
+            <p class="text-black align-bottom pt-20">VitaDAO Market Cap</p>
+          </div>
+        </div>
+
+        <div class="w-96 h-52 bg-vita-sunrise min-w-full md:min-w-max rounded-2xl inline-block">
+          <div class="pl-8 pt-8">
+            <h2 class="text-black text-3xl font-bold">$350,000</h2>
+            <p class="text-black align-bottom pt-20">Invested in ressearch</p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="w-96 h-52 bg-vita-sunrise min-w-full md:min-w-max rounded-2xl inline-block">
-      <div class="pl-8 pt-8">
-        <h2 class="text-black text-3xl font-bold"> 19.483.234</h2>
-        <p class="text-black align-bottom pt-20">Circulating Supply</p>
-      </div>
-    </div>
-
-    <div class="w-96 h-52 bg-vita-sunrise min-w-full md:min-w-max rounded-2xl inline-block">
-      <div class="pl-8 pt-8">
-        <h2 class="text-black text-3xl font-bold">$25,000,000</h2>
-        <p class="text-black align-bottom pt-20">VitaDAO Market Cap</p>
-      </div>
-    </div>
-
-    <div class="w-96 h-52 bg-vita-sunrise min-w-full md:min-w-max rounded-2xl inline-block">
-      <div class="pl-8 pt-8">
-        <h2 class="text-black text-3xl font-bold">$350,000</h2>
-        <p class="text-black align-bottom pt-20">Invested in ressearch</p>
-      </div>
-    </div>
-    </div>
-    </div>
-
-
 
     <hr class="border-black mb-8 mt-8" />
     <h2 class="font-medium mb-4 text-black text-3xl">Active proposals</h2>
