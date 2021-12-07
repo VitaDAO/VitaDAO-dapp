@@ -15,7 +15,7 @@
       <main-nav :nav-items="navigationItems" />
 
       <main class="flex-1 focus:outline-none relative bg-fixed bg-no-repeat bg-contain bg-bottom">
-        <div class="flex justify-center pb-20 pt-20 px-6">
+        <div class="flex justify-center pb-20 pt-2 lg:pt-20 px-6">
           <div class="max-w-8xl w-full flex justify-center">
             <router-view v-slot="{ Component }">
               <transition name="fade" mode="out-in">

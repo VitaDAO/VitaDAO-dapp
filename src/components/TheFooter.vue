@@ -1,13 +1,12 @@
 <template>
   <footer
-    :style="{
-      'background-image': 'url(' + require('../assets/images/footer_img.jpg') + ')',
-    }"
-    class="bg-black px-6 py-10 text-white bg-50 bg-no-repeat bg-right flex justify-center"
+    class="bg-black px-6 pt-10 text-white bg-50 bg-no-repeat bg-right flex justify-center pb-20 lg:pb-10"
   >
     <div class="max-w-8xl w-full">
       <img src="../assets/images/logo_white.svg" class="h-8 w-auto" />
-      <div class="grid grid-cols-4 mt-32 mb-28 text-lg font-medium">
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 mt-10 mb-10 sm:mt-32 sm:mb-28 text-lg font-medium"
+      >
         <div>
           <ul>
             <li>
@@ -69,3 +68,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+footer {
+  @media screen(sm) {
+    background-image: url(../assets/images/footer_img.jpg);
+  }
+}
+</style>
