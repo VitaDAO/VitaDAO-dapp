@@ -6,12 +6,10 @@ import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faHome,
   faSpinner,
   faBars,
   faWallet,
   faFile,
-  faCoins,
   faClock,
   faFolderOpen,
   faVoteYea,
@@ -43,12 +41,10 @@ const apolloClient = new ApolloClient({
 })
 
 library.add(
-  faHome,
   faSpinner,
   faBars,
   faWallet,
   faFile,
-  faCoins,
   faClock,
   faFolderOpen,
   faDiscord,

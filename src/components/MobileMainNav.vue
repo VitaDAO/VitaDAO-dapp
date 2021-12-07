@@ -10,7 +10,7 @@
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <dialog-overlay class="bg-gray-600 bg-opacity-75 fixed inset-0" />
+        <dialog-overlay class="bg-gray-800 bg-opacity-75 fixed inset-0" />
       </transition-child>
       <transition-child
         as="template"
@@ -21,7 +21,7 @@
         leave-from="translate-x-0"
         leave-to="-translate-x-full"
       >
-        <div class="bg-gray-800 flex flex-1 flex-col max-w-18 pb-4 pt-5 relative w-full">
+        <div class="bg-vita-purple flex flex-1 flex-col max-w-18 pb-4 pt-5 relative w-full">
           <transition-child
             as="template"
             enter="ease-in-out duration-300"
@@ -51,20 +51,8 @@
                 v-for="item in navItems"
                 :key="item.name"
                 :to="item.to"
-                :class="[
-                  $route.path === item.to
-                    ? 'bg-gray-700 text-white'
-                    : 'text-white hover:bg-gray-700',
-                  'group flex items-center px-2 py-2 text-base font-medium rounded-md',
-                ]"
+                class="text-white group flex items-center px-3 py-2 text-base font-semibold rounded-xl"
               >
-                <fa
-                  fixed-width
-                  class="flex-shrink-0 ml-1 mr-3 text-vita-sunrise"
-                  :icon="item.icon"
-                  aria-hidden="true"
-                  size="lg"
-                />
                 {{ item.name }}
               </router-link>
             </nav>
@@ -114,3 +102,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.router-link-active {
+  background-color: color-mod(theme('colors.vita-purple') lightness(+3%));
+}
+</style>

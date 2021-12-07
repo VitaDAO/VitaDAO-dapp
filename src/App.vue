@@ -62,13 +62,12 @@ export default defineComponent({
     const store = useStore()
     const route = useRoute()
     const navigationItems = [
-      { name: 'Home', to: '/', icon: 'home' },
+      { name: 'Home', to: '/' },
       {
         name: 'Proposals',
         to: '/proposals',
-        icon: 'vote-yea',
       },
-      { name: 'Wallet', to: '/wallet', icon: 'wallet' },
+      { name: 'Wallet', to: '/wallet' },
     ]
 
     watch(
