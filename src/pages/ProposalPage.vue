@@ -95,6 +95,21 @@
                 </transition>
               </div>
             </div>
+
+            <votes-list
+              v-if="parseFloat(proposal.numTokensYes) > 0"
+              :votes="proposal.yesVotes"
+              :direction="true"
+              :total-votes="parseFloat(proposal.numTokensYes)"
+            />
+
+            <votes-list
+              v-if="parseFloat(proposal.numTokensNo) > 0"
+              :votes="proposal.noVotes"
+              :direction="false"
+              :total-votes="parseFloat(proposal.numTokensNo)"
+            />
+
             <div v-if="project" class="bg-white overflow-hidden rounded-xl border border-gray-300">
               <div class="px-4 py-5 sm:px-6">
                 <h3 class="font-medium leading-6 text-black text-lg">Project Details</h3>
@@ -201,6 +216,7 @@ import ProposalStatus from '@/components/ProposalStatus'
 import BaseButton from '@/components/BaseButton'
 import NoticeBox from '@/components/NoticeBox'
 import LoadingIndicator from '@/components/LoadingIndicator'
+import VotesList from '@/components/VotesList'
 
 export default defineComponent({
   components: {
@@ -210,6 +226,7 @@ export default defineComponent({
     BaseButton,
     NoticeBox,
     LoadingIndicator,
+    VotesList,
   },
   setup() {
     const route = useRoute()
@@ -256,19 +273,45 @@ export default defineComponent({
                 aimsAndHypothesis
               }
             }
-          }
-          _meta {
-            block {
-              number
+
+            yesVotes: votes(where: { direction: true }, orderBy: weight, orderDirection: desc) {
+              id
+              direction
+              weight
+              voter {
+                id
+              }
+              proposal {
+                id
+              }
+            }
+
+            noVotes: votes(where: { direction: false }, orderBy: weight, orderDirection: desc) {
+              id
+              direction
+              weight
+              voter {
+                id
+              }
+              proposal {
+                id
+              }
             }
           }
-          votes(first: 1, where: { id: $voteId }) {
+
+          userVote: votes(first: 1, where: { id: $voteId }) {
             id
             proposal {
               id
             }
             voter {
               id
+            }
+          }
+
+          _meta {
+            block {
+              number
             }
           }
         }
@@ -344,7 +387,9 @@ export default defineComponent({
     return {
       stakedVitaBalance: computed(() => store.state.wallet.stakedVitaBalance),
       isVoting: computed(() => store.state.wallet.isVoting),
-      alreadyVoted: computed(() => result.value && result.value.votes && result.value.votes.length),
+      alreadyVoted: computed(
+        () => result.value && result.value.userVote && result.value.userVote.length,
+      ),
       walletIsConnected,
       lastVoteWasThis,
       openConnectWalletModal,
