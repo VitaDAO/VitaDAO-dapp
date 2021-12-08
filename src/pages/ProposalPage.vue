@@ -28,11 +28,16 @@
               />
             </p>
 
-            <a :href="proposal.proposalContent.link" target="_blank">
-              <base-button icon="discourse" icon-pack="fab" class="mt-4" type="outline"
-                >View Discourse Proposal</base-button
-              ></a
-            >
+            <div class="mt-4 md:flex md:space-x-2 lg:space-x-0">
+              <div class="lg:hidden mb-2 md:mb-0">
+                <base-button @click="jumpToVote" icon="vote-yea" type="secondary">Vote</base-button>
+              </div>
+              <a :href="proposal.proposalContent.link" target="_blank">
+                <base-button icon="discourse" icon-pack="fab" type="outline"
+                  >View Discourse Proposal</base-button
+                ></a
+              >
+            </div>
 
             <div class="mt-8 border-t border-gray-300 pt-6">
               <h2 class="text-black text-2xl font-semibold mb-2">Proposal Details</h2>
@@ -44,7 +49,10 @@
               <parsed-markdown :source="project.aimsAndHypothesis" />
             </div>
           </div>
-          <div id="vote" class="mt-8 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8">
+          <div
+            ref="voteSection"
+            class="mt-8 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8"
+          >
             <div class="bg-white rounded-xl border border-gray-300 px-6 py-8">
               <div>
                 <h3 class="font-semibold leading-6 text-black text-center text-xl">
@@ -181,7 +189,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, watch, computed } from 'vue'
+import { defineComponent, reactive, watch, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useQuery, useResult } from '@vue/apollo-composable'
@@ -206,6 +214,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const store = useStore()
+    const voteSection = ref(null)
 
     const connectedAddress = computed(() => store.state.wallet.connectionInfo.address)
     const walletIsConnected = computed(() => store.state.wallet.isConnected)
@@ -324,6 +333,10 @@ export default defineComponent({
       }
     }
 
+    async function jumpToVote() {
+      voteSection.value.scrollIntoView()
+    }
+
     function openConnectWalletModal() {
       store.commit('wallet/setConnectWalletModalIsOpen', true)
     }
@@ -345,6 +358,8 @@ export default defineComponent({
       voteYes,
       voteNo,
       dayjs,
+      voteSection,
+      jumpToVote,
     }
   },
 })
