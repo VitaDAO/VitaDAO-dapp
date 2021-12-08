@@ -4,7 +4,7 @@
       <loading-indicator v-if="loading">Loading proposal…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && proposal">
-        <div class="gap-8 grid grid-cols-12">
+        <div class="lg:gap-8 grid grid-cols-12">
           <div class="col-span-12 lg:col-span-7 xl:col-span-8">
             <hr class="border-black mb-6" />
 
@@ -15,11 +15,13 @@
               | Created {{ dayjs.unix(proposal.createdAt).format('DD MMMM YYYY') }}</span
             >
 
-            <h1 class="font-medium leading-tight text-5xl text-black mt-2">
+            <h1 class="font-medium leading-tight text-3xl md:text-4xl xl:text-5xl text-black mt-2">
               {{ proposal.proposalContent.title }}
             </h1>
 
-            <p class="mt-2 text-vita-purple font-medium text-xl max-w-prose leading-normal">
+            <p
+              class="mt-2 text-vita-purple font-medium text-lg sm:text-xl max-w-prose leading-snug"
+            >
               <parsed-markdown
                 :apply-prose-styles="false"
                 :source="proposal.proposalContent.summary"
@@ -42,7 +44,7 @@
               <parsed-markdown :source="project.aimsAndHypothesis" />
             </div>
           </div>
-          <div id="vote" class="mt-2 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8">
+          <div id="vote" class="mt-8 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8">
             <div class="bg-white rounded-xl border border-gray-300 px-6 py-8">
               <div>
                 <h3 class="font-semibold leading-6 text-black text-center text-xl">

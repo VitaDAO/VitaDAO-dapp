@@ -3,9 +3,11 @@
     <li
       v-for="proposal in proposals"
       :key="proposal.id"
-      class="bg-white col-span-1 flex flex-col rounded-2xl border border-gray-300 text-center px-10 py-8 space-y-4"
+      class="bg-white col-span-1 flex flex-col rounded-2xl border border-gray-300 text-center px-10 py-6 space-y-4"
     >
-      <div class="flex flex-shrink-0 items-center w-20 h-20 justify-center mx-auto">
+      <div
+        class="flex flex-shrink-0 items-center w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 justify-center mx-auto"
+      >
         <svg
           v-if="proposal.proposalContent.type == 'funding'"
           width="71"

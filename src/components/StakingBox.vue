@@ -34,10 +34,9 @@
             <div v-if="!vitaIsApproved" key="approveFirst">
               <notice-box v-if="vitaBalance == 0" class="mb-4"
                 ><p>
-                  You have to enable the VITA token to be able to interact with the VITA DAO
-                  contract
-                </p></notice-box
-              >
+                  You have to enable the VITA token in order to interact with the DAO contract.
+                </p>
+              </notice-box>
               <base-button
                 type="teal"
                 full-width
@@ -99,8 +98,7 @@
             <div v-if="!vitaIsApproved" key="approveFirst">
               <notice-box v-if="vitaBalance == 0" class="mb-4"
                 ><p>
-                  You have to enable the VITA token to be able to interact with the VITA DAO
-                  contract
+                  You have to enable the VITA token in order to interact with the DAO contract.
                 </p></notice-box
               >
               <base-button

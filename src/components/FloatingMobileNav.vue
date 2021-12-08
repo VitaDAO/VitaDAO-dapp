@@ -1,5 +1,5 @@
 <template>
-  <div class="bottom-4 fixed flex items-center justify-between left-4 lg:hidden right-4 z-10">
+  <div class="bottom-5 fixed flex items-center justify-between left-4 lg:hidden right-4 z-10">
     <div class="overflow-hidden rounded-full shadow-lg lg:shadow-none">
       <wallet-indicator-button />
     </div>
