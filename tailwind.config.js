@@ -34,6 +34,9 @@ module.exports = {
         18: '18rem',
         '8xl': '90rem',
       },
+      padding: {
+        4.5: '4.5rem',
+      },
       minWidth: {
         0: '0',
         '1/4': '25%',
