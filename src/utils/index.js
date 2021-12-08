@@ -31,3 +31,10 @@ export function metamaskAvailable() {
 export function injectedWalletAvailable() {
   return typeof window.ethereum != 'undefined'
 }
+
+export function capitalize(word) {
+  return word
+    .split('')
+    .map((letter, index) => (index ? letter.toLowerCase() : letter.toUpperCase()))
+    .join('')
+}

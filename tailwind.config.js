@@ -16,16 +16,27 @@ module.exports = {
       yellow: colors.amber,
       blue: colors.blue,
       green: colors.emerald,
+      orange: colors.orange,
     },
     extend: {
       colors: {
-        'vita-accent': '#F9E47A',
+        'vita-sunrise': '#FFDD35',
+        'vita-purple': '#6256ec',
+        'vita-teal': '#41f4d4',
+        success: '#16BD9F',
+        danger: '#FF6D90',
       },
       fontFamily: {
-        sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
+        sans: ['TT Hoves', ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         18: '18rem',
+        '8xl': '90rem',
+      },
+      backgroundSize: {
+        25: '25%',
+        33: '33%',
+        50: '50%',
       },
     },
   },

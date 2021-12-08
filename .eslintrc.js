@@ -3,10 +3,12 @@ module.exports = {
   env: {
     node: true,
   },
-  parser: 'vue-eslint-parser',
-  extends: ['plugin:vue/vue3-recommended', '@vue/prettier'],
+  parserOptions: {
+    parser: '@babel/eslint-parser',
+  },
+  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', 'plugin:prettier/recommended'],
   rules: {
-    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'prettier/prettier': ['warn', { endOfLine: 'auto' }],
     'no-console': 'off',
     'no-debugger': 'warn',
     'no-unused-vars': 'warn',
@@ -47,7 +49,6 @@ module.exports = {
     'vue/no-reserved-component-names': 'off',
     'vue/no-restricted-syntax': 'warn',
     'vue/no-unused-components': ['warn'],
-    'vue/no-restricted-syntax': 'warn',
     'vue/no-unsupported-features': 'warn',
     'vue/object-curly-spacing': 'off',
     'vue/padding-line-between-blocks': 'warn',

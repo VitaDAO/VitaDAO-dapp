@@ -52,6 +52,22 @@ const chainIds = [
     id: 4,
     name: 'rinkeby',
   },
+  {
+    id: 10,
+    name: 'optimism',
+  },
+  {
+    id: 100,
+    name: 'xdai',
+  },
+  {
+    id: 137,
+    name: 'polygon',
+  },
+  {
+    id: 42161,
+    name: 'arbitrum',
+  },
 ]
 
 const toast = useToast()
@@ -68,7 +84,15 @@ let daoContractWithSigner
 // getters
 const getters = {
   currentNetwork: (state) => {
-    return chainIds.find((n) => n.id === state.connectionInfo.chainId)
+    let chain = chainIds.find((n) => n.id === state.connectionInfo.chainId)
+    if (chain) {
+      return chain
+    } else {
+      return {
+        id: 0,
+        name: 'unknown',
+      }
+    }
   },
   correctNetwork: () => {
     return chainIds.find((n) => n.id === parseInt(process.env.VUE_APP_ETHEREUM_CHAIN_ID))

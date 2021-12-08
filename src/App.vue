@@ -1,39 +1,22 @@
 <template>
-  <div class="bg-black flex min-h-screen">
+  <div class="flex min-h-screen">
     <mobile-main-nav v-model:open="sidebarOpen" :nav-items="navigationItems" />
 
-    <div class="flex flex-1 flex-col overflow-hidden w-0">
+    <div class="flex flex-1 flex-col w-0">
       <div
         v-if="isWrongNetwork"
-        class="
-          bg-red-600
-          fixed
-          flex
-          font-bold
-          h-16
-          items-center
-          justify-center
-          left-0
-          px-4
-          text-center text-sm text-white
-          top-0
-          w-full
-          z-20
-        "
+        class="bg-danger fixed flex font-bold h-16 items-center justify-center left-0 px-4 text-center text-sm text-white top-0 w-full z-20"
       >
-        You're connected to the wrong network. Please connect to {{ correctNetwork.name }}
+        You're connected to the wrong network ({{ capitalize(currentNetwork.name) }}). Please
+        connect to
+        {{ capitalize(correctNetwork.name) }}
       </div>
 
       <main-nav :nav-items="navigationItems" />
 
-      <main
-        class="flex-1 focus:outline-none relative bg-fixed bg-no-repeat bg-contain bg-bottom"
-        :style="{
-          'background-image': 'url(' + require('./assets/bg.png') + ')',
-        }"
-      >
-        <div class="flex justify-center pb-20 pt-6 px-6">
-          <div class="max-w-7xl w-full flex justify-center">
+      <main class="flex-1 focus:outline-none relative bg-fixed bg-no-repeat bg-contain bg-bottom">
+        <div class="flex justify-center pb-20 pt-2 lg:pt-20 px-6">
+          <div class="max-w-8xl w-full flex justify-center">
             <router-view v-slot="{ Component }">
               <transition name="fade" mode="out-in">
                 <component :is="Component" :key="$route.path" />
@@ -54,6 +37,7 @@
 import { defineComponent, computed, watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { capitalize } from '@/utils'
 import MobileMainNav from '@/components/MobileMainNav'
 import FloatingMobileNav from '@/components/FloatingMobileNav'
 import BaseModal from '@/components/BaseModal'
@@ -78,13 +62,12 @@ export default defineComponent({
     const store = useStore()
     const route = useRoute()
     const navigationItems = [
-      { name: 'Home', to: '/', icon: 'home' },
+      { name: 'Home', to: '/' },
       {
         name: 'Proposals',
         to: '/proposals',
-        icon: 'vote-yea',
       },
-      { name: 'Wallet', to: '/wallet', icon: 'wallet' },
+      { name: 'Wallet', to: '/wallet' },
     ]
 
     watch(
@@ -97,8 +80,10 @@ export default defineComponent({
     return {
       isWrongNetwork: computed(() => store.getters['wallet/isWrongNetwork']),
       correctNetwork: computed(() => store.getters['wallet/correctNetwork']),
+      currentNetwork: computed(() => store.getters['wallet/currentNetwork']),
       navigationItems,
       sidebarOpen,
+      capitalize,
     }
   },
 })
