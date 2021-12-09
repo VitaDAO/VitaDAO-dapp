@@ -2,42 +2,46 @@
   <div class="w-full">
     <hr class="border-black mb-8" />
     <h2 class="font-medium mb-4 text-black text-3xl">DAO Snapshot</h2>
-
-    <div class="">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="min-w-full h-52 bg-vita-purple rounded-2xl inline-block">
-          <div class="pl-8 pt-8">
-            <h2 class="text-white text-3xl font-bold">$25,016,640</h2>
-            <p class="inline-block text-white place-items-center">+14% ($3,709,104)</p>
-            <p class="inline-block pl-2 text-vita-gray">weekly</p>
-            <p class="text-red-50 align-bottom pt-4.5">Treasury Value</p>
-          </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div
+        class="w-full h-48 bg-vita-purple rounded-2xl p-8 flex flex-col justify-between text-white"
+      >
+        <div>
+          <h2 class="text-3xl xl:text-4xl font-bold">
+            <span class="align-top text-lg xl:text-2xl font-normal">$</span>25,016,640
+          </h2>
+          <p class="">+14% ($3,709,104)<span class="pl-2 opacity-60">weekly</span></p>
         </div>
+        <p>Treasury Value</p>
+      </div>
 
-        <div class="min-w-full h-52 bg-vita-sunrise rounded-2xl inline-block">
-          <div class="pl-8 pt-8">
-            <h2 class="text-black text-3xl font-bold">19.483.234</h2>
-            <p class="text-black align-bottom pt-24">Circulating Supply</p>
-          </div>
-        </div>
+      <div
+        class="w-full h-48 bg-vita-sunrise rounded-2xl p-8 flex flex-col justify-between text-black"
+      >
+        <h2 class="text-3xl xl:text-4xl font-bold">5,545,847</h2>
+        <p>$VITA Circulating Supply</p>
+      </div>
 
-        <div class="min-w-full h-52 bg-vita-sunrise rounded-2xl inline-block">
-          <div class="pl-8 pt-8">
-            <h2 class="text-black text-3xl font-bold">$25,000,000</h2>
-            <p class="text-black align-bottom pt-24">VitaDAO Market Cap</p>
-          </div>
-        </div>
+      <div
+        class="w-full h-48 bg-vita-sunrise rounded-2xl p-8 flex flex-col justify-between text-black"
+      >
+        <h2 class="text-3xl xl:text-4xl font-bold">
+          <span class="align-top text-lg xl:text-2xl font-normal">$</span>25,000,000
+        </h2>
+        <p>$VITA Market Cap</p>
+      </div>
 
-        <div class="min-w-full h-52 bg-vita-sunrise rounded-2xl inline-block">
-          <div class="pl-8 pt-8">
-            <h2 class="text-black text-3xl font-bold">$350,000</h2>
-            <p class="text-black align-bottom pt-24">Invested in ressearch</p>
-          </div>
-        </div>
+      <div
+        class="w-full h-48 bg-vita-sunrise rounded-2xl p-8 flex flex-col justify-between text-black"
+      >
+        <h2 class="text-3xl xl:text-4xl font-bold">
+          <span class="align-top text-lg xl:text-2xl font-normal">$</span>350,000
+        </h2>
+        <p>Invested in research</p>
       </div>
     </div>
 
-    <hr class="border-black mb-8 mt-8" />
+    <hr class="border-black mb-8 mt-20" />
     <h2 class="font-medium mb-4 text-black text-3xl">Active proposals</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading active proposals…</loading-indicator>
@@ -57,6 +61,7 @@
         </div>
       </div>
     </transition>
+
     <hr class="border-black mb-8 mt-20" />
     <h2 class="font-medium mb-4 text-black text-3xl">Latest votes</h2>
     <transition name="fade" mode="out-in">

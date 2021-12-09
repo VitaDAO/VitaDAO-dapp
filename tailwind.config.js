@@ -23,7 +23,6 @@ module.exports = {
         'vita-sunrise': '#FFDD35',
         'vita-purple': '#6256ec',
         'vita-teal': '#41f4d4',
-        'vita-gray': '#B1AAF6',
         success: '#16BD9F',
         danger: '#FF6D90',
       },
@@ -33,16 +32,6 @@ module.exports = {
       maxWidth: {
         18: '18rem',
         '8xl': '90rem',
-      },
-      padding: {
-        4.5: '4.5rem',
-      },
-      minWidth: {
-        0: '0',
-        '1/4': '25%',
-        '1/2': '50%',
-        '3/4': '75%',
-        full: '100%',
       },
       backgroundSize: {
         25: '25%',
