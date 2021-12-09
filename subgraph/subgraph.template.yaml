@@ -21,6 +21,8 @@ dataSources:
       abis:
         - name: Raphael
           file: ./abis/Raphael.json
+        - name: ENSReverseRecords
+          file: ./abis/ENSReverseRecords.json
       eventHandlers:
         - event: ProposalCreated(uint256,string,uint256,uint256)
           handler: handleProposalCreated

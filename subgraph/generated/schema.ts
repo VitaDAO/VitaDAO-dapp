@@ -610,6 +610,23 @@ export class Voter extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get ens(): string | null {
+    let value = this.get("ens");
+    if (value === null || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set ens(value: string | null) {
+    if (value === null) {
+      this.unset("ens");
+    } else {
+      this.set("ens", Value.fromString(value as string));
+    }
+  }
+
   get votes(): Array<string | null> {
     let value = this.get("votes");
     return value.toStringArray();

@@ -35,7 +35,7 @@
         class="truncate hover:underline"
         target="_blank"
         :href="'https://etherscan.io/address/' + vote.voter.id"
-        >{{ shortenAddress(vote.voter.id) }}</a
+        >{{ vote.voter.ens ? vote.voter.ens : shortenAddress(vote.voter.id) }}</a
       >
 
       <div class="flex-shrink-0 flex-grow text-right">

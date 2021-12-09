@@ -280,6 +280,7 @@ export default defineComponent({
               weight
               voter {
                 id
+                ens
               }
               proposal {
                 id
@@ -292,6 +293,7 @@ export default defineComponent({
               weight
               voter {
                 id
+                ens
               }
               proposal {
                 id
