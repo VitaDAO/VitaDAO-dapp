@@ -38,7 +38,7 @@
             target="_blank"
             class="font-bold hover:underline"
             :href="'https://etherscan.io/address/' + vote.voter.id"
-            >{{ shortenAddress(vote.voter.id) }}</a
+            >{{ vote.voter.ens ? vote.voter.ens : shortenAddress(vote.voter.id) }}</a
           >
           voted
           <span v-if="vote.direction == true" class="text-success">Yes</span>
@@ -103,6 +103,7 @@ export default defineComponent({
           }
           voter {
             id
+            ens
           }
         }
       }
