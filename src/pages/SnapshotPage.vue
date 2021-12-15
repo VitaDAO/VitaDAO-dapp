@@ -1,11 +1,23 @@
 <template>
   <div class="w-full">
-    <h2 class="font-bold mb-2 text-white text-xl">All proposals</h2>
-    <div id="queryWrapper">
+    <hr class="border-black mb-8" />
+    <h1 class="font-medium mb-4 text-black text-3xl">Snapshot proposals</h1>
+    <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading proposals…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
-      <div v-else-if="result">Result: {{ result.proposal }}</div>
-    </div>
+
+      <ul
+        v-else-if="result"
+        role="list"
+        class="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        <snapshot-proposal-box
+          :proposal="proposal"
+          v-for="proposal in result.proposals"
+          :key="proposal.id"
+        />
+      </ul>
+    </transition>
   </div>
 </template>
 
@@ -14,38 +26,31 @@ import { defineComponent } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 import LoadingIndicator from '@/components/LoadingIndicator'
+import SnapshotProposalBox from '@/components/SnapshotProposalBox.vue'
 
 export default defineComponent({
-  components: { LoadingIndicator },
+  components: { LoadingIndicator, SnapshotProposalBox },
   setup() {
     const { result, loading, error } = useQuery(
       gql`
-        query SnapshotProposal {
-          proposal(id: "0xabe5c679efde41029e7c879f048c265c261aadb4459c49b1488e94d4033db0de") {
+        query Proposals($snapshotSpace: String!) {
+          proposals(
+            first: 999
+            where: { space: $snapshotSpace }
+            orderBy: "start"
+            orderDirection: desc
+          ) {
             id
             title
-            body
-            choices
             start
             end
-            snapshot
             state
-            author
-            created
-            plugins
-            network
-            strategies {
-              name
-              params
-            }
-            space {
-              id
-              name
-            }
           }
         }
       `,
-      null,
+      () => ({
+        snapshotSpace: process.env.VUE_APP_SNAPSHOT_SPACE,
+      }),
       { clientId: 'snapshot' },
     )
 
