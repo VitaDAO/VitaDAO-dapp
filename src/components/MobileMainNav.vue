@@ -10,7 +10,7 @@
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <dialog-overlay class="bg-gray-600 bg-opacity-75 fixed inset-0" />
+        <dialog-overlay class="bg-gray-800 bg-opacity-75 fixed inset-0" />
       </transition-child>
       <transition-child
         as="template"
@@ -21,7 +21,7 @@
         leave-from="translate-x-0"
         leave-to="-translate-x-full"
       >
-        <div class="bg-gray-800 flex flex-1 flex-col max-w-18 pb-4 pt-5 relative w-full">
+        <div class="bg-vita-purple flex flex-1 flex-col max-w-18 pb-4 pt-5 relative w-full">
           <transition-child
             as="template"
             enter="ease-in-out duration-300"
@@ -34,16 +34,7 @@
             <div class="-mr-12 absolute bottom-0 pb-5 right-0">
               <button
                 type="button"
-                class="
-                  flex
-                  focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white
-                  h-10
-                  items-center
-                  justify-center
-                  ml-1
-                  rounded-full
-                  w-10
-                "
+                class="flex focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white h-10 items-center justify-center ml-1 rounded-full w-10"
                 @click="close"
               >
                 <span class="sr-only">Close sidebar</span>
@@ -52,7 +43,7 @@
             </div>
           </transition-child>
           <div class="flex flex-shrink-0 items-center px-5">
-            <img src="../assets/images/logo.svg" class="h-6 w-auto" alt="VitaDAO" />
+            <img src="../assets/images/logo_white.svg" class="h-6 w-auto" alt="VitaDAO" />
           </div>
           <div class="flex-1 h-0 mt-5 overflow-y-auto">
             <nav class="px-5 space-y-1">
@@ -60,20 +51,8 @@
                 v-for="item in navItems"
                 :key="item.name"
                 :to="item.to"
-                :class="[
-                  $route.path === item.to
-                    ? 'bg-gray-700 text-white'
-                    : 'text-white hover:bg-gray-700',
-                  'group flex items-center px-2 py-2 text-base font-medium rounded-md',
-                ]"
+                class="text-white group flex items-center px-3 py-2 text-base font-semibold rounded-xl"
               >
-                <fa
-                  fixed-width
-                  class="flex-shrink-0 ml-1 mr-3 text-vita-sunrise"
-                  :icon="item.icon"
-                  aria-hidden="true"
-                  size="lg"
-                />
                 {{ item.name }}
               </router-link>
             </nav>
@@ -123,3 +102,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.router-link-active {
+  background-color: color-mod(theme('colors.vita-purple') lightness(+3%));
+}
+</style>

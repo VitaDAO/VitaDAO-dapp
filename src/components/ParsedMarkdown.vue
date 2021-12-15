@@ -1,5 +1,10 @@
 <template>
-  <div class="prose" v-html="html" />
+  <div
+    :class="{
+      'prose prose-lg': applyProseStyles,
+    }"
+    v-html="html"
+  />
 </template>
 
 <script>
@@ -12,6 +17,10 @@ export default defineComponent({
     source: {
       type: String,
       required: true,
+    },
+    applyProseStyles: {
+      type: Boolean,
+      default: true,
     },
   },
   setup(props) {

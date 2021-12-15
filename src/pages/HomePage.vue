@@ -1,6 +1,7 @@
 <template>
   <div class="w-full">
-    <h2 class="font-bold mb-2 text-black text-xl">Active proposals</h2>
+    <hr class="border-black mb-8" />
+    <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Active proposals</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading active proposals…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
@@ -10,16 +11,18 @@
         :block-number="blockNumber"
       />
       <div v-else>
-        <div class="border-2 border-dashed border-gray-300 p-6 rounded-lg text-center w-full">
-          <fa icon="folder-open" class="text-gray-300" size="2x" />
-          <span class="block font-medium mt-2 text-white text-sm">
-            Currently no active proposals.
+        <div class="border-2 border-dashed border-gray-300 p-6 rounded-xl text-center w-full">
+          <fa icon="folder-open" class="text-vita-purple" size="2x" />
+          <span class="block font-medium mt-2 text-black">
+            Currently there are no active proposals.
             <router-link class="underline" to="/proposals">See all proposals</router-link>
           </span>
         </div>
       </div>
     </transition>
-    <h2 class="mt-10 font-bold mb-2 text-black text-xl">Last votes</h2>
+
+    <hr class="border-black mb-8 mt-20" />
+    <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Latest votes</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading votes…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
@@ -30,13 +33,13 @@
         <div
           v-for="vote in result.votes"
           :key="vote.id"
-          class="text-sm text-white rounded-lg px-4 sm:px-6 py-3 sm:py-4 shadow-sm bg-gray-900"
+          class="text-sm text-black rounded-2xl px-4 sm:px-6 py-3 sm:py-4 border border-gray-300"
         >
           <a
             target="_blank"
             class="font-bold hover:underline"
             :href="'https://etherscan.io/address/' + vote.voter.id"
-            >{{ shortenAddress(vote.voter.id) }}</a
+            >{{ vote.voter.ens ? vote.voter.ens : shortenAddress(vote.voter.id) }}</a
           >
           voted
           <span v-if="vote.direction == true" class="text-success">Yes</span>
@@ -101,6 +104,7 @@ export default defineComponent({
           }
           voter {
             id
+            ens
           }
         }
       }

@@ -4,119 +4,64 @@
       <loading-indicator v-if="loading">Loading proposal…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
       <div v-else-if="result && proposal">
-        <nav class="flex max-w-full" aria-label="Breadcrumb">
-          <ol class="border border-gray-200 flex px-6 rounded-md space-x-4">
-            <li class="flex">
-              <div class="flex items-center">
-                <router-link to="/" class="hover:text-gray-300 text-black">
-                  <fa icon="home" />
-                  <span class="sr-only">Home</span>
-                </router-link>
-              </div>
-            </li>
-            <li class="flex">
-              <div class="flex items-center">
-                <svg
-                  class="flex-shrink-0 h-full text-gray-200 w-6"
-                  viewBox="0 0 24 44"
-                  preserveAspectRatio="none"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
-                </svg>
-                <router-link
-                  to="/proposals"
-                  class="font-medium hover:text-gray-300 ml-4 text-black text-sm"
-                  >Proposals</router-link
-                >
-              </div>
-            </li>
-            <li class="flex">
-              <div class="flex items-center">
-                <svg
-                  class="flex-shrink-0 h-full text-gray-200 w-6"
-                  viewBox="0 0 24 44"
-                  preserveAspectRatio="none"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
-                </svg>
-                <div class="font-medium ml-4 text-gray-400 text-sm">
-                  Proposal #{{ proposal.id }}
-                </div>
-              </div>
-            </li>
-          </ol>
-        </nav>
-        <h1 class="font-bold leading-tight mt-4 text-2xl text-black">
-          {{ proposal.proposalContent.title }}
-        </h1>
-        <span class="font-medium text-gray-300 text-sm uppercase"
-          >{{ proposal.proposalContent.type }} proposal</span
-        >
-        <span class="font-medium text-gray-400 text-sm">
-          (created {{ dayjs.unix(proposal.createdAt).format('MM-DD-YYYY') }})</span
-        >
-        <!-- this doesn't seem to work with router hash mode -->
-        <!-- <div class="mt-4 lg:hidden">
-          <router-link class="text-vita-sunrise hover:underline" to="#vote"
-            >↓ Jump to vote</router-link
-          >
-        </div> -->
-        <div class="gap-6 grid grid-cols-12 mt-4 lg:mt-6">
-          <div class="col-span-12 lg:col-span-7 xl:col-span-8 space-y-8">
-            <div
-              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
+        <div class="lg:gap-8 grid grid-cols-12">
+          <div class="col-span-12 lg:col-span-7 xl:col-span-8">
+            <hr class="border-black mb-6" />
+
+            <span class="font-medium text-black capitalize"
+              >{{ proposal.proposalContent.type }} proposal</span
             >
-              <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">Proposal Summary</h2>
-              <parsed-markdown :source="proposal.proposalContent.summary" />
+            <span class="text-gray-500">
+              | Created {{ dayjs.unix(proposal.createdAt).format('DD MMMM YYYY') }}</span
+            >
+
+            <h1 class="font-medium leading-tight text-3xl md:text-4xl xl:text-5xl text-black mt-2">
+              {{ proposal.proposalContent.title }}
+            </h1>
+
+            <p
+              class="mt-2 text-vita-purple font-medium text-lg sm:text-xl max-w-prose leading-snug"
+            >
+              <parsed-markdown
+                :apply-prose-styles="false"
+                :source="proposal.proposalContent.summary"
+              />
+            </p>
+
+            <div class="mt-4 md:flex md:space-x-2 lg:space-x-0">
+              <div class="lg:hidden mb-2 md:mb-0">
+                <base-button @click="jumpToVote" icon="vote-yea" type="secondary">Vote</base-button>
+              </div>
+              <a :href="proposal.proposalContent.link" target="_blank">
+                <base-button icon="discourse" icon-pack="fab" type="outline"
+                  >View Discourse Proposal</base-button
+                ></a
+              >
             </div>
 
-            <div
-              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
-            >
-              <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">Proposal Details</h2>
+            <div class="mt-8 border-t border-gray-300 pt-6">
+              <h2 class="text-black text-2xl font-semibold mb-2">Proposal Details</h2>
               <parsed-markdown :source="proposal.proposalContent.details" />
             </div>
-            <div v-if="project">
-              <div
-                class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
-              >
-                <h2 class="leading-snug text-gray-600 text-xl font-medium mb-2">
-                  Project Aims & Hypothesis
-                </h2>
-                <parsed-markdown :source="project.aimsAndHypothesis" />
-              </div>
-            </div>
 
-            <div
-              class="bg-white overflow-hidden px-5 py-6 rounded-lg border border-gray-300 sm:px-8"
-            >
-              <h2 class="leading-snug text-gray-600 text-xl font-medium">Proposal Link</h2>
-              <a
-                class="text-blue-500 hover:underline"
-                :href="proposal.proposalContent.link"
-                target="_blank"
-                >»{{ proposal.proposalContent.title }}« on Discourse</a
-              >
+            <div v-if="project" class="mt-8 border-t border-gray-300 pt-6">
+              <h2 class="text-black text-2xl font-semibold mb-2">Project Aims & Hypothesis</h2>
+              <parsed-markdown :source="project.aimsAndHypothesis" />
             </div>
           </div>
-          <div id="vote" class="mt-2 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8">
-            <div class="bg-white rounded-lg border border-gray-300">
-              <div class="px-4 py-5 sm:px-6">
-                <h3 class="font-medium leading-6 text-gray-900 text-lg">Vote</h3>
-              </div>
-              <div class="border-gray-200 border-t px-4 py-5 space-y-4">
-                <div class="flex">
+          <div
+            ref="voteSection"
+            class="mt-8 lg:mt-0 col-span-12 lg:col-span-5 xl:col-span-4 space-y-8"
+          >
+            <div class="bg-white rounded-xl border border-gray-300 px-6 py-8">
+              <div>
+                <h3 class="font-semibold leading-6 text-black text-center text-xl">
+                  Vote on this proposal
+                </h3>
+                <div class="flex justify-center mt-8">
                   <proposal-status :proposal="proposal" :block-number="blockNumber" />
                 </div>
-                <votes-info :proposal="proposal" :votes-data="votesData" />
-              </div>
-              <div class="border-gray-200 border-t px-4 py-5 space-y-4">
+                <votes-info class="mt-3 mb-8" :proposal="proposal" :votes-data="votesData" />
                 <transition name="fade" mode="out-in">
                   <div v-if="!walletIsConnected" key="connectWalletFirst">
                     <base-button full-width type="primary" @click="openConnectWalletModal"
@@ -129,35 +74,54 @@
                     >
                   </div>
                   <div v-else-if="alreadyVoted || lastVoteWasThis" key="votedAlready">
-                    <warning-box>You have already voted on this proposal. </warning-box>
+                    <notice-box>You have already voted on this proposal. </notice-box>
                   </div>
                   <div v-else-if="stakedVitaBalance > 0" key="vote" class="flex space-x-3">
-                    <base-button full-width @click="voteYes">Vote Yes</base-button>
-                    <base-button full-width @click="voteNo">Vote No</base-button>
+                    <base-button icon="thumbs-up" type="success" full-width @click="voteYes"
+                      >Vote Yes</base-button
+                    >
+                    <base-button icon="thumbs-down" type="danger" full-width @click="voteNo"
+                      >Vote No</base-button
+                    >
                   </div>
                   <div v-else key="stakeFirst">
-                    <warning-box
+                    <notice-box
                       >You have to stake some VITA before being able to vote. Go to the
                       <router-link class="underline" to="/wallet"
                         >Staking Page</router-link
-                      ></warning-box
+                      ></notice-box
                     >
                   </div>
                 </transition>
               </div>
             </div>
-            <div v-if="project" class="bg-white overflow-hidden rounded-lg border border-gray-300">
+
+            <votes-list
+              v-if="parseFloat(proposal.numTokensYes) > 0"
+              :votes="proposal.yesVotes"
+              :direction="true"
+              :total-votes="parseFloat(proposal.numTokensYes)"
+            />
+
+            <votes-list
+              v-if="parseFloat(proposal.numTokensNo) > 0"
+              :votes="proposal.noVotes"
+              :direction="false"
+              :total-votes="parseFloat(proposal.numTokensNo)"
+            />
+
+            <div v-if="project" class="bg-white overflow-hidden rounded-xl border border-gray-300">
               <div class="px-4 py-5 sm:px-6">
-                <h3 class="font-medium leading-6 text-gray-900 text-lg">Project Details</h3>
+                <h3 class="font-medium leading-6 text-black text-lg">Project Details</h3>
               </div>
               <div class="border-gray-200 border-t px-4 py-5 sm:p-0">
-                <dl class="sm:divide-gray-200 sm:divide-y">
+                <dl>
                   <div
                     v-if="project.title"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Title</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dt class="font-medium text-vita-purple text-sm">Title</dt>
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.title }}
                     </dd>
                   </div>
@@ -165,8 +129,8 @@
                     v-if="project.summary"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Summary</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dt class="font-medium text-vita-purple text-sm">Summary</dt>
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.summary }}
                     </dd>
                   </div>
@@ -174,8 +138,8 @@
                     v-if="project.institution"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Institution</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dt class="font-medium text-vita-purple text-sm">Institution</dt>
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.institution }}
                     </dd>
                   </div>
@@ -183,8 +147,8 @@
                     v-if="project.researchLead"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Research Lead</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dt class="font-medium text-vita-purple text-sm">Research Lead</dt>
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.researchLead }}
                     </dd>
                   </div>
@@ -192,8 +156,8 @@
                     v-if="project.fundingStage"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Funding Stage</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dt class="font-medium text-vita-purple text-sm">Funding Stage</dt>
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.fundingStage }}
                     </dd>
                   </div>
@@ -201,8 +165,8 @@
                     v-if="project.clinicalStage"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Clinical Stage</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dt class="font-medium text-vita-purple text-sm">Clinical Stage</dt>
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.clinicalStage }}
                     </dd>
                   </div>
@@ -210,8 +174,8 @@
                     v-if="project.ipStatus"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">IP Status</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dt class="font-medium text-vita-purple text-sm">IP Status</dt>
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{ project.ipStatus }}
                     </dd>
                   </div>
@@ -219,8 +183,8 @@
                     v-if="project.budget"
                     class="py-4 sm:gap-4 sm:grid sm:grid-cols-3 sm:px-6 sm:py-5"
                   >
-                    <dt class="font-medium text-gray-500 text-sm">Budget</dt>
-                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-gray-900 text-sm">
+                    <dt class="font-medium text-vita-purple text-sm">Budget</dt>
+                    <dd class="mt-1 sm:col-span-2 sm:mt-0 text-black text-sm">
                       {{
                         new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(
                           parseFloat(project.budget),
@@ -240,7 +204,7 @@
 </template>
 
 <script>
-import { defineComponent, reactive, watch, computed } from 'vue'
+import { defineComponent, reactive, watch, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { useQuery, useResult } from '@vue/apollo-composable'
@@ -250,8 +214,9 @@ import ParsedMarkdown from '@/components/ParsedMarkdown'
 import VotesInfo from '@/components/VotesInfo'
 import ProposalStatus from '@/components/ProposalStatus'
 import BaseButton from '@/components/BaseButton'
-import WarningBox from '@/components/WarningBox'
+import NoticeBox from '@/components/NoticeBox'
 import LoadingIndicator from '@/components/LoadingIndicator'
+import VotesList from '@/components/VotesList'
 
 export default defineComponent({
   components: {
@@ -259,12 +224,14 @@ export default defineComponent({
     VotesInfo,
     ProposalStatus,
     BaseButton,
-    WarningBox,
+    NoticeBox,
     LoadingIndicator,
+    VotesList,
   },
   setup() {
     const route = useRoute()
     const store = useStore()
+    const voteSection = ref(null)
 
     const connectedAddress = computed(() => store.state.wallet.connectionInfo.address)
     const walletIsConnected = computed(() => store.state.wallet.isConnected)
@@ -306,19 +273,47 @@ export default defineComponent({
                 aimsAndHypothesis
               }
             }
-          }
-          _meta {
-            block {
-              number
+
+            yesVotes: votes(where: { direction: true }, orderBy: weight, orderDirection: desc) {
+              id
+              direction
+              weight
+              voter {
+                id
+                ens
+              }
+              proposal {
+                id
+              }
+            }
+
+            noVotes: votes(where: { direction: false }, orderBy: weight, orderDirection: desc) {
+              id
+              direction
+              weight
+              voter {
+                id
+                ens
+              }
+              proposal {
+                id
+              }
             }
           }
-          votes(first: 1, where: { id: $voteId }) {
+
+          userVote: votes(first: 1, where: { id: $voteId }) {
             id
             proposal {
               id
             }
             voter {
               id
+            }
+          }
+
+          _meta {
+            block {
+              number
             }
           }
         }
@@ -383,6 +378,10 @@ export default defineComponent({
       }
     }
 
+    async function jumpToVote() {
+      voteSection.value.scrollIntoView()
+    }
+
     function openConnectWalletModal() {
       store.commit('wallet/setConnectWalletModalIsOpen', true)
     }
@@ -390,7 +389,9 @@ export default defineComponent({
     return {
       stakedVitaBalance: computed(() => store.state.wallet.stakedVitaBalance),
       isVoting: computed(() => store.state.wallet.isVoting),
-      alreadyVoted: computed(() => result.value && result.value.votes && result.value.votes.length),
+      alreadyVoted: computed(
+        () => result.value && result.value.userVote && result.value.userVote.length,
+      ),
       walletIsConnected,
       lastVoteWasThis,
       openConnectWalletModal,
@@ -404,6 +405,8 @@ export default defineComponent({
       voteYes,
       voteNo,
       dayjs,
+      voteSection,
+      jumpToVote,
     }
   },
 })

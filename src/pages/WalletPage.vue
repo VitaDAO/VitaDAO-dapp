@@ -1,94 +1,43 @@
 <template>
-  <div class="max-w-xl w-full">
-    <h2 class="font-bold mb-2 text-white text-xl">Your Wallet</h2>
-    <div v-if="walletIsConnected" class="flex flex-col space-y-2">
-      <div
-        class="
-          flex
-          justify-between
-          text-white
-          rounded-lg
-          px-4
-          sm:px-6
-          py-3
-          sm:py-4 sm:text-lg
-          shadow-sm
-          bg-gray-900
-        "
-      >
-        <span class="font-bold flex-shrink-0 text-vita-sunrise">Your Address</span>
-        <span class="truncate">{{ ensName ? ensName : shortenAddress(connectedAddress, 5) }}</span>
+  <div class="max-w-2xl w-full">
+    <hr class="border-black mb-8" />
+    <h1 class="font-medium mb-4 text-black text-3xl">Your Wallet</h1>
+    <div v-if="walletIsConnected" class="flex flex-col mt-8">
+      <div class="flex justify-between text-black py-3 sm:py-4 sm:text-lg border-t border-gray-300">
+        <span class="font-medium flex-shrink-0">Your Address</span>
+        <span class="font-medium truncate text-vita-purple">{{
+          ensName ? ensName : shortenAddress(connectedAddress, 5)
+        }}</span>
+      </div>
+      <div class="flex justify-between text-black py-3 sm:py-4 sm:text-lg border-t border-gray-300">
+        <span class="font-medium flex-shrink-0">ETH Balance</span>
+        <span class="font-medium truncate text-vita-purple"
+          ><animated-counter :decimals="2" :value="parseFloat(ethBalance)" />Ξ</span
+        >
+      </div>
+      <div class="flex justify-between text-black py-3 sm:py-4 sm:text-lg border-t border-gray-300">
+        <span class="font-medium flex-shrink-0">VITA Balance</span>
+        <span class="font-medium truncate text-vita-purple"
+          ><animated-counter :value="parseFloat(vitaBalance)" /> VITA</span
+        >
       </div>
       <div
-        class="
-          flex
-          justify-between
-          text-white
-          rounded-lg
-          px-4
-          sm:px-6
-          py-3
-          sm:py-4 sm:text-lg
-          shadow-sm
-          bg-gray-800
-        "
+        class="flex justify-between text-black py-3 sm:py-4 sm:text-lg border-t border-gray-300"
+        :class="{
+          'border-b': !vitaLocked,
+        }"
       >
-        <span class="font-bold flex-shrink-0 text-vita-sunrise">ETH Balance</span>
-        <span><animated-counter :decimals="2" :value="parseFloat(ethBalance)" />Ξ</span>
+        <span class="font-medium flex-shrink-0">Staked VITA</span>
+        <span class="font-medium truncate text-vita-purple"
+          ><animated-counter :value="parseFloat(stakedVitaBalance)" /> VITA</span
+        >
       </div>
       <div
-        class="
-          flex
-          justify-between
-          text-white
-          rounded-lg
-          px-4
-          sm:px-6
-          py-3
-          sm:py-4 sm:text-lg
-          shadow-sm
-          bg-gray-900
-        "
+        v-if="vitaLocked"
+        class="flex justify-between text-black py-3 sm:py-4 sm:text-lg border-t border-b border-gray-300"
       >
-        <span class="font-bold flex-shrink-0 text-vita-sunrise">VITA Balance</span>
-        <span><animated-counter :value="parseFloat(vitaBalance)" /> VITA</span>
-      </div>
-      <div
-        class="
-          flex
-          justify-between
-          text-white
-          rounded-lg
-          px-4
-          sm:px-6
-          py-3
-          sm:py-4 sm:text-lg
-          shadow-sm
-          bg-gray-800
-        "
-      >
-        <span class="font-bold flex-shrink-0 text-vita-sunrise">Staked VITA</span>
-        <span><animated-counter :value="parseFloat(stakedVitaBalance)" /> VITA</span>
-      </div>
-      <div
-        v-if="
-          parseFloat(stakedVitaBalance) > 0 && stakeUnlockBlock && stakeUnlockBlock > currentBlock
-        "
-        class="
-          flex
-          justify-between
-          text-white
-          rounded-lg
-          px-4
-          sm:px-6
-          py-3
-          sm:py-4 sm:text-lg
-          shadow-sm
-          bg-gray-900
-        "
-      >
-        <span class="font-bold flex-shrink-0 text-vita-sunrise">Stake Unlock Time</span>
-        <span>
+        <span class="font-medium flex-shrink-0">Stake Unlock Time</span>
+        <span class="font-medium truncate text-vita-purple">
           in
           {{
             dayjs()
@@ -99,9 +48,9 @@
       </div>
     </div>
 
-    <staking-box v-if="walletIsConnected" class="mt-4 sm:mt-8" />
+    <staking-box v-if="walletIsConnected" class="mt-4 sm:mt-14" />
 
-    <div class="mt-4">
+    <div>
       <base-button
         v-if="!walletIsConnected"
         type="primary"
@@ -110,9 +59,10 @@
         @click="openConnectWalletModal"
         >Please Connect Wallet</base-button
       >
-      <base-button v-else size="lg" type="secondary" full-width @click="disconnectWallet"
-        >Disconnect Wallet</base-button
-      >
+      <div v-else class="mt-14">
+        <hr class="border-black mb-4" />
+        <base-button class="float-right" @click="disconnectWallet">Disconnect Wallet</base-button>
+      </div>
     </div>
   </div>
 </template>
@@ -146,16 +96,37 @@ export default defineComponent({
       await store.dispatch('wallet/disconnect')
     }
 
+    const stakedVitaBalance = computed(function () {
+      return store.state.wallet.stakedVitaBalance
+    })
+
+    const stakeUnlockBlock = computed(function () {
+      return parseInt(store.state.wallet.stakeUnlockBlock)
+    })
+
+    const currentBlock = computed(function () {
+      return parseInt(store.state.wallet.currentBlock)
+    })
+
+    const vitaLocked = computed(function () {
+      return (
+        parseFloat(stakedVitaBalance.value) > 0 &&
+        stakeUnlockBlock.value &&
+        stakeUnlockBlock.value > currentBlock.value
+      )
+    })
+
     return {
       loadingUserDetails: computed(() => store.state.wallet.loadingUserDetails),
       walletIsConnected: computed(() => store.state.wallet.isConnected),
       connectedAddress: computed(() => store.state.wallet.connectionInfo.address),
       ethBalance: computed(() => store.state.wallet.ethBalance),
       vitaBalance: computed(() => store.state.wallet.vitaBalance),
-      stakedVitaBalance: computed(() => store.state.wallet.stakedVitaBalance),
-      currentBlock: computed(() => parseInt(store.state.wallet.currentBlock)),
-      stakeUnlockBlock: computed(() => parseInt(store.state.wallet.stakeUnlockBlock)),
       ensName: computed(() => store.state.wallet.ensName),
+      stakedVitaBalance,
+      currentBlock,
+      stakeUnlockBlock,
+      vitaLocked,
       openConnectWalletModal,
       disconnectWallet,
       shortenAddress,

@@ -1,81 +1,42 @@
 <template>
   <div>
-    <button
-      class="
-        bg-gray-800
-        border border-transparent
-        duration-150
-        flex
-        focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2
-        font-bold
-        hover:bg-gray-700
-        items-center
-        pr-4
-        px-3
-        py-1.5
-        rounded-xl
-        shadow-lg
-        text-sm text-white
-        transition-all
-      "
+    <base-button
+      v-if="!walletIsConnected"
+      size="sm"
+      type="primary"
+      icon="wallet"
       @click="openConnectWalletModal"
+      >Connect Wallet</base-button
     >
-      <span
-        v-if="!walletIsConnected"
-        class="bg-gray-900 flex h-8 items-center justify-center mr-3 rounded-full text-white w-8"
-        ><fa icon="wallet"
-      /></span>
-      <template v-else>
-        <div
-          v-if="isTransacting"
-          class="
-            bg-gray-900
-            flex
-            h-8
-            items-center
-            justify-center
-            mr-3
-            overflow-hidden
-            rounded-full
-            text-white
-            w-8
-          "
-        >
-          <fa icon="spinner" spin />
-        </div>
-        <div
-          v-else-if="walletProvider == 'injected'"
-          class="flex h-8 items-center justify-center mr-3 overflow-hidden text-white w-8"
-        >
-          <jazzicon address="connectedAddress" :diameter="28" class="mt-1" />
-        </div>
-        <div
-          v-else
-          class="
-            bg-gray-900
-            flex
-            h-8
-            items-center
-            justify-center
-            mr-3
-            overflow-hidden
-            rounded-full
-            text-white
-            w-8
-          "
-        >
-          <img src="@/assets/images/walletConnect.svg" class="h-3 w-auto" />
-        </div>
-      </template>
+    <div
+      v-else
+      @click="openConnectWalletModal"
+      class="bg-white cursor-pointer pl-1 pr-3.5 py-1 text-base font-medium rounded-full border border-gray-300 flex items-center"
+    >
+      <div
+        v-if="isTransacting"
+        class="bg-vita-sunrise flex h-8 items-center justify-center mr-2 overflow-hidden rounded-full text-black w-8"
+      >
+        <fa icon="spinner" spin />
+      </div>
+      <div
+        v-else-if="walletProvider == 'injected'"
+        class="flex h-8 items-center justify-center mr-2 overflow-hidden text-white w-8"
+      >
+        <jazzicon address="connectedAddress" :diameter="28" class="mt-2" />
+      </div>
+      <div
+        v-else
+        class="bg-gray-200 flex h-8 items-center justify-center mr-2 overflow-hidden rounded-full text-white w-8"
+      >
+        <img src="@/assets/images/walletConnect.svg" class="h-3 w-auto" />
+      </div>
 
-      <template v-if="walletIsConnected">
-        <span v-if="ensName" class="ens-shortened truncate"> {{ ensName }} </span>
-        <template v-else>
-          {{ shortenAddress(connectedAddress) }}
-        </template>
+      <span v-if="ensName" class="ens-shortened truncate"> {{ ensName }} </span>
+      <template v-else>
+        {{ shortenAddress(connectedAddress) }}
       </template>
-      <template v-else> Connect Wallet </template>
-    </button>
+    </div>
   </div>
 </template>
 
@@ -85,10 +46,12 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import Jazzicon from 'vue3-jazzicon/src/components'
 import { shortenAddress } from '@/utils'
+import BaseButton from '@/components/BaseButton'
 
 export default {
   components: {
     Jazzicon,
+    BaseButton,
   },
   props: {},
   setup() {
@@ -118,7 +81,7 @@ export default {
 }
 </script>
 
-<style scoped lang="postcss">
+<style scoped>
 .ens-shortened {
   max-width: 9rem;
 }

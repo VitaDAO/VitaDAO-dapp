@@ -16,6 +16,7 @@ module.exports = {
       yellow: colors.amber,
       blue: colors.blue,
       green: colors.emerald,
+      orange: colors.orange,
     },
     extend: {
       colors: {
@@ -31,6 +32,11 @@ module.exports = {
       maxWidth: {
         18: '18rem',
         '8xl': '90rem',
+      },
+      backgroundSize: {
+        25: '25%',
+        33: '33%',
+        50: '50%',
       },
     },
   },

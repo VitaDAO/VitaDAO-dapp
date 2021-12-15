@@ -84,7 +84,10 @@ type Vote @entity {
 On-Chain Voters
 """
 type Voter @entity {
+  "Ethereum address of voter"
   id: ID!
+  "ENS Domain of the voter, if available"
+  ens: String
   votes: [Vote]! @derivedFrom(field: "voter")
 }
 

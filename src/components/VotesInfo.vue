@@ -1,23 +1,25 @@
 <template>
   <div class="flex flex-col items-center">
-    <div class="bg-gray-400 flex h-8 overflow-hidden rounded-lg w-full">
+    <div class="bg-gray-400 flex h-1.5 overflow-hidden w-full">
       <div
         class="bg-success duration-1000 ease-in-out h-full transition-all"
         :style="{
-          width: yesPercentage + '%',
+          width: yesPercentage - 0.5 + '%',
         }"
       />
+      <div class="bg-white" style="width: 1%" />
       <div
         class="bg-danger duration-1000 ease-in-out h-full transition-all"
         :style="{
-          width: noPercentage + '%',
+          width: noPercentage - 0.5 + '%',
         }"
       />
     </div>
-    <div class="font-medium mt-1.5 text-gray-700 text-xs">
-      {{ yesPercentage.toFixed(2) }}% Yes / {{ noPercentage.toFixed(2) }}% No
+    <div class="mt-3 font-medium text-gray-300">
+      <span class="text-success">{{ yesPercentage.toFixed(2) }}% Yes</span> •
+      <span class="text-danger">{{ noPercentage.toFixed(2) }}% No</span>
     </div>
-    <span class="font-medium text-gray-500 text-xs">
+    <span class="text-gray-600">
       {{ new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(totalVotes) }}
       Total Votes
       <span
@@ -26,12 +28,13 @@
       >
       <span>{{ proposal.isVoting }}</span>
     </span>
-    <span
+    <div
       v-if="totalVotes < parseFloat(proposal.minVotesNeeded)"
-      class="bg-yellow-100 font-medium px-1.5 py-0.5 rounded-full text-xs text-yellow-800"
+      class="mt-2 bg-orange-50 font-semibold text-sm px-4 py-1.5 rounded-full text-orange-400"
     >
+      <fa icon="exclamation-triangle" class="mr-0.5 text-orange-300" />
       Quorum not met ({{ quorumPercentage.toFixed(2) }}%)
-    </span>
+    </div>
   </div>
 </template>
 

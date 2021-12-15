@@ -1,4 +1,4 @@
-import { json, JSONValueKind, JSONValue, Bytes, ipfs, log } from '@graphprotocol/graph-ts'
+import { json, JSONValueKind, JSONValue, Bytes, ipfs, log, Address } from '@graphprotocol/graph-ts'
 import { tokenAmountToDecimal } from './utils'
 import { BI_18, NA, ZERO_BD } from './utils/constants'
 import {
@@ -18,6 +18,7 @@ import {
   // VotingDurationChanged as VotingDurationChangedEvent
 } from "../generated/Raphael/Raphael"
 import { Raphael } from "../generated/Raphael/Raphael"
+import { ENSReverseRecords } from "../generated/Raphael/ENSReverseRecords"
 import {
   Proposal,
   ProposalContent,
@@ -331,6 +332,26 @@ export function handleVoted(event: VotedEvent): void {
   if (!voter) {
     voter = new Voter(event.params.voter.toHexString());
     voter.save();
+  }
+
+  // This is the mainnet address of the ENS contract
+  let ensReverseRecords = ENSReverseRecords.bind(Address.fromString("0x3671aE578E63FdF66ad4F3E12CC0c0d71Ac7510C"))
+  let addresses = new Array<Address>(0)
+  addresses.push(Address.fromString(voter.id))
+
+  let callResult = ensReverseRecords.try_getNames(addresses)
+  if (callResult.reverted) {
+    log.warning("ENS getNames reverted", [])
+  } else {
+    let domain = callResult.value
+    voter.ens = domain[0]
+    voter.save();
+    log.warning("got ENS for {}: {}",
+      [
+        voter.id,
+        domain[0]
+      ]
+    )
   }
 
   let votedEvent = new Voted(event.block.number.toString().concat('-').concat(event.logIndex.toString()))

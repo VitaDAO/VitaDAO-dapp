@@ -6,15 +6,16 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core
 import { ApolloClients } from '@vue/apollo-composable'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faHome,
   faSpinner,
   faBars,
   faWallet,
   faFile,
-  faCoins,
   faClock,
   faFolderOpen,
   faVoteYea,
+  faThumbsUp,
+  faThumbsDown,
+  faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons'
 import { faDiscord, faDiscourse } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -22,7 +23,7 @@ import Toast from 'vue-toastification'
 import localStorageUtils from '@/utils/localstorage.js'
 import { injectedWalletAvailable } from '@/utils'
 import 'vue-toastification/dist/index.css'
-import './index.scss'
+import './index.css'
 
 // HTTP connection to the API
 const vitaSubgraphHttpLink = createHttpLink({
@@ -47,17 +48,18 @@ const snapshotClient = new ApolloClient({
 })
 
 library.add(
-  faHome,
   faSpinner,
   faBars,
   faWallet,
   faFile,
-  faCoins,
   faClock,
   faFolderOpen,
   faDiscord,
   faDiscourse,
   faVoteYea,
+  faThumbsUp,
+  faThumbsDown,
+  faExclamationTriangle,
 )
 
 // Metamask or similar available?

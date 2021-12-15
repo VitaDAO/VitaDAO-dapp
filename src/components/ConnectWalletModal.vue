@@ -11,24 +11,7 @@
     </h2>
     <div class="flex sm:space-x-4 space-x-2 w-full">
       <button
-        class="
-          bg-gray-700
-          border border-transparent
-          duration-150
-          flex flex-col
-          font-medium
-          hover:bg-gray-800
-          items-center
-          justify-center
-          px-5
-          py-4
-          rounded-lg
-          shadow-sm
-          sm:py-6 sm:text-base
-          text-white text-xs
-          transition-all
-          w-full
-        "
+        class="bg-gray-700 border border-transparent duration-150 flex flex-col font-medium hover:bg-gray-800 items-center justify-center px-5 py-4 rounded-lg shadow-sm sm:py-6 sm:text-base text-white text-xs transition-all w-full"
         @click="connectInjectedWallet"
       >
         <img class="h-6 sm:h-10 w-auto" src="@/assets/images/metamask.svg" />
@@ -37,24 +20,7 @@
         </div>
       </button>
       <button
-        class="
-          bg-gray-700
-          border border-transparent
-          duration-150
-          flex flex-col
-          font-medium
-          hover:bg-gray-800
-          items-center
-          justify-center
-          px-5
-          py-4
-          rounded-lg
-          shadow-sm
-          sm:py-6 sm:text-base
-          text-white text-xs
-          transition-all
-          w-full
-        "
+        class="bg-gray-700 border border-transparent duration-150 flex flex-col font-medium hover:bg-gray-800 items-center justify-center px-5 py-4 rounded-lg shadow-sm sm:py-6 sm:text-base text-white text-xs transition-all w-full"
         @click="connectWalletConnect"
       >
         <img class="h-6 sm:h-10 w-auto" src="@/assets/images/walletConnect.svg" />

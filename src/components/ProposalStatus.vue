@@ -1,8 +1,6 @@
 <template>
-  <span
-    v-if="proposal.hasPassed"
-    class="bg-green-100 font-medium px-2 py-1 rounded-full text-green-800 text-xs"
-  >
+  <span v-if="proposal.hasPassed" class="font-medium text-success">
+    <fa icon="thumbs-up" class="mr-0.5 text-success" />
     Proposal Passed
   </span>
   <span
@@ -10,53 +8,42 @@
       (proposal.status === 'VOTES_FINISHED' || proposal.status === 'RESOLVED') &&
       !proposal.hasPassed
     "
-    class="bg-red-100 font-medium px-2 py-1 rounded-full text-red-800 text-xs"
+    class="font-medium text-danger"
   >
+    <fa icon="thumbs-down" class="mr-0.5 text-danger" />
     Proposal Failed
   </span>
   <span
     v-else-if="proposal.status === 'VOTING' && blockNumber > parseInt(proposal.voteEndBlock)"
-    class="bg-gray-100 font-medium px-2 py-1 rounded-full text-gray-800 text-xs"
+    class="font-medium text-gray-600"
   >
     Vote ended, status pending
   </span>
-  <span
-    v-else-if="proposal.status === 'VOTING'"
-    class="bg-yellow-100 font-medium px-2 py-1 rounded-full text-xs text-yellow-800"
-  >
+  <span v-else-if="proposal.status === 'VOTING'" class="font-medium text-gray-600">
+    <fa icon="vote-yea" class="mr-0.5 text-gray-400" />
     Voting (ends in
     {{ voteEndTime }})
   </span>
-  <span
-    v-else-if="proposal.status === 'QUORUM_FAILED'"
-    class="bg-red-100 font-medium px-2 py-1 rounded-full text-red-800 text-xs"
-  >
+  <span v-else-if="proposal.status === 'QUORUM_FAILED'" class="font-medium text-danger">
     Quorum Failed
   </span>
   <span
     v-else-if="
       proposal.status === 'VOTING_NOT_STARTED' && blockNumber > parseInt(proposal.voteEndBlock)
     "
-    class="bg-gray-100 font-medium px-2 py-1 rounded-full text-gray-800 text-xs"
+    class="font-medium text-gray-600"
   >
-    <fa icon="clock" class="mr-0.5 text-gray-400" />
     Expired without Vote
   </span>
-  <span
-    v-else-if="proposal.status === 'VOTING_NOT_STARTED'"
-    class="bg-gray-100 font-medium px-2 py-1 rounded-full text-gray-800 text-xs"
-  >
+  <span v-else-if="proposal.status === 'VOTING_NOT_STARTED'" class="font-medium text-gray-600">
     <fa icon="clock" class="mr-0.5 text-gray-400" />
     Vote starting in
     {{ voteStartTime }}
   </span>
-  <span
-    v-else-if="proposal.status === 'CANCELLED'"
-    class="bg-gray-100 font-medium px-2 py-1 rounded-full text-gray-800 text-xs"
-  >
+  <span v-else-if="proposal.status === 'CANCELLED'" class="font-medium text-gray-600">
     Cancelled
   </span>
-  <span v-else class="bg-gray-100 font-medium px-2 py-1 rounded-full text-gray-800 text-xs">
+  <span v-else class="font-medium text-gray-500">
     {{ proposal.status }}
   </span>
 </template>
