@@ -304,7 +304,10 @@
       <router-link :to="'/snapshotproposal/' + proposal.id">{{ cleanTitle }}</router-link>
     </h2>
 
-    <span v-if="proposal.state == 'closed'" class="font-medium text-gray-600"> Closed </span>
+    <span v-if="proposal.state == 'closed'" class="font-medium text-gray-600">
+      <fa icon="flag-checkered" class="mr-0.5 text-gray-400" />
+      Closed
+    </span>
     <span
       v-else-if="proposal.state == 'pending' && proposal.start > dayjs().unix()"
       class="font-medium text-gray-600"

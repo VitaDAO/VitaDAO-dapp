@@ -16,6 +16,7 @@ import {
   faThumbsUp,
   faThumbsDown,
   faExclamationTriangle,
+  faFlagCheckered,
 } from '@fortawesome/free-solid-svg-icons'
 import { faDiscord, faDiscourse } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -60,6 +61,7 @@ library.add(
   faThumbsUp,
   faThumbsDown,
   faExclamationTriangle,
+  faFlagCheckered,
 )
 
 // Metamask or similar available?
