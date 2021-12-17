@@ -301,7 +301,7 @@
     <h2
       class="text-2xl font-semibold leading-tight hover:text-vita-purple transition-colors duration-150"
     >
-      <router-link :to="'/snapshotproposal/' + proposal.id">{{ cleanTitle }}</router-link>
+      <a :href="proposal.link" target="_blank">{{ cleanTitle }}</a>
     </h2>
 
     <span v-if="proposal.state == 'closed'" class="font-medium text-gray-600">
@@ -321,27 +321,72 @@
       {{ dayjs.unix(proposal.end).fromNow(true) }})
     </span>
 
+    <transition name="fade" mode="out-in">
+      <div v-if="loadingScores" class="text-sm text-gray-600" key="loading">
+        <fa icon="spinner" spin class="mr-0.5" />
+        Loading results…
+      </div>
+      <div v-else class="flex flex-col items-center" key="results">
+        <div class="bg-gray-400 flex h-1.5 overflow-hidden w-full">
+          <div
+            class="bg-success duration-1000 ease-in-out h-full transition-all"
+            :style="{
+              width: yesPercentage - 0.5 + '%',
+            }"
+          />
+          <div class="bg-white" style="width: 1%" />
+          <div
+            class="bg-danger duration-1000 ease-in-out h-full transition-all"
+            :style="{
+              width: noPercentage - 0.5 + '%',
+            }"
+          />
+        </div>
+        <div class="mt-3 font-medium text-gray-300">
+          <span class="text-success">{{ yesPercentage.toFixed(2) }}% Yes</span> •
+          <span class="text-danger">{{ noPercentage.toFixed(2) }}% No</span>
+        </div>
+        <span class="text-gray-600">
+          {{ new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(numTotalVotes) }}
+          Total Votes
+          <span
+            v-if="
+              numTotalVotes >= parseFloat(proposal.space.voting.quorum) ||
+              !proposal.state == 'active'
+            "
+            >({{ Math.round(quorumPercentage) }}% of quorum)</span
+          >
+        </span>
+        <div
+          v-if="
+            !proposal.state == 'pending' && numTotalVotes < parseFloat(proposal.space.voting.quorum)
+          "
+          class="mt-2 bg-orange-50 font-semibold text-sm px-4 py-1.5 rounded-full text-orange-400"
+        >
+          <fa icon="exclamation-triangle" class="mr-0.5 text-orange-300" />
+          Quorum not met ({{ quorumPercentage.toFixed(2) }}%)
+        </div>
+      </div>
+    </transition>
+
     <div class="flex-grow" />
 
     <div class="pt-1">
-      <router-link v-slot="{ navigate, href }" :to="'/snapshotproposal/' + proposal.id">
-        <base-button
-          v-if="proposal.state == 'active'"
-          type="secondary"
-          :href="href"
-          @click="navigate"
-          >Review & Vote</base-button
-        >
-        <base-button v-else type="outline" :href="href" @click="navigate">Review</base-button>
-      </router-link>
+      <a :href="proposal.link" target="_blank">
+        <base-button v-if="proposal.state == 'active'" type="secondary">Review & Vote</base-button>
+        <base-button v-else type="outline">Review</base-button>
+      </a>
     </div>
   </li>
 </template>
 
 <script>
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, watch, ref, onBeforeMount } from 'vue'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
+import snapshot from '@snapshot-labs/snapshot.js'
 import BaseButton from '@/components/BaseButton.vue'
 
 export default defineComponent({
@@ -354,6 +399,78 @@ export default defineComponent({
   },
   setup(props) {
     dayjs.extend(relativeTime)
+
+    const loadingScores = ref(true)
+    const numTotalVotes = ref(0)
+    const numYesVotes = ref(0)
+    const numNoVotes = ref(0)
+
+    const { result: votesQueryResult } = useQuery(
+      gql`
+        query Votes($proposalId: String!) {
+          votes(first: 20000, where: { proposal: $proposalId }) {
+            id
+            voter
+            choice
+          }
+        }
+      `,
+      () => ({
+        proposalId: props.proposal.id,
+      }),
+      { clientId: 'snapshot' },
+    )
+
+    onBeforeMount(() => {
+      if (votesQueryResult.value) {
+        calculateScores(votesQueryResult.value.votes)
+      }
+    })
+
+    async function calculateScores(votes) {
+      const voters = votes.map((v) => v.voter)
+      let votesWithBalance = []
+
+      if (voters.length) {
+        try {
+          const scores = await snapshot.utils.getScores(
+            process.env.VUE_APP_SNAPSHOT_SPACE,
+            props.proposal.strategies,
+            props.proposal.network,
+            voters,
+            props.proposal.snapshot,
+          )
+
+          votes.forEach(function (v) {
+            let vWithBalance = {
+              id: v.id,
+              voter: v.voter,
+              choice: v.choice,
+              balance: scores[0][v.voter],
+            }
+            votesWithBalance.push(vWithBalance)
+          })
+
+          let resultsByVoteBalance = props.proposal.choices.map((choice, i) =>
+            votesWithBalance
+              .filter((vote) => vote.choice === i + 1)
+              .reduce((a, b) => a + b.balance, 0),
+          )
+          numTotalVotes.value = resultsByVoteBalance[0] + resultsByVoteBalance[1]
+          numYesVotes.value = resultsByVoteBalance[0]
+          numNoVotes.value = resultsByVoteBalance[1]
+          loadingScores.value = false
+        } catch (error) {
+          console.log(error)
+        }
+      } else {
+        loadingScores.value = false
+      }
+    }
+
+    watch(votesQueryResult, async (value) => {
+      calculateScores(value.votes)
+    })
 
     const cleanTitle = computed(function () {
       return props.proposal.title.replace(/ *\[[^\]]*]/g, '')
@@ -371,11 +488,36 @@ export default defineComponent({
       }
     })
 
+    const yesPercentage = computed(function () {
+      if (numYesVotes.value > 0) {
+        return (numYesVotes.value / numTotalVotes.value) * 100.0
+      } else {
+        return 0
+      }
+    })
+
+    const noPercentage = computed(function () {
+      if (numNoVotes.value > 0) {
+        return (numNoVotes.value / numTotalVotes.value) * 100.0
+      } else {
+        return 0
+      }
+    })
+
+    const quorumPercentage = computed(function () {
+      return (numTotalVotes.value / parseFloat(props.proposal.space.voting.quorum)) * 100.0
+    })
+
     return {
       dayjs,
       relativeTime,
       cleanTitle,
       category,
+      loadingScores,
+      numTotalVotes,
+      yesPercentage,
+      noPercentage,
+      quorumPercentage,
     }
   },
 })

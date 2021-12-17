@@ -45,6 +45,19 @@ export default defineComponent({
             start
             end
             state
+            choices
+            strategies {
+              name
+              params
+            }
+            network
+            snapshot
+            space {
+              voting {
+                quorum
+              }
+            }
+            link
           }
         }
       `,
