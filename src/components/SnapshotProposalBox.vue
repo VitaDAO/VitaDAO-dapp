@@ -381,7 +381,7 @@
 </template>
 
 <script>
-import { defineComponent, computed, watch, ref, onBeforeMount } from 'vue'
+import { defineComponent, computed, ref, onBeforeMount } from 'vue'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useQuery } from '@vue/apollo-composable'
@@ -405,7 +405,20 @@ export default defineComponent({
     const numYesVotes = ref(0)
     const numNoVotes = ref(0)
 
-    const { result: votesQueryResult } = useQuery(
+    onBeforeMount(() => {
+      if (props.proposal.state == 'closed') {
+        numTotalVotes.value = props.proposal.scores_total
+        numYesVotes.value = props.proposal.scores[0]
+        numNoVotes.value = props.proposal.scores[1]
+        loadingScores.value = false
+      }
+
+      if (votesQueryResult.value) {
+        calculateScores(votesQueryResult.value.votes)
+      }
+    })
+
+    const { result: votesQueryResult, onResult } = useQuery(
       gql`
         query Votes($proposalId: String!) {
           votes(first: 20000, where: { proposal: $proposalId }) {
@@ -418,13 +431,14 @@ export default defineComponent({
       () => ({
         proposalId: props.proposal.id,
       }),
-      { clientId: 'snapshot' },
+      () => ({
+        enabled: props.proposal.state != 'closed',
+        clientId: 'snapshot',
+      }),
     )
 
-    onBeforeMount(() => {
-      if (votesQueryResult.value) {
-        calculateScores(votesQueryResult.value.votes)
-      }
+    onResult((queryResult) => {
+      calculateScores(queryResult.data.votes)
     })
 
     async function calculateScores(votes) {
@@ -467,10 +481,6 @@ export default defineComponent({
         loadingScores.value = false
       }
     }
-
-    watch(votesQueryResult, async (value) => {
-      calculateScores(value.votes)
-    })
 
     const cleanTitle = computed(function () {
       return props.proposal.title.replace(/ *\[[^\]]*]/g, '')

@@ -58,6 +58,8 @@ export default defineComponent({
               }
             }
             link
+            scores
+            scores_total
           }
         }
       `,
