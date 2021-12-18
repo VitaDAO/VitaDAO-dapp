@@ -304,12 +304,8 @@
       <a :href="proposal.link" target="_blank">{{ cleanTitle }}</a>
     </h2>
 
-    <span v-if="proposal.state == 'closed'" class="font-medium text-gray-600">
-      <fa icon="flag-checkered" class="mr-0.5 text-gray-400" />
-      Closed
-    </span>
     <span
-      v-else-if="proposal.state == 'pending' && proposal.start > dayjs().unix()"
+      v-if="proposal.state == 'pending' && proposal.start > dayjs().unix()"
       class="font-medium text-gray-600"
     >
       <fa icon="clock" class="mr-0.5 text-gray-400" />
@@ -320,6 +316,19 @@
       Voting (ends in
       {{ dayjs.unix(proposal.end).fromNow(true) }})
     </span>
+    <span v-else-if="hasPassed" class="font-medium text-success">
+      <fa icon="thumbs-up" class="mr-0.5 text-success" />
+      Proposal Passed
+    </span>
+    <span v-else-if="hasFailed" class="font-medium text-danger">
+      <fa icon="thumbs-down" class="mr-0.5 text-danger" />
+      Proposal Failed
+    </span>
+    <span v-else-if="quorumFailedAndEnded" class="font-medium text-danger">
+      <fa icon="thumbs-down" class="mr-0.5 text-danger" />
+      Quorum not reached
+    </span>
+    <span v-else class="font-medium text-gray-600">Pending</span>
 
     <transition name="fade" mode="out-in">
       <div v-if="loadingScores" class="text-sm text-gray-600" key="loading">
@@ -349,18 +358,12 @@
         <span class="text-gray-600">
           {{ new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(numTotalVotes) }}
           Total Votes
-          <span
-            v-if="
-              numTotalVotes >= parseFloat(proposal.space.voting.quorum) ||
-              !proposal.state == 'active'
-            "
+          <span v-if="quorumReached || !proposal.state == 'active'"
             >({{ Math.round(quorumPercentage) }}% of quorum)</span
           >
         </span>
         <div
-          v-if="
-            !proposal.state == 'pending' && numTotalVotes < parseFloat(proposal.space.voting.quorum)
-          "
+          v-if="(proposal.state == 'active' || proposal.state == 'closed') && !quorumReached"
           class="mt-2 bg-orange-50 font-semibold text-sm px-4 py-1.5 rounded-full text-orange-400"
         >
           <fa icon="exclamation-triangle" class="mr-0.5 text-orange-300" />
@@ -518,6 +521,33 @@ export default defineComponent({
       return (numTotalVotes.value / parseFloat(props.proposal.space.voting.quorum)) * 100.0
     })
 
+    const quorumReached = computed(function () {
+      return numTotalVotes.value >= parseFloat(props.proposal.space.voting.quorum)
+    })
+
+    const quorumFailedAndEnded = computed(function () {
+      return (
+        props.proposal.state != 'active' &&
+        numTotalVotes.value < parseFloat(props.proposal.space.voting.quorum)
+      )
+    })
+
+    const hasPassed = computed(function () {
+      return (
+        props.proposal.state != 'active' &&
+        quorumReached.value == true &&
+        numYesVotes.value > numNoVotes.value
+      )
+    })
+
+    const hasFailed = computed(function () {
+      return (
+        props.proposal.state != 'active' &&
+        quorumReached.value == true &&
+        numYesVotes.value < numNoVotes.value
+      )
+    })
+
     return {
       dayjs,
       relativeTime,
@@ -528,6 +558,10 @@ export default defineComponent({
       yesPercentage,
       noPercentage,
       quorumPercentage,
+      quorumFailedAndEnded,
+      hasPassed,
+      hasFailed,
+      quorumReached,
     }
   },
 })
