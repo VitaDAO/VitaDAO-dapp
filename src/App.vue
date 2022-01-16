@@ -67,7 +67,6 @@ export default defineComponent({
         name: 'Proposals',
         to: '/proposals',
       },
-      { name: 'Snapshot', to: '/snapshot' },
       { name: 'Wallet', to: '/wallet' },
     ]
 

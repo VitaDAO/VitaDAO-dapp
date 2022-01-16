@@ -9,11 +9,6 @@ const routes = [
   },
   {
     path: '/proposals',
-    name: 'ProposalsPage',
-    component: () => import(/* webpackChunkName: "ProposalsPage" */ '../pages/ProposalsPage.vue'),
-  },
-  {
-    path: '/snapshot',
     name: 'SnapshotPage',
     component: () => import(/* webpackChunkName: "ProposalsPage" */ '../pages/SnapshotPage.vue'),
   },

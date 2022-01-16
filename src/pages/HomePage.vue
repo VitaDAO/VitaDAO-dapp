@@ -5,11 +5,17 @@
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading active proposals…</loading-indicator>
       <div v-else-if="error">Error: {{ error.message }}</div>
-      <proposals-list
+      <ul
         v-else-if="result && result.proposals && result.proposals.length > 0"
-        :proposals="result.proposals"
-        :block-number="blockNumber"
-      />
+        role="list"
+        class="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        <snapshot-proposal-box
+          :proposal="proposal"
+          v-for="proposal in result.proposals"
+          :key="proposal.id"
+        />
+      </ul>
       <div v-else>
         <div class="border-2 border-dashed border-gray-300 p-6 rounded-xl text-center w-full">
           <fa icon="folder-open" class="text-vita-purple" size="2x" />
@@ -20,104 +26,66 @@
         </div>
       </div>
     </transition>
-
-    <hr class="border-black mb-8 mt-20" />
-    <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Latest votes</h2>
-    <transition name="fade" mode="out-in">
-      <loading-indicator v-if="loading">Loading votes…</loading-indicator>
-      <div v-else-if="error">Error: {{ error.message }}</div>
-      <div
-        v-else-if="result && result.votes && result.votes.length > 0"
-        class="gap-3 grid grid-cols-1 xl:grid-cols-2"
-      >
-        <div
-          v-for="vote in result.votes"
-          :key="vote.id"
-          class="text-sm text-black rounded-2xl px-4 sm:px-6 py-3 sm:py-4 border border-gray-300"
-        >
-          <a
-            target="_blank"
-            class="font-bold hover:underline"
-            :href="'https://etherscan.io/address/' + vote.voter.id"
-            >{{ vote.voter.ens ? vote.voter.ens : shortenAddress(vote.voter.id) }}</a
-          >
-          voted
-          <span v-if="vote.direction == true" class="text-success">Yes</span>
-          <span v-else class="text-danger">No</span> on »<router-link
-            class="font-bold hover:underline"
-            :to="'/proposal/' + vote.proposal.id"
-            >{{ vote.proposal.proposalContent.title }}</router-link
-          >« with
-          {{
-            new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(
-              parseFloat(vote.weight),
-            )
-          }}
-          VITA ({{ dayjs.unix(vote.createdAt).fromNow() }})
-        </div>
-      </div>
-    </transition>
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { useQuery, useResult } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { shortenAddress } from '@/utils'
-import { proposalFragment } from '@/pages/ProposalsPage'
-import ProposalsList from '@/components/ProposalsList'
 import LoadingIndicator from '@/components/LoadingIndicator'
+import SnapshotProposalBox from '@/components/SnapshotProposalBox.vue'
 
 export default defineComponent({
-  components: { ProposalsList, LoadingIndicator },
+  components: { SnapshotProposalBox, LoadingIndicator },
   setup() {
     dayjs.extend(relativeTime)
 
-    const { result, loading, error } = useQuery(gql`
-      query getActiveProposalsAndVotes {
-        proposals(
-          first: 99
-          orderBy: createdAt
-          orderDirection: desc
-          where: { status: "VOTING" }
-        ) {
-          ...ProposalDetails
-        }
-        _meta {
-          block {
-            number
-          }
-        }
-        votes(first: 20, orderBy: createdAt, orderDirection: desc) {
-          id
-          direction
-          weight
-          createdAt
-          proposal {
+    const { result, loading, error } = useQuery(
+      gql`
+        query Proposals($snapshotSpace: String!) {
+          proposals(
+            first: 999
+            where: { space: $snapshotSpace, state: "active" }
+            orderBy: "created"
+            orderDirection: desc
+          ) {
             id
-            proposalContent {
-              title
+            title
+            start
+            end
+            state
+            choices
+            strategies {
+              name
+              params
             }
-          }
-          voter {
-            id
-            ens
+            network
+            snapshot
+            space {
+              voting {
+                quorum
+              }
+            }
+            link
+            scores
+            scores_total
           }
         }
-      }
-      ${proposalFragment}
-    `)
-
-    const blockNumber = useResult(result, null, (data) => data._meta.block.number)
+      `,
+      () => ({
+        snapshotSpace: process.env.VUE_APP_SNAPSHOT_SPACE,
+      }),
+      { clientId: 'snapshot' },
+    )
 
     return {
       loading,
       result,
       error,
-      blockNumber,
       shortenAddress,
       dayjs,
     }

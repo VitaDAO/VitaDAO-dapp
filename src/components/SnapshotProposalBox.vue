@@ -161,6 +161,72 @@
         />
       </svg>
 
+      <svg
+        v-else-if="wasOnChainProposal"
+        width="74"
+        height="78"
+        viewBox="0 0 74 78"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M38.9998 62.3H14.6998C12.2998 62.3 10.2998 60.3 10.2998 57.9V13.9C10.2998 11.5 12.2998 9.5 14.6998 9.5H51.2998C53.6998 9.5 55.6998 11.5 55.6998 13.9V42"
+          stroke="black"
+          stroke-width="3"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+        />
+        <path
+          d="M10.3 56.3H5.9C3.5 56.3 1.5 54.3 1.5 51.9V5.9C1.5 3.5 3.5 1.5 5.9 1.5H44.5C46.9 1.5 48.9 3.5 48.9 5.9V9.5"
+          stroke="black"
+          stroke-width="3"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+        />
+        <path
+          d="M17.2002 18.1001H49.0002"
+          stroke="black"
+          stroke-width="3"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+        />
+        <path
+          d="M58.3001 43.8999C58.8001 45.6999 61.0001 46.3999 62.5001 45.2999C64.6001 43.6999 67.6001 45.7999 66.7001 48.2999C66.1001 50.0999 67.4001 51.8999 69.3001 51.8999C72.0001 51.7999 73.1001 55.2999 70.9001 56.7999C69.3001 57.8999 69.3001 60.1999 70.9001 61.1999C73.1001 62.6999 72.0001 66.1999 69.3001 66.0999C67.4001 65.9999 66.1001 67.8999 66.7001 69.6999C67.6001 72.1999 64.7001 74.3999 62.5001 72.6999C61.0001 71.5999 58.8001 72.2999 58.3001 74.0999C57.5001 76.6999 53.9001 76.6999 53.2001 74.0999C52.7001 72.2999 50.5001 71.5999 49.0001 72.6999C46.9001 74.2999 43.9001 72.1999 44.8001 69.6999C45.4001 67.8999 44.1001 66.0999 42.2001 66.0999C39.5001 66.1999 38.4001 62.6999 40.6001 61.1999C42.2001 60.0999 42.2001 57.7999 40.6001 56.7999C38.4001 55.2999 39.5001 51.7999 42.2001 51.8999C44.1001 51.9999 45.4001 50.0999 44.8001 48.2999C43.9001 45.7999 46.8001 43.5999 49.0001 45.2999C50.5001 46.3999 52.7001 45.6999 53.2001 43.8999C53.9001 41.3999 57.5001 41.3999 58.3001 43.8999Z"
+          stroke="#6256EC"
+          stroke-width="3"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+        />
+        <path
+          d="M55.7002 68.5C60.9469 68.5 65.2002 64.2467 65.2002 59C65.2002 53.7533 60.9469 49.5 55.7002 49.5C50.4535 49.5 46.2002 53.7533 46.2002 59C46.2002 64.2467 50.4535 68.5 55.7002 68.5Z"
+          stroke="#6256EC"
+          stroke-width="3"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+        />
+        <path
+          d="M17.2002 26.1001H49.0002"
+          stroke="black"
+          stroke-width="3"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+        />
+        <path
+          d="M17.2002 34H42.1002"
+          stroke="black"
+          stroke-width="3"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+        />
+        <path
+          d="M17.2002 42H27.1002"
+          stroke="black"
+          stroke-width="3"
+          stroke-miterlimit="10"
+          stroke-linecap="round"
+        />
+      </svg>
+
       <svg v-else viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M56.8 33.1C59.1 41.2 60.1 48.9 54.5 54.5"
@@ -324,9 +390,15 @@
       <fa icon="thumbs-down" class="mr-0.5 text-danger" />
       Proposal Failed
     </span>
-    <span v-else-if="quorumFailedAndEnded" class="font-medium text-danger">
+    <span v-else-if="quorumFailedAndEnded && !wasOnChainProposal" class="font-medium text-danger">
       <fa icon="thumbs-down" class="mr-0.5 text-danger" />
       Quorum not reached
+    </span>
+    <!-- the replayed proposals don't reach quorum numbers because of the replay,
+         this is a workaround to show the correct outcome -->
+    <span v-else-if="quorumFailedAndEnded && wasOnChainProposal" class="font-medium text-success">
+      <fa icon="thumbs-up" class="mr-0.5 text-success" />
+      Proposal Passed
     </span>
     <span v-else class="font-medium text-gray-600">Pending</span>
 
@@ -355,19 +427,33 @@
           <span class="text-success">{{ yesPercentage.toFixed(2) }}% Yes</span> •
           <span class="text-danger">{{ noPercentage.toFixed(2) }}% No</span>
         </div>
-        <span class="text-gray-600">
+        <span class="text-gray-600" v-if="!wasOnChainProposal">
           {{ new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(numTotalVotes) }}
           Total Votes
           <span v-if="quorumReached || !proposal.state == 'active'"
             >({{ Math.round(quorumPercentage) }}% of quorum)</span
           >
         </span>
+        <!-- the replayed proposals don't reach quorum numbers because of the replay,
+             this is a workaround to show the correct outcome -->
         <div
-          v-if="(proposal.state == 'active' || proposal.state == 'closed') && !quorumReached"
+          v-if="
+            (proposal.state == 'active' || proposal.state == 'closed') &&
+            !quorumReached &&
+            !wasOnChainProposal
+          "
           class="mt-2 bg-orange-50 font-semibold text-sm px-4 py-1.5 rounded-full text-orange-400"
         >
           <fa icon="exclamation-triangle" class="mr-0.5 text-orange-300" />
           Quorum not met ({{ quorumPercentage.toFixed(2) }}%)
+        </div>
+        <div
+          v-if="wasOnChainProposal"
+          class="mt-2 bg-gray-50 text-xs px-4 py-1.5 rounded-full text-gray-500"
+        >
+          <fa icon="exclamation-triangle" class="mr-0.5 text-gray-400" />
+          This was originally an on-chain proposal and has been mirrored to Snapshot for
+          completeness.
         </div>
       </div>
     </transition>
@@ -496,6 +582,8 @@ export default defineComponent({
         return 'IP'
       } else if (props.proposal.title.startsWith('[Funding]')) {
         return 'Funding'
+      } else if (wasOnChainProposal.value == true) {
+        return 'Governance'
       } else {
         return 'Project'
       }
@@ -548,6 +636,10 @@ export default defineComponent({
       )
     })
 
+    const wasOnChainProposal = computed(function () {
+      return props.proposal.start < 1642201905
+    })
+
     return {
       dayjs,
       relativeTime,
@@ -562,6 +654,7 @@ export default defineComponent({
       hasPassed,
       hasFailed,
       quorumReached,
+      wasOnChainProposal,
     }
   },
 })
