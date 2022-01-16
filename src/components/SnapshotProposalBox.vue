@@ -449,7 +449,7 @@
         </div>
         <div
           v-if="wasOnChainProposal"
-          class="mt-2 bg-gray-50 text-xs px-4 py-1.5 rounded-full text-gray-500"
+          class="mt-2 bg-gray-50 text-xs px-4 py-1.5 rounded-xl text-gray-500"
         >
           <fa icon="exclamation-triangle" class="mr-0.5 text-gray-400" />
           This was originally an on-chain proposal and has been mirrored to Snapshot for
