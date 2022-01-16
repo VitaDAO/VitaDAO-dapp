@@ -37,7 +37,7 @@ export default defineComponent({
           proposals(
             first: 999
             where: { space: $snapshotSpace }
-            orderBy: "start"
+            orderBy: "created"
             orderDirection: desc
           ) {
             id
