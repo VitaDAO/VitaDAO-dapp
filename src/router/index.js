@@ -9,8 +9,8 @@ const routes = [
   },
   {
     path: '/proposals',
-    name: 'ProposalsPage',
-    component: () => import(/* webpackChunkName: "ProposalsPage" */ '../pages/ProposalsPage.vue'),
+    name: 'SnapshotPage',
+    component: () => import(/* webpackChunkName: "ProposalsPage" */ '../pages/SnapshotPage.vue'),
   },
   {
     path: '/wallet',

@@ -27,6 +27,7 @@
     "@headlessui/vue": "^1.3.0",
     "@heroicons/vue": "^1.0.2",
     "@lottiefiles/lottie-player": "^1.5.3",
+    "@snapshot-labs/snapshot.js": "^0.3.23",
     "@tweenjs/tween.js": "^18.6.4",
     "@vue/apollo-composable": "^4.0.0-alpha.16",
     "@walletconnect/web3-provider": "^1.6.5",
