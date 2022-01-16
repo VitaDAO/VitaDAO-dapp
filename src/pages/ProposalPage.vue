@@ -8,6 +8,15 @@
           <div class="col-span-12 lg:col-span-7 xl:col-span-8">
             <hr class="border-black mb-6" />
 
+            <notice-box class="mb-4"
+              ><p>
+                This proposal was originally located on-chain, before VitaDAO moved to gasless
+                voting with Snapshot. Go
+                <router-link class="underline" to="/proposals">here</router-link> to see current
+                Snapshot proposals and the complete proposal archive.
+              </p>
+            </notice-box>
+
             <span class="font-medium text-black capitalize"
               >{{ proposal.proposalContent.type }} proposal</span
             >
