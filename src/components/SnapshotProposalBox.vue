@@ -227,7 +227,14 @@
         />
       </svg>
 
-      <svg v-else viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        v-else
+        width="84"
+        height="84"
+        viewBox="0 0 84 84"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M56.8 33.1C59.1 41.2 60.1 48.9 54.5 54.5"
           stroke="#6256EC"
