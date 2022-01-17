@@ -2,8 +2,8 @@ import { createApp, provide, h } from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
-import { DefaultApolloClient } from '@vue/apollo-composable'
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import { ApolloClients } from '@vue/apollo-composable'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faSpinner,
@@ -16,6 +16,7 @@ import {
   faThumbsUp,
   faThumbsDown,
   faExclamationTriangle,
+  faFlagCheckered,
 } from '@fortawesome/free-solid-svg-icons'
 import { faDiscord, faDiscourse } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -26,18 +27,25 @@ import 'vue-toastification/dist/index.css'
 import './index.css'
 
 // HTTP connection to the API
-const httpLink = createHttpLink({
+const vitaSubgraphHttpLink = createHttpLink({
   // You should use an absolute URL here
   uri: process.env.VUE_APP_SUBGRAPH_URL,
 })
 
-// Cache implementation
-const cache = new InMemoryCache()
+const snapshotHttpLink = createHttpLink({
+  // You should use an absolute URL here
+  uri: process.env.VUE_APP_SNAPSHOT_SUBGRAPH_URL,
+})
 
 // Create the apollo client
-const apolloClient = new ApolloClient({
-  link: httpLink,
-  cache,
+const vitaSubgraphClient = new ApolloClient({
+  link: vitaSubgraphHttpLink,
+  cache: new InMemoryCache(),
+})
+
+const snapshotClient = new ApolloClient({
+  link: snapshotHttpLink,
+  cache: new InMemoryCache(),
 })
 
 library.add(
@@ -53,6 +61,7 @@ library.add(
   faThumbsUp,
   faThumbsDown,
   faExclamationTriangle,
+  faFlagCheckered,
 )
 
 // Metamask or similar available?
@@ -73,7 +82,10 @@ if (isConnected) {
 
 createApp({
   setup() {
-    provide(DefaultApolloClient, apolloClient)
+    provide(ApolloClients, {
+      default: vitaSubgraphClient,
+      snapshot: snapshotClient,
+    })
   },
 
   render: () => h(App),
