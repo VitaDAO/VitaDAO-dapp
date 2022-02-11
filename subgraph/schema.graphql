@@ -1,9 +1,9 @@
 enum ProposalStatus {
-  VOTING_NOT_STARTED,
-  VOTING,
-  VOTES_FINISHED,
-  RESOLVED,
-  CANCELLED,
+  VOTING_NOT_STARTED
+  VOTING
+  VOTES_FINISHED
+  RESOLVED
+  CANCELLED
   QUORUM_FAILED
 }
 
@@ -94,7 +94,6 @@ type Voter @entity {
 """
 DAO Events
 """
-
 interface DaoEvent {
   "Concatenation of block number and log ID"
   id: ID!
@@ -122,4 +121,149 @@ type Voted implements DaoEvent @entity {
   type: String!
   createdAt: BigInt!
   vote: Vote!
+}
+
+type Factory @entity {
+  # factory address
+  id: ID!
+  # amount of pools created
+  poolCount: BigInt!
+  # amoutn of transactions all time
+  txCount: BigInt!
+  # total volume all time in derived USD
+  totalVolumeUSD: BigDecimal!
+  # total volume all time in derived ETH
+  totalVolumeETH: BigDecimal!
+  # total swap fees all time in USD
+  totalFeesUSD: BigDecimal!
+  # total swap fees all time in USD
+  totalFeesETH: BigDecimal!
+  # all volume even through less reliable USD values
+  untrackedVolumeUSD: BigDecimal!
+  # TVL derived in USD
+  totalValueLockedUSD: BigDecimal!
+  # TVL derived in ETH
+  totalValueLockedETH: BigDecimal!
+  # TVL derived in USD untracked
+  totalValueLockedUSDUntracked: BigDecimal!
+  # TVL derived in ETH untracked
+  totalValueLockedETHUntracked: BigDecimal!
+
+  # current owner of the factory
+  owner: ID!
+}
+
+# # stores for USD calculations
+type Bundle @entity {
+  id: ID!
+  # price of ETH in usd
+  ethPriceUSD: BigDecimal!
+}
+
+type Token @entity {
+  # token address
+  id: ID!
+  # token symbol
+  symbol: String!
+  # token name
+  name: String!
+  # token decimals
+  decimals: BigInt!
+  # token total supply
+  totalSupply: BigInt!
+  # volume in token units
+  volume: BigDecimal!
+  # volume in derived USD
+  volumeUSD: BigDecimal!
+  # volume in USD even on pools with less reliable USD values
+  untrackedVolumeUSD: BigDecimal!
+  # fees in USD
+  feesUSD: BigDecimal!
+  # transactions across all pools that include this token
+  txCount: BigInt!
+  # number of pools containing this token
+  poolCount: BigInt!
+  # liquidity across all pools in token units
+  totalValueLocked: BigDecimal!
+  # liquidity across all pools in derived USD
+  totalValueLockedUSD: BigDecimal!
+  # TVL derived in USD untracked
+  totalValueLockedUSDUntracked: BigDecimal!
+  # derived price in ETH
+  derivedETH: BigDecimal!
+  # pools token is in that are white listed for USD pricing
+  whitelistPools: [Pool!]!
+  # derived fields
+  # tokenDayData: [TokenDayData!]! @derivedFrom(field: "token")
+}
+
+type Pool @entity {
+  # pool address
+  id: ID!
+  # creation
+  createdAtTimestamp: BigInt!
+  # # block pool was created at
+  createdAtBlockNumber: BigInt!
+  # # token0
+  token0: Token!
+  # # token1
+  token1: Token!
+  # # fee amount
+  feeTier: BigInt!
+  # # in range liquidity
+  liquidity: BigInt!
+  # # current price tracker
+  sqrtPrice: BigInt!
+  # tracker for global fee growth
+  feeGrowthGlobal0X128: BigInt!
+  # tracker for global fee growth
+  feeGrowthGlobal1X128: BigInt!
+  # token0 per token1
+  token0Price: BigDecimal!
+  # token1 per token0
+  token1Price: BigDecimal!
+  # current tick
+  # tick: BigInt
+  # current observation index
+  observationIndex: BigInt!
+  # all time token0 swapped
+  volumeToken0: BigDecimal!
+  # all time token1 swapped
+  volumeToken1: BigDecimal!
+  # all time USD swapped
+  volumeUSD: BigDecimal!
+  # all time USD swapped, unfiltered for unreliable USD pools
+  untrackedVolumeUSD: BigDecimal!
+  # fees in USD
+  feesUSD: BigDecimal!
+  # all time number of transactions
+  txCount: BigInt!
+  # all time fees collected token0
+  collectedFeesToken0: BigDecimal!
+  # all time fees collected token1
+  collectedFeesToken1: BigDecimal!
+  # all time fees collected derived USD
+  collectedFeesUSD: BigDecimal!
+  # total token 0 across all ticks
+  totalValueLockedToken0: BigDecimal!
+  # total token 1 across all ticks
+  totalValueLockedToken1: BigDecimal!
+  # tvl derived ETH
+  totalValueLockedETH: BigDecimal!
+  # tvl USD
+  totalValueLockedUSD: BigDecimal!
+  # TVL derived in USD untracked
+  totalValueLockedUSDUntracked: BigDecimal!
+  # Fields used to help derived relationship
+  liquidityProviderCount: BigInt! # used to detect new exchanges
+  # hourly snapshots of pool data
+  # poolHourData: [PoolHourData!]! @derivedFrom(field: "pool")
+  # daily snapshots of pool data
+  # poolDayData: [PoolDayData!]! @derivedFrom(field: "pool")
+  # derived fields
+  # mints: [Mint!]! @derivedFrom(field: "pool")
+  # burns: [Burn!]! @derivedFrom(field: "pool")
+  # swaps: [Swap!]! @derivedFrom(field: "pool")
+  # collects: [Collect!]! @derivedFrom(field: "pool")
+  # ticks: [Tick!]! @derivedFrom(field: "pool")
 }

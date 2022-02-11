@@ -1,6 +1,6 @@
-import { json, JSONValueKind, JSONValue, Bytes, ipfs, log, Address } from '@graphprotocol/graph-ts'
-import { tokenAmountToDecimal } from './utils'
-import { BI_18, NA, ZERO_BD } from './utils/constants'
+import { json, JSONValueKind, JSONValue, Bytes, ipfs, log, Address, BigDecimal } from '@graphprotocol/graph-ts'
+import { convertTokenToDecimal, safeDiv, tokenAmountToDecimal } from './utils'
+import { BI_18, FACTORY_ADDRESS, NA, ONE_BI, ZERO_BD } from './utils/constants'
 import {
   ProposalCreated as ProposalCreatedEvent,
   ProposalStatusChanged as ProposalStatusChangedEvent,
@@ -17,8 +17,8 @@ import {
   // VotingDelayChanged as VotingDelayChangedEvent,
   // VotingDurationChanged as VotingDurationChangedEvent
 } from "../generated/Raphael/Raphael"
-import { Raphael } from "../generated/Raphael/Raphael"
-import { ENSReverseRecords } from "../generated/Raphael/ENSReverseRecords"
+import { Raphael } from "../generated/Raphael/Raphael"
+import { ENSReverseRecords } from "../generated/Raphael/ENSReverseRecords"
 import {
   Proposal,
   ProposalContent,
@@ -27,8 +27,17 @@ import {
   Voter,
   ProposalStatusChanged,
   ProposalCreated,
-  Voted
+  Voted,
+  Pool,
+  Token,
+  Bundle,
+  Factory
 } from "../generated/schema"
+import {
+  Initialize,
+  Swap as SwapEvent
+} from '../generated/Factory/Pool'
+import { findEthPerToken, getEthPriceInUSD, getTrackedAmountUSD, sqrtPriceX96ToTokenPrices } from './utils/pricing'
 
 const VOTING_NOT_STARTED = 'VOTING_NOT_STARTED';
 const VOTING = 'VOTING';
@@ -51,7 +60,7 @@ function processProposalDetailsField(proposal: Proposal, details: string): void 
     author = dataObj.get('author');
     cid = dataObj.get('cid');
 
-    if(title) {
+    if (title) {
       proposal.title = title.toString();
     } else {
       proposal.title = NA;
@@ -60,7 +69,7 @@ function processProposalDetailsField(proposal: Proposal, details: string): void 
       ]);
     }
 
-    if(author) {
+    if (author) {
       proposal.author = author.toString();
     } else {
       proposal.author = NA;
@@ -69,7 +78,7 @@ function processProposalDetailsField(proposal: Proposal, details: string): void 
       ]);
     }
 
-    if(cid) {
+    if (cid) {
       proposal.ipfsHash = cid.toString();
     } else {
       proposal.ipfsHash = NA;
@@ -102,33 +111,33 @@ function createProposalData(proposal: Proposal): Proposal {
       let project: JSONValue | null = null;
 
       type = proposalContentDataObj.get('proposal_type');
-      if(type) {
+      if (type) {
         proposalContent.type = type.toString();
       }
 
       title = proposalContentDataObj.get('title');
-      if(title) {
+      if (title) {
         proposalContent.title = title.toString();
       }
 
       summary = proposalContentDataObj.get('summary');
-      if(summary) {
+      if (summary) {
         proposalContent.summary = summary.toString();
       }
 
       details = proposalContentDataObj.get('details');
-      if(details) {
+      if (details) {
         proposalContent.details = details.toString();
       }
 
       link = proposalContentDataObj.get('link');
-      if(link) {
+      if (link) {
         proposalContent.link = link.toString();
       }
 
-      if(type.toString() == 'funding' || type.toString() == 'project') {
+      if (type.toString() == 'funding' || type.toString() == 'project') {
         project = proposalContentDataObj.get('project');
-        if(project.isNull()) {
+        if (project.isNull()) {
           log.warning('project data is null: {}', [
             proposal.id.toString()
           ]);
@@ -148,52 +157,52 @@ function createProposalData(proposal: Proposal): Proposal {
           let aimsAndHypothesis: JSONValue | null = null;
 
           title = projectData.get('title')
-          if(title) {
+          if (title) {
             proposalProjectContent.title = title.toString()
           }
 
           fundingStage = projectData.get('funding_stage')
-          if(fundingStage) {
+          if (fundingStage) {
             proposalProjectContent.fundingStage = fundingStage.toString()
           }
 
           researchLead = projectData.get('research_lead')
-          if(researchLead) {
+          if (researchLead) {
             proposalProjectContent.researchLead = researchLead.toString()
           }
 
           institution = projectData.get('institution')
-          if(institution) {
+          if (institution) {
             proposalProjectContent.institution = institution.toString()
           }
 
           clinicalStage = projectData.get('clinical_stage')
-          if(clinicalStage) {
+          if (clinicalStage) {
             proposalProjectContent.clinicalStage = clinicalStage.toString()
           }
 
           ipStatus = projectData.get('ip_status')
-          if(ipStatus) {
+          if (ipStatus) {
             proposalProjectContent.ipStatus = ipStatus.toString()
           }
 
           budgetCurrency = projectData.get('budget_currency')
-          if(budgetCurrency) {
+          if (budgetCurrency) {
             proposalProjectContent.budgetCurrency = budgetCurrency.toString()
           }
 
           aimsAndHypothesis = projectData.get('aims_and_hypothesis')
-          if(aimsAndHypothesis) {
+          if (aimsAndHypothesis) {
             proposalProjectContent.aimsAndHypothesis = aimsAndHypothesis.toString()
           }
 
           summary = projectData.get('summary')
-          if(summary) {
+          if (summary) {
             proposalProjectContent.summary = summary.toString()
           }
 
           budget = projectData.get('budget')
-          if(budget) {
+          if (budget) {
             proposalProjectContent.budget = budget.toBigInt()
           }
 
@@ -254,7 +263,7 @@ export function handleProposalCreated(event: ProposalCreatedEvent): void {
   proposalCreatedEvent.save()
 }
 
-export function proposalPassed(proposal: Proposal) : boolean {
+export function proposalPassed(proposal: Proposal): boolean {
   return (proposal.status === VOTES_FINISHED || proposal.status === RESOLVED) && proposal.numTokensYes > proposal.numTokensNo;
 }
 
@@ -318,7 +327,7 @@ export function handleVoted(event: VotedEvent): void {
   vote.createdAt = event.block.timestamp;
   vote.save();
 
-  if(event.params.direction === true) {
+  if (event.params.direction === true) {
     proposal.numTokensYes = proposal.numTokensYes.plus(numTokens);
   } else {
     proposal.numTokensNo = proposal.numTokensNo.plus(numTokens);
@@ -423,3 +432,140 @@ export function handleVoted(event: VotedEvent): void {
 //   entity.newDuration = event.params.newDuration
 //   entity.save()
 // }
+
+export function handleInitialize(event: Initialize): void {
+  let pool = Pool.load(event.address.toHexString())
+  pool.sqrtPrice = event.params.sqrtPriceX96
+  // pool.tick = BigInt.fromI32(event.params.tick)
+  // update token prices
+  let token0 = Token.load(pool.token0)
+  let token1 = Token.load(pool.token1)
+
+  // update ETH price now that prices could have changed
+  let bundle = Bundle.load('1')
+  bundle.ethPriceUSD = getEthPriceInUSD()
+  bundle.save()
+
+  // update token prices
+  token0.derivedETH = findEthPerToken(token0 as Token)
+  token1.derivedETH = findEthPerToken(token1 as Token)
+  token0.save()
+  token1.save()
+}
+
+export function handleSwap(event: SwapEvent): void {
+  let bundle = Bundle.load('1')
+  let factory = Factory.load(FACTORY_ADDRESS)
+  let pool = Pool.load(event.address.toHexString())
+
+  // hot fix for bad pricing
+  if (pool.id == '0x9663f2ca0454accad3e094448ea6f77443880454') {
+    return
+  }
+
+  let token0 = Token.load(pool.token0)
+  let token1 = Token.load(pool.token1)
+
+  // amounts - 0/1 are token deltas: can be positive or negative
+  let amount0 = convertTokenToDecimal(event.params.amount0, token0.decimals)
+  let amount1 = convertTokenToDecimal(event.params.amount1, token1.decimals)
+
+  // need absolute amounts for volume
+  let amount0Abs = amount0
+  if (amount0.lt(ZERO_BD)) {
+    amount0Abs = amount0.times(BigDecimal.fromString('-1'))
+  }
+  let amount1Abs = amount1
+  if (amount1.lt(ZERO_BD)) {
+    amount1Abs = amount1.times(BigDecimal.fromString('-1'))
+  }
+
+  let amount0ETH = amount0Abs.times(token0.derivedETH)
+  let amount1ETH = amount1Abs.times(token1.derivedETH)
+  let amount0USD = amount0ETH.times(bundle.ethPriceUSD)
+  let amount1USD = amount1ETH.times(bundle.ethPriceUSD)
+
+  // get amount that should be tracked only - div 2 because cant count both input and output as volume
+  let amountTotalUSDTracked = getTrackedAmountUSD(amount0Abs, token0 as Token, amount1Abs, token1 as Token).div(
+    BigDecimal.fromString('2')
+  )
+  let amountTotalETHTracked = safeDiv(amountTotalUSDTracked, bundle.ethPriceUSD)
+  let amountTotalUSDUntracked = amount0USD.plus(amount1USD).div(BigDecimal.fromString('2'))
+
+  let feesETH = amountTotalETHTracked.times(pool.feeTier.toBigDecimal()).div(BigDecimal.fromString('1000000'))
+  let feesUSD = amountTotalUSDTracked.times(pool.feeTier.toBigDecimal()).div(BigDecimal.fromString('1000000'))
+
+  // global updates
+  factory.txCount = factory.txCount.plus(ONE_BI)
+  factory.totalVolumeETH = factory.totalVolumeETH.plus(amountTotalETHTracked)
+  factory.totalVolumeUSD = factory.totalVolumeUSD.plus(amountTotalUSDTracked)
+  factory.untrackedVolumeUSD = factory.untrackedVolumeUSD.plus(amountTotalUSDUntracked)
+  factory.totalFeesETH = factory.totalFeesETH.plus(feesETH)
+  factory.totalFeesUSD = factory.totalFeesUSD.plus(feesUSD)
+
+  // reset aggregate tvl before individual pool tvl updates
+  let currentPoolTvlETH = pool.totalValueLockedETH
+  factory.totalValueLockedETH = factory.totalValueLockedETH.minus(currentPoolTvlETH)
+
+  // pool volume
+  pool.volumeToken0 = pool.volumeToken0.plus(amount0Abs)
+  pool.volumeToken1 = pool.volumeToken1.plus(amount1Abs)
+  pool.volumeUSD = pool.volumeUSD.plus(amountTotalUSDTracked)
+  pool.untrackedVolumeUSD = pool.untrackedVolumeUSD.plus(amountTotalUSDUntracked)
+  pool.feesUSD = pool.feesUSD.plus(feesUSD)
+  pool.txCount = pool.txCount.plus(ONE_BI)
+
+  // Update the pool with the new active liquidity, price, and tick.
+  pool.liquidity = event.params.liquidity
+  // pool.tick = BigInt.fromI32(event.params.tick as i32)
+  pool.sqrtPrice = event.params.sqrtPriceX96
+  pool.totalValueLockedToken0 = pool.totalValueLockedToken0.plus(amount0)
+  pool.totalValueLockedToken1 = pool.totalValueLockedToken1.plus(amount1)
+
+  // update token0 data
+  token0.volume = token0.volume.plus(amount0Abs)
+  token0.totalValueLocked = token0.totalValueLocked.plus(amount0)
+  token0.volumeUSD = token0.volumeUSD.plus(amountTotalUSDTracked)
+  token0.untrackedVolumeUSD = token0.untrackedVolumeUSD.plus(amountTotalUSDUntracked)
+  token0.feesUSD = token0.feesUSD.plus(feesUSD)
+  token0.txCount = token0.txCount.plus(ONE_BI)
+
+  // update token1 data
+  token1.volume = token1.volume.plus(amount1Abs)
+  token1.totalValueLocked = token1.totalValueLocked.plus(amount1)
+  token1.volumeUSD = token1.volumeUSD.plus(amountTotalUSDTracked)
+  token1.untrackedVolumeUSD = token1.untrackedVolumeUSD.plus(amountTotalUSDUntracked)
+  token1.feesUSD = token1.feesUSD.plus(feesUSD)
+  token1.txCount = token1.txCount.plus(ONE_BI)
+
+  // updated pool ratess
+  let prices = sqrtPriceX96ToTokenPrices(pool.sqrtPrice, token0 as Token, token1 as Token)
+  pool.token0Price = prices[0]
+  pool.token1Price = prices[1]
+  pool.save()
+
+  // update USD pricing
+  bundle.ethPriceUSD = getEthPriceInUSD()
+  bundle.save()
+  token0.derivedETH = findEthPerToken(token0 as Token)
+  token1.derivedETH = findEthPerToken(token1 as Token)
+
+  /**
+   * Things afffected by new USD rates
+   */
+  pool.totalValueLockedETH = pool.totalValueLockedToken0
+    .times(token0.derivedETH)
+    .plus(pool.totalValueLockedToken1.times(token1.derivedETH))
+  pool.totalValueLockedUSD = pool.totalValueLockedETH.times(bundle.ethPriceUSD)
+
+  factory.totalValueLockedETH = factory.totalValueLockedETH.plus(pool.totalValueLockedETH)
+  factory.totalValueLockedUSD = factory.totalValueLockedETH.times(bundle.ethPriceUSD)
+
+  token0.totalValueLockedUSD = token0.totalValueLocked.times(token0.derivedETH).times(bundle.ethPriceUSD)
+  token1.totalValueLockedUSD = token1.totalValueLocked.times(token1.derivedETH).times(bundle.ethPriceUSD)
+
+  factory.save()
+  pool.save()
+  token0.save()
+  token1.save()
+}
