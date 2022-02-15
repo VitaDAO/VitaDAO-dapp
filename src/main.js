@@ -92,7 +92,7 @@ createApp({
   render: () => h(App),
 })
   .use(VueGtag, {
-    config: { id: 'GTM-PCSFNNK' },
+    config: { id: process.env.VUE_APP_GOOGLE_TAG_MANAGER_ID },
   })
   .use(store)
   .use(router)
