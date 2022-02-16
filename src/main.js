@@ -25,6 +25,7 @@ import localStorageUtils from '@/utils/localstorage.js'
 import { injectedWalletAvailable } from '@/utils'
 import 'vue-toastification/dist/index.css'
 import './index.css'
+import VueGtag from 'vue-gtag'
 
 // HTTP connection to the API
 const vitaSubgraphHttpLink = createHttpLink({
@@ -90,6 +91,9 @@ createApp({
 
   render: () => h(App),
 })
+  .use(VueGtag, {
+    config: { id: process.env.VUE_APP_GOOGLE_TAG_MANAGER_ID },
+  })
   .use(store)
   .use(router)
   .use(Toast)

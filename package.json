@@ -38,6 +38,7 @@
     "graphql-tag": "^2.12.5",
     "markdown-it": "^12.2.0",
     "vue": "^3.2.23",
+    "vue-gtag": "^2.0.1",
     "vue-router": "4",
     "vue-toastification": "^2.0.0-rc.1",
     "vue3-jazzicon": "^0.1.2",
