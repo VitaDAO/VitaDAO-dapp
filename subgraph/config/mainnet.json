@@ -1,5 +1,7 @@
 {
   "network": "mainnet",
-  "address": "0x9aBF28aB6f80c1EF666f983935437E717Aafff7a",
-  "startBlock": 12780354
+  "addressRaphaelContract": "0x9aBF28aB6f80c1EF666f983935437E717Aafff7a",
+  "startBlockRaphael": 12780354,
+  "addressUniswapV3FactoryContract": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+  "startBlockUniswapV3Factory": 12691613
 }

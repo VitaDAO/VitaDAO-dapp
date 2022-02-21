@@ -1,5 +1,7 @@
 {
   "network": "rinkeby",
-  "address": "0xa582e94080a45402aa46683f08db6e974ec3135c",
-  "startBlock": 8882829
+  "addressRaphaelContract": "0xa582e94080a45402aa46683f08db6e974ec3135c",
+  "startBlockRaphael": 8882829,
+  "addressUniswapV3FactoryContract": "0xFeabCc62240297F1e4b238937D68e7516f0918D7",
+  "startBlockUniswapV3Factory": 8459128
 }
