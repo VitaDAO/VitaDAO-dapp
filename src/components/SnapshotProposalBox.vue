@@ -435,12 +435,14 @@ export default defineComponent({
     const numTotalVotes = ref(0)
     const numYesVotes = ref(0)
     const numNoVotes = ref(0)
+    const numAbstainVotes = ref(0)
 
     onBeforeMount(() => {
       if (props.proposal.state == 'closed') {
         numTotalVotes.value = props.proposal.scores_total
         numYesVotes.value = props.proposal.scores[0]
         numNoVotes.value = props.proposal.scores[1]
+        numAbstainVotes.value = props.proposal.scores[2]
         loadingScores.value = false
       }
 
@@ -501,9 +503,11 @@ export default defineComponent({
               .filter((vote) => vote.choice === i + 1)
               .reduce((a, b) => a + b.balance, 0),
           )
-          numTotalVotes.value = resultsByVoteBalance[0] + resultsByVoteBalance[1]
+          numTotalVotes.value =
+            resultsByVoteBalance[0] + resultsByVoteBalance[1] + resultsByVoteBalance[2]
           numYesVotes.value = resultsByVoteBalance[0]
           numNoVotes.value = resultsByVoteBalance[1]
+          numAbstainVotes.value = resultsByVoteBalance[2]
           loadingScores.value = false
         } catch (error) {
           console.log(error)
@@ -531,7 +535,8 @@ export default defineComponent({
 
     const yesPercentage = computed(function () {
       if (numYesVotes.value > 0) {
-        return (numYesVotes.value / numTotalVotes.value) * 100.0
+        // Subtract Abstain votes because we're not displaying them visually
+        return (numYesVotes.value / (numTotalVotes.value - numAbstainVotes.value)) * 100.0
       } else {
         return 0
       }
@@ -539,7 +544,8 @@ export default defineComponent({
 
     const noPercentage = computed(function () {
       if (numNoVotes.value > 0) {
-        return (numNoVotes.value / numTotalVotes.value) * 100.0
+        // Subtract Abstain votes because we're not displaying them visually
+        return (numNoVotes.value / (numTotalVotes.value - numAbstainVotes.value)) * 100.0
       } else {
         return 0
       }
