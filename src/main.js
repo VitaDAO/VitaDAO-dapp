@@ -91,6 +91,8 @@ createApp({
 
   render: () => h(App),
 })
+  .use(router)
+  .use(store)
   .use(
     VueGtag,
     {
@@ -100,8 +102,6 @@ createApp({
     },
     router,
   )
-  .use(store)
-  .use(router)
   .use(Toast)
   .component('fa', FontAwesomeIcon)
   .mount('#app')
