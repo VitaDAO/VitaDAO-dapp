@@ -91,11 +91,17 @@ createApp({
 
   render: () => h(App),
 })
-  .use(VueGtag, {
-    config: { id: process.env.VUE_APP_GOOGLE_TAG_MANAGER_ID },
-  })
-  .use(store)
   .use(router)
+  .use(store)
+  .use(
+    VueGtag,
+    {
+      config: {
+        id: process.env.VUE_APP_GOOGLE_TAG_MANAGER_ID,
+      },
+    },
+    router,
+  )
   .use(Toast)
   .component('fa', FontAwesomeIcon)
   .mount('#app')
