@@ -91,9 +91,15 @@ createApp({
 
   render: () => h(App),
 })
-  .use(VueGtag, {
-    config: { id: process.env.VUE_APP_GOOGLE_TAG_MANAGER_ID },
-  })
+  .use(
+    VueGtag,
+    {
+      config: {
+        id: process.env.VUE_APP_GOOGLE_TAG_MANAGER_ID,
+      },
+    },
+    router,
+  )
   .use(store)
   .use(router)
   .use(Toast)
