@@ -522,11 +522,11 @@ export default defineComponent({
     })
 
     const category = computed(function () {
-      if (props.proposal.title.startsWith('[Project]')) {
+      if (props.proposal.title.includes('[Project]')) {
         return 'Project'
-      } else if (props.proposal.title.startsWith('[IP]')) {
+      } else if (props.proposal.title.includes('[IP]')) {
         return 'IP'
-      } else if (props.proposal.title.startsWith('[Funding]')) {
+      } else if (props.proposal.title.includes('[Funding]')) {
         return 'Funding'
       } else {
         return 'Governance'
