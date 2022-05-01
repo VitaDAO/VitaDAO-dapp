@@ -488,20 +488,30 @@ export default defineComponent({
             props.proposal.snapshot,
           )
 
+          const scoreLowercase = {}
+          for (const [key, value] of Object.entries(scores[0])) {
+            scoreLowercase[key.toLowerCase()] = value
+          }
+
           votes.forEach(function (v) {
             let vWithBalance = {
               id: v.id,
               voter: v.voter,
               choice: v.choice,
-              balance: scores[0][v.voter],
+              balance: scoreLowercase[v.voter.toLowerCase()],
             }
             votesWithBalance.push(vWithBalance)
+            if (scoreLowercase[v.voter.toLowerCase()] === undefined) {
+              console.log(
+                'Warning! Snapshot data seems incorrect. No balance found for voter: ' + v.voter,
+              )
+            }
           })
 
           let resultsByVoteBalance = props.proposal.choices.map((choice, i) =>
             votesWithBalance
               .filter((vote) => vote.choice === i + 1)
-              .reduce((a, b) => a + b.balance, 0),
+              .reduce((sum, item) => (item.balance != undefined ? sum + item.balance : sum), 0),
           )
           numTotalVotes.value =
             resultsByVoteBalance[0] + resultsByVoteBalance[1] + resultsByVoteBalance[2]
