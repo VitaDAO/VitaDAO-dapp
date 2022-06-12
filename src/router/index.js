@@ -21,6 +21,12 @@ const routes = [
     path: '/proposal/:id',
     component: () => import(/* webpackChunkName: "ProposalPage" */ '../pages/ProposalPage.vue'),
   },
+  {
+    path: '/proposals/:category/:id',
+    redirect: (to) => {
+      return { path: `/proposal/${to.params.id}` }
+    },
+  },
 ]
 
 const router = createRouter({
