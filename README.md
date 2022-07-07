@@ -12,7 +12,7 @@ You have to copy `.env.mainnet.local.example` to `.env.mainnet.local` and fill i
 
 ### Compiles and hot-reloads for development
 
-`yarn dev` runs the dev server and takes the data from the `.env.mainnet.` files (configured for ethereum mainnet). Or you run `yarn rinkeby` which reads the `.env.rinkeby.` files which are configured for rinkeby testnet.
+`yarn dev` runs the development server and takes the data from the `.env.mainnet.` files (configured for ethereum mainnet). Or you run `yarn rinkeby` which reads the `.env.rinkeby.` files which are configured for rinkeby testnet.
 
 ### Compiles and minifies for production
 
