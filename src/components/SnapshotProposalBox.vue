@@ -417,7 +417,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-import snapshot from '@snapshot-labs/snapshot.js'
+// import snapshot from '@snapshot-labs/snapshot.js'
 import BaseButton from '@/components/BaseButton.vue'
 
 export default defineComponent({
@@ -476,48 +476,50 @@ export default defineComponent({
 
     async function calculateScores(votes) {
       const voters = votes.map((v) => v.voter)
-      let votesWithBalance = []
+      // let votesWithBalance = []
 
       if (voters.length) {
         try {
-          const scores = await snapshot.utils.getScores(
-            process.env.VUE_APP_SNAPSHOT_SPACE,
-            props.proposal.strategies,
-            props.proposal.network,
-            voters,
-            props.proposal.snapshot,
-          )
+          // Don't use the more complex calculation that was necessary for the old snapshot library
 
-          const scoreLowercase = {}
-          for (const [key, value] of Object.entries(scores[0])) {
-            scoreLowercase[key.toLowerCase()] = value
-          }
+          // const scores = await snapshot.utils.getScores(
+          //   process.env.VUE_APP_SNAPSHOT_SPACE,
+          //   [props.proposal.strategies[0]],
+          //   props.proposal.network,
+          //   voters,
+          //   props.proposal.snapshot,
+          // )
 
-          votes.forEach(function (v) {
-            let vWithBalance = {
-              id: v.id,
-              voter: v.voter,
-              choice: v.choice,
-              balance: scoreLowercase[v.voter.toLowerCase()],
-            }
-            votesWithBalance.push(vWithBalance)
-            if (scoreLowercase[v.voter.toLowerCase()] === undefined) {
-              console.log(
-                'Warning! Snapshot data seems incorrect. No balance found for voter: ' + v.voter,
-              )
-            }
-          })
+          // const scoreLowercase = {}
+          // for (const [key, value] of Object.entries(scores[0])) {
+          //   scoreLowercase[key.toLowerCase()] = value
+          // }
 
-          let resultsByVoteBalance = props.proposal.choices.map((choice, i) =>
-            votesWithBalance
-              .filter((vote) => vote.choice === i + 1)
-              .reduce((sum, item) => (item.balance != undefined ? sum + item.balance : sum), 0),
-          )
-          numTotalVotes.value =
-            resultsByVoteBalance[0] + resultsByVoteBalance[1] + resultsByVoteBalance[2]
-          numYesVotes.value = resultsByVoteBalance[0]
-          numNoVotes.value = resultsByVoteBalance[1]
-          numAbstainVotes.value = resultsByVoteBalance[2]
+          // votes.forEach(function (v) {
+          //   let vWithBalance = {
+          //     id: v.id,
+          //     voter: v.voter,
+          //     choice: v.choice,
+          //     balance: scoreLowercase[v.voter.toLowerCase()],
+          //   }
+          //   votesWithBalance.push(vWithBalance)
+          //   if (scoreLowercase[v.voter.toLowerCase()] === undefined) {
+          //     console.log(
+          //       'Warning! Snapshot data seems incorrect. No balance found for voter: ' + v.voter,
+          //     )
+          //   }
+          // })
+
+          // let resultsByVoteBalance = props.proposal.choices.map((choice, i) =>
+          //   votesWithBalance
+          //     .filter((vote) => vote.choice === i + 1)
+          //     .reduce((sum, item) => (item.balance != undefined ? sum + item.balance : sum), 0),
+          // )
+
+          numTotalVotes.value = props.proposal.scores_total
+          numYesVotes.value = props.proposal.scores[0]
+          numNoVotes.value = props.proposal.scores[1]
+          numAbstainVotes.value = props.proposal.scores[2]
           loadingScores.value = false
         } catch (error) {
           console.log(error)
