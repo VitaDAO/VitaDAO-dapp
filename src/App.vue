@@ -16,7 +16,7 @@
 
       <main class="flex-1 focus:outline-none relative bg-fixed bg-no-repeat bg-contain bg-bottom">
         <div class="flex justify-center pb-20 pt-2 lg:pt-20 px-6 sm:px-8 lg:px-10">
-          <div class="max-w-8xl w-full flex justify-center">
+          <div class="max-w-8xl w-full flex flex-col gap-16 justify-center">
             <router-view v-slot="{ Component }">
               <transition name="fade" mode="out-in">
                 <component :is="Component" :key="$route.path" />
@@ -34,17 +34,17 @@
 </template>
 
 <script>
-import { defineComponent, computed, watch, ref } from 'vue'
+import BaseButton from '@/components/BaseButton'
+import BaseModal from '@/components/BaseModal'
+import ConnectWalletModal from '@/components/ConnectWalletModal'
+import FloatingMobileNav from '@/components/FloatingMobileNav'
+import MainNav from '@/components/MainNav'
+import MobileMainNav from '@/components/MobileMainNav'
+import TheFooter from '@/components/TheFooter'
+import { capitalize } from '@/utils'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { capitalize } from '@/utils'
-import MobileMainNav from '@/components/MobileMainNav'
-import FloatingMobileNav from '@/components/FloatingMobileNav'
-import BaseModal from '@/components/BaseModal'
-import BaseButton from '@/components/BaseButton'
-import ConnectWalletModal from '@/components/ConnectWalletModal'
-import TheFooter from '@/components/TheFooter'
-import MainNav from '@/components/MainNav'
 
 export default defineComponent({
   name: 'App',
