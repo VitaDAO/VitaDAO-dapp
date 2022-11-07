@@ -1,7 +1,23 @@
 <template>
   <div class="rounded-2xl border border-gray-300 p-6">
     <h3 class="text-lg mb-5">All investments</h3>
-    <ul class="space-y-5 text-[17px]">
+    <ul v-if="status === 'loading'" class="space-y-5">
+      <li v-for="item in [1, 2, 3, 4, 5]" :key="item" class="flex items-center gap-3 animate-pulse">
+        <div class="rounded-full h-[40px] w-[40px] bg-gray-300" />
+        <div class="flex-grow flex flex-col gap-1">
+          <div class="flex gap-2 justify-between">
+            <span class="bg-gray-300 h-4 w-32 rounded-sm" />
+            <span class="bg-gray-300 h-4 w-32 rounded-sm" />
+          </div>
+          <div class="flex gap-2 justify-between">
+            <span class="bg-gray-300 h-4 w-44 rounded-sm" />
+            <span class="bg-gray-300 h-4 w-44 rounded-sm" />
+          </div>
+        </div>
+      </li>
+    </ul>
+    <p v-else-if="status === 'error'" class="text-red-500">{{ error.message }}</p>
+    <ul v-else-if="status === 'success'" class="space-y-5 text-[17px]">
       <li v-for="token in tokens" :key="token.name">
         <div class="flex items-center gap-3">
           <div class="rounded-full h-[40px] w-[40px] bg-gray-300" />
@@ -28,48 +44,9 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      tokens: [
-        {
-          name: 'VitaDAO Token',
-          percent: '52.88%',
-          value: '$13,524,470',
-          treasury: '7,757,325.735 VITA • $2.00',
-          stats: '+4.32% ($559,782.25)',
-        },
-        {
-          name: 'Wrapped Ether',
-          percent: '34.94%',
-          value: '$8,945,746',
-          treasury: '1,900.756 WETH • $4,701.98',
-          stats: '-1.05% ($95,102.25)',
-        },
-        {
-          name: 'Balancer 50 VITA 50 WETH',
-          percent: '52.88%',
-          value: '$13,524,470',
-          treasury: '7,757,325.735 B50VITA-50WETH • $98.36',
-          stats: '+4.32% ($559,782.25)',
-        },
-        {
-          name: 'VitaDAO Balancer Pool',
-          percent: '52.88%',
-          value: '$13,524,470',
-          treasury: '7,757,325.735 VITA • $2.00',
-          stats: '+4.32% ($559,782.25)',
-        },
-        {
-          name: 'USD Coin',
-          percent: '52.88%',
-          value: '$13,524,470',
-          treasury: '7,757,325.735 VITA • $2.00',
-          stats: '+4.32% ($559,782.25)',
-        },
-      ],
-    }
-  },
-}
+<script setup>
+import { getTreasuryTokens } from '@/utils/queries'
+import { useQuery } from '@tanstack/vue-query'
+
+const { data: tokens, error, status } = useQuery(['getTreasuryTokens'], getTreasuryTokens)
 </script>

@@ -2,26 +2,7 @@
   <div class="w-full">
     <hr class="border-black mb-8" />
     <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">DAO Snapshot</h2>
-    <div class="flex gap-4">
-      <div
-        class="bg-vita-purple text-white flex flex-col justify-between flex-1 rounded-2xl px-10 py-6 space-y-4"
-      >
-        <span class="font-medium text-[42px]">25,016,640</span>
-        <span>Treasury value</span>
-      </div>
-      <div class="bg-vita-sunrise rounded-2xl px-8 py-5 flex flex-col justify-between flex-1">
-        <span class="font-medium text-[42px]">19.483.234</span>
-        <span>Circulating supply</span>
-      </div>
-      <div class="bg-vita-sunrise rounded-2xl px-8 py-5 flex flex-col justify-between flex-1">
-        <span class="font-medium text-[42px]">25,000,000</span>
-        <span>VitaDAO market cap</span>
-      </div>
-      <div class="bg-vita-sunrise rounded-2xl px-8 py-5 flex flex-col justify-between flex-1">
-        <span class="font-medium text-[42px]">350,000</span>
-        <span>Invested in research</span>
-      </div>
-    </div>
+    <dao-stats />
   </div>
   <div class="w-full">
     <hr class="border-black mb-8" />
@@ -83,7 +64,7 @@
     <hr class="border-black mb-8" />
     <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
     <transition name="fade" mode="out-in">
-      <div class="gap-6 grid grid-cols-1 sm:grid-cols-2">
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <treasury-graph />
         <treasury-list />
       </div>
@@ -92,6 +73,7 @@
 </template>
 
 <script>
+import DaoStats from '@/components/DaoStats.vue'
 import LoadingIndicator from '@/components/LoadingIndicator'
 import SnapshotProposalBox from '@/components/SnapshotProposalBox.vue'
 import TreasuryGraph from '@/components/TreasuryGraph.vue'
@@ -104,7 +86,7 @@ import gql from 'graphql-tag'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: { SnapshotProposalBox, LoadingIndicator, TreasuryGraph, TreasuryList },
+  components: { DaoStats, SnapshotProposalBox, LoadingIndicator, TreasuryGraph, TreasuryList },
   setup() {
     dayjs.extend(relativeTime)
 
