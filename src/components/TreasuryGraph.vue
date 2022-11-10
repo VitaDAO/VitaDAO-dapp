@@ -96,10 +96,12 @@ const chartOptions = {
 
 // TODO fix refresh of data and chart
 const chartData = reactive({
-  labels: (Array.isArray(usdValues) ? usdValues : dummyData).map((_, idx) => idx),
+  labels: (Array.isArray(usdValues) ? usdValues.map(({ timestamp }) => timestamp) : dummyData).map(
+    (_, idx) => idx,
+  ),
   datasets: [
     {
-      data: Array.isArray(usdValues) ? usdValues : dummyData,
+      data: Array.isArray(usdValues) ? usdValues.map(({ balance }) => balance) : dummyData,
       borderColor: '#6256ec',
       pointRadius: 0,
       fill: 'origin',

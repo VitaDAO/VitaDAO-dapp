@@ -4,17 +4,20 @@
     <div
       class="bg-vita-purple text-white rounded-2xl px-8 py-5 flex flex-col justify-between flex-1 gap-3"
     >
-      <span v-if="status === 'success'" class="font-medium text-[42px]">{{
-        stats.treasury.totalUsdValue
-      }}</span>
-      <span
-        v-else
-        class="bg-vita-purple brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
-      />
+      <span class="flex items-start text-xl gap-1">
+        $
+        <span v-if="status === 'success'" class="font-medium text-[42px] leading-[1em]">{{
+          stats.treasury.totalUsdValue
+        }}</span>
+        <span
+          v-else
+          class="bg-vita-purple brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
+        />
+      </span>
       <span>Treasury value</span>
     </div>
     <div class="bg-vita-sunrise rounded-2xl px-8 py-5 flex flex-col justify-between flex-1 gap-3">
-      <span v-if="status === 'success'" class="font-medium text-[42px]">{{
+      <span v-if="status === 'success'" class="font-medium text-[42px] leading-[1em]">{{
         stats.vita.circulating
       }}</span>
       <span
@@ -24,23 +27,29 @@
       <span>Circulating supply</span>
     </div>
     <div class="bg-vita-sunrise rounded-2xl px-8 py-5 flex flex-col justify-between flex-1 gap-3">
-      <span v-if="status === 'success'" class="font-medium text-[42px]">{{
-        stats.vita.marketCap
-      }}</span>
-      <span
-        v-else
-        class="bg-vita-sunrise brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
-      />
+      <span class="flex items-start text-xl gap-1">
+        $
+        <span v-if="status === 'success'" class="font-medium text-[42px] leading-[1em]">{{
+          stats.vita.marketCap
+        }}</span>
+        <span
+          v-else
+          class="bg-vita-sunrise brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
+        />
+      </span>
       <span>VitaDAO market cap</span>
     </div>
     <div class="bg-vita-sunrise rounded-2xl px-8 py-5 flex flex-col justify-between flex-1 gap-3">
-      <span v-if="status === 'success'" class="font-medium text-[42px]">{{
-        stats.totalInvestment
-      }}</span>
-      <span
-        v-else
-        class="bg-vita-sunrise brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
-      />
+      <span class="flex items-start text-xl gap-1">
+        $
+        <span v-if="status === 'success'" class="font-medium text-[42px] leading-[1em]">{{
+          stats.totalInvestment
+        }}</span>
+        <span
+          v-else
+          class="bg-vita-sunrise brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
+        />
+      </span>
       <span>Invested in research</span>
     </div>
   </div>

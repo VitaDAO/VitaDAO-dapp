@@ -20,7 +20,20 @@
     <ul v-else-if="status === 'success'" class="space-y-5 text-[17px]">
       <li v-for="token in tokens" :key="token.name">
         <div class="flex items-center gap-3">
-          <div class="rounded-full h-[40px] w-[40px] bg-gray-300" />
+          <img v-if="token.src" :src="token.src" alt="" class="rounded-full h-[40px]" />
+          <div
+            v-else
+            class="rounded-full h-[40px] w-[40px] bg-gray-300 flex items-center justify-center"
+          >
+            <span class="text-sm">{{
+              token.name
+                .split(/\s|\./)
+                .slice(0, 3)
+                .map((term) => term[0])
+                .join('')
+                .toUpperCase()
+            }}</span>
+          </div>
           <div class="flex-grow">
             <div class="flex gap-2 font-medium items-center">
               <span>{{ token.name }}</span>
