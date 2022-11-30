@@ -1,31 +1,32 @@
-import { createApp, provide, h } from 'vue'
-import App from './App.vue'
-import store from './store'
-import router from './router'
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
-import { ApolloClients } from '@vue/apollo-composable'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-  faSpinner,
-  faBars,
-  faWallet,
-  faFile,
-  faClock,
-  faFolderOpen,
-  faVoteYea,
-  faThumbsUp,
-  faThumbsDown,
-  faExclamationTriangle,
-  faFlagCheckered,
-} from '@fortawesome/free-solid-svg-icons'
-import { faDiscord, faDiscourse } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import Toast from 'vue-toastification'
-import localStorageUtils from '@/utils/localstorage.js'
 import { injectedWalletAvailable } from '@/utils'
-import 'vue-toastification/dist/index.css'
-import './index.css'
+import localStorageUtils from '@/utils/localstorage.js'
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faDiscord, faDiscourse } from '@fortawesome/free-brands-svg-icons'
+import {
+  faBars,
+  faClock,
+  faExclamationTriangle,
+  faFile,
+  faFlagCheckered,
+  faFolderOpen,
+  faSpinner,
+  faThumbsDown,
+  faThumbsUp,
+  faVoteYea,
+  faWallet,
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { VueQueryPlugin } from '@tanstack/vue-query'
+import { ApolloClients } from '@vue/apollo-composable'
+import { createApp, h, provide } from 'vue'
 import VueGtag from 'vue-gtag'
+import Toast from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
+import App from './App.vue'
+import './index.css'
+import router from './router'
+import store from './store'
 
 // HTTP connection to the API
 const vitaSubgraphHttpLink = createHttpLink({
@@ -93,6 +94,7 @@ createApp({
 })
   .use(router)
   .use(store)
+  .use(VueQueryPlugin)
   .use(
     VueGtag,
     {
