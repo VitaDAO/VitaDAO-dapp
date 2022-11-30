@@ -24,7 +24,7 @@ const failure = (body) => ({
 const fetchQuery = async (query) => {
   const res = await fetch('https://sql.transpose.io', {
     headers: {
-      'X-API-KEY': process.env.TRANSPOSE_API_KEY,
+      'X-API-KEY': process.env.VUE_APP_TRANSPOSE_API_KEY,
       'Content-Type': 'application/json',
     },
     method: 'POST',
