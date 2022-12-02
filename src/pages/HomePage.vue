@@ -120,7 +120,12 @@ export default defineComponent({
             scores
             scores_total
           }
-          past: proposals(first: 6, orderBy: "created", orderDirection: desc) {
+          past: proposals(
+            first: 6
+            where: { space: $snapshotSpace, state: "closed" }
+            orderBy: "created"
+            orderDirection: desc
+          ) {
             id
             title
             start
