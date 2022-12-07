@@ -16,13 +16,13 @@
 
       <main class="flex-1 focus:outline-none relative bg-fixed bg-no-repeat bg-contain bg-bottom">
         <div class="flex justify-center pb-20 pt-2 lg:pt-20 px-6 sm:px-8 lg:px-10">
-          <div class="max-w-8xl w-full flex flex-col gap-16 justify-center">
-            <router-view v-slot="{ Component }">
-              <transition name="fade" mode="out-in">
+          <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+              <div :key="$route.name" class="max-w-8xl w-full flex flex-col gap-16 justify-center">
                 <component :is="Component" :key="$route.path" />
-              </transition>
-            </router-view>
-          </div>
+              </div>
+            </transition>
+          </router-view>
         </div>
       </main>
 
