@@ -44,11 +44,11 @@
             </div>
             <div class="flex gap-2">
               <span class="text-gray-500">{{ token.treasury }}</span>
-              <span
+              <!-- <span
                 class="flex-grow text-right"
                 :class="[token.stats[0] === '+' ? 'text-green-500' : 'text-red-500']"
                 >{{ token.stats }}</span
-              >
+              > -->
             </div>
           </div>
         </div>

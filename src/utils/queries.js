@@ -23,11 +23,11 @@ export async function getTreasuryTokens() {
     .then((json) =>
       json.map((token) => ({
         name: token.name,
-        percent: 'wip',
+        percent: `${format(token.usd_percent)}%`,
         value: `$${format(token.usd_value, 0)}`,
         treasury: `${format(token.balance, 0)} ${token.symbol} · $${format(token.price)}`,
-        stats: 'wip',
-        src: token.src,
+        // stats: 'wip',
+        src: token.image_url,
       })),
     )
 }

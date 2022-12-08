@@ -107,26 +107,41 @@ WHERE et.contract_address = '0x81f8f0bb1cB2A06649E51913A151F0E7Ef6FA321';
 `
 
 export const tokens = `
-WITH balances AS (
+WITH
+
+owned AS (
     SELECT
-        balance,
+        contract_address,
+        balance AS raw_balance,
+        (SELECT price FROM ethereum.token_prices etp
+            WHERE etp.token_address = contract_address
+            ORDER BY timestamp DESC LIMIT 1) as price
+    FROM ethereum.token_owners AS eto
+    WHERE eto.owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2' AND balance > 0
+),
+
+tokens AS (
+    SELECT
         et.name,
         et.symbol,
-        et.decimals,
-        et.image_url as src,
-        (SELECT price FROM ethereum.token_prices tp
-            WHERE tp.token_address = eto.contract_address
-            ORDER BY timestamp desc limit 1) as price
-    FROM ethereum.token_owners eto
-    JOIN ethereum.tokens et ON eto.contract_address = et.contract_address
-    WHERE  owner_address='0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2' AND balance > 0
-) SELECT
+        price,
+        raw_balance / POWER(10, et.decimals) as balance,
+        raw_balance / POWER(10, et.decimals) * price as usd_value,
+        et.image_url
+    FROM owned
+    JOIN ethereum.tokens AS et
+    ON owned.contract_address = et.contract_address
+)
+
+SELECT
     name,
     symbol,
-    (balance / POWER(10, decimals)) AS balance,
-        COALESCE((balance / POWER(10, decimals) * price), 0) AS usd_value,
     price,
-    src
-  FROM balances
-  ORDER BY usd_value DESC;
+    balance,
+    usd_value,
+    usd_value * 100 / (SELECT SUM(usd_value) FROM tokens) AS usd_percent,
+    image_url
+FROM tokens
+WHERE usd_value >= 1
+ORDER BY usd_value DESC;
 `
