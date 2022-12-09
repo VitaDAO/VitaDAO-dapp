@@ -1,11 +1,21 @@
 <template>
   <div class="rounded-2xl border border-gray-300 p-8 max-h-[433px] flex flex-col gap-3">
-    <Line
-      :chart-data="chartData"
-      :chart-options="chartOptions"
-      ref="chartInstance"
-      height="433px"
-    />
+    <span v-if="usdTotal" class="flex items-start text-xl gap-1">
+      $
+      <span class="font-medium text-[42px] leading-[1em]">
+        {{ usdTotal }}
+      </span>
+    </span>
+    <svg v-show="usdValues" ref="chart" height="100%" width="100%">
+      <defs>
+        <linearGradient id="gradient" gradientTransform="rotate(90)">
+          <stop offset="0%" stop-color="#6256ec44" />
+          <stop offset="50%" stop-color="transparent" />
+        </linearGradient>
+      </defs>
+      <path :d="areaPath" fill="url('#gradient')" />
+      <path :d="linePath" stroke="#6256ec" stroke-width="2" fill="none" />
+    </svg>
     <div class="flex gap-2">
       <button
         v-for="option in timeRanges"
@@ -16,7 +26,6 @@
             ? 'border-vita-purple text-white bg-vita-purple'
             : 'border-gray-300',
         ]"
-        @click="selectedTimeRange = option"
       >
         {{ option }}
       </button>
@@ -27,86 +36,59 @@
 <script setup>
 import { getTreasuryUsdTimeseries } from '@/utils/queries'
 import { useQuery } from '@tanstack/vue-query'
-import {
-  CategoryScale,
-  Chart as ChartJS,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Filler,
-} from 'chart.js'
-import { reactive, onMounted, ref } from 'vue'
-import { Line } from 'vue-chartjs'
+import { extent } from 'd3-array'
+import { scaleLinear, scaleTime } from 'd3-scale'
+import { area } from 'd3-shape'
+import { computed, onMounted, ref } from 'vue'
 
-const selectedTimeRange = ref('1D')
-const timeRanges = ['1H', '1D', '1W', '1M', '1Y']
+const selectedTimeRange = ref('1Y')
+const timeRanges = ['1M', '1Y', 'Max']
 
-// declare a ref to hold the element reference
-// the name must match template ref value
-const chartInstance = ref(null)
+const { data, error, status } = useQuery(['getTreasuryUsdTimeseries'], getTreasuryUsdTimeseries)
 
-onMounted(() => {
-  console.log(chartInstance.value.chart)
-  console.log(chartInstance.value.chart.canvas)
-  const ctx = chartInstance.value.chart.canvas.getContext('2d')
-  const gradient = ctx.createLinearGradient(0, 0, 0, 400)
-  gradient.addColorStop(0, 'rgba(10,10,10,.2)')
-  gradient.addColorStop(1, 'rgba(255,255,255,1)')
-  console.log(gradient)
+const usdValues = computed(() => (Array.isArray(data.value) ? data.value.slice(-365) : undefined))
+
+const usdTotal = computed(() =>
+  Array.isArray(data.value)
+    ? data.value.at(-1).balance?.toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      })
+    : undefined,
+)
+
+const areaPath = ref()
+const linePath = ref()
+const parse = (date) => Date.parse(date)
+
+const resizeObserver = new ResizeObserver((entries) => {
+  if (Array.isArray(usdValues.value)) {
+    const { inlineSize: width, blockSize: height } = entries[0].contentBoxSize[0]
+
+    const x = scaleTime()
+      .domain(extent(usdValues.value, (d) => parse(d.timestamp)))
+      .rangeRound([2, width - 2])
+
+    const y = scaleLinear()
+      .domain(extent(usdValues.value, (d) => d.balance))
+      .rangeRound([height - 5, 5])
+
+    const areaFn = area()
+      .x((d) => x(parse(d.timestamp)))
+      .y0(() => height)
+      .y1((d) => y(d.balance))
+
+    areaPath.value = areaFn(usdValues.value)
+
+    const lineFn = areaFn.lineY1()
+
+    linePath.value = lineFn(usdValues.value)
+  }
 })
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler)
+const chart = ref()
 
-const {
-  data: usdValues,
-  error,
-  status,
-} = useQuery([selectedTimeRange, 'getTreasuryUsdTimeseries'], getTreasuryUsdTimeseries)
-
-// var canvas = document.getElementById('canvas')
-// var ctx = canvas.getContext('2d')
-// var gradient = ctx.createLinearGradient(0, 0, 0, 400)
-// gradient.addColorStop(0, 'rgba(10,10,10,.2)')
-// gradient.addColorStop(1, 'rgba(255,255,255,1)')
-
-// const chartInstance = this.$refs.bar.chart
-// console.log(chartInstance)
-
-const gen = (function* () {
-  let y = 3583
-  while (true) {
-    yield y
-    y = y + 30 * (Math.random() - 0.5)
-  }
-})()
-
-const dummyData = new Array(200).fill(null).map(() => gen.next().value)
-
-const chartOptions = {
-  scales: {
-    x: {
-      display: false,
-    },
-    y: {
-      display: false,
-    },
-  },
-  responsive: true,
-}
-
-// TODO fix refresh of data and chart
-const chartData = reactive({
-  labels: (Array.isArray(usdValues) ? usdValues.map(({ timestamp }) => timestamp) : dummyData).map(
-    (_, idx) => idx,
-  ),
-  datasets: [
-    {
-      data: Array.isArray(usdValues) ? usdValues.map(({ balance }) => balance) : dummyData,
-      borderColor: '#6256ec',
-      pointRadius: 0,
-      fill: 'origin',
-      backgroundColor: '#6256ec33',
-    },
-  ],
+onMounted(() => {
+  resizeObserver.observe(chart.value)
 })
 </script>
