@@ -5,6 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faDiscord, faDiscourse } from '@fortawesome/free-brands-svg-icons'
 import {
   faBars,
+  faChevronRight,
   faClock,
   faExclamationTriangle,
   faFile,
@@ -53,6 +54,7 @@ const snapshotClient = new ApolloClient({
 library.add(
   faSpinner,
   faBars,
+  faChevronRight,
   faWallet,
   faFile,
   faClock,

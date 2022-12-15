@@ -1,6 +1,6 @@
 <template>
   <div class="rounded-2xl border border-gray-300 p-6">
-    <h3 class="text-lg mb-5">All investments</h3>
+    <h3 class="text-lg mb-5">Top assets</h3>
     <ul v-if="status === 'loading'" class="space-y-5">
       <li v-for="item in [1, 2, 3, 4, 5]" :key="item" class="flex items-center gap-3 animate-pulse">
         <div class="rounded-full h-[40px] w-[40px] bg-gray-300" />
@@ -18,7 +18,7 @@
     </ul>
     <p v-else-if="status === 'error'" class="text-red-500">{{ error.message }}</p>
     <ul v-else-if="status === 'success'" class="space-y-5 text-[17px]">
-      <li v-for="token in tokens" :key="token.name">
+      <li v-for="token in tokens.slice(0, 5)" :key="token.name">
         <div class="flex items-center gap-3">
           <img v-if="token.src" :src="token.src" alt="" class="rounded-full h-[40px]" />
           <div
