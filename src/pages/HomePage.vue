@@ -40,7 +40,7 @@
     <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
     <transition name="fade" mode="out-in">
       <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <treasury-graph />
+        <treasury-chart />
         <treasury-list />
       </div>
     </transition>
@@ -86,7 +86,7 @@
 import DaoStats from '@/components/DaoStats.vue'
 import LoadingIndicator from '@/components/LoadingIndicator'
 import SnapshotProposalBox from '@/components/SnapshotProposalBox.vue'
-import TreasuryGraph from '@/components/TreasuryGraph.vue'
+import TreasuryChart from '@/components/TreasuryChart.vue'
 import TreasuryList from '@/components/TreasuryList.vue'
 import { shortenAddress } from '@/utils'
 import { useQuery } from '@vue/apollo-composable'
@@ -96,7 +96,7 @@ import gql from 'graphql-tag'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: { DaoStats, SnapshotProposalBox, LoadingIndicator, TreasuryGraph, TreasuryList },
+  components: { DaoStats, SnapshotProposalBox, LoadingIndicator, TreasuryChart, TreasuryList },
   setup() {
     dayjs.extend(relativeTime)
 
