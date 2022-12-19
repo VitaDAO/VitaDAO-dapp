@@ -76,8 +76,8 @@ const handleLeave = () => {
   isCursorVisible.value = false
 }
 
-const cursorX = ref(0)
-const cursorY = ref(0)
+const cursorX = ref(-20)
+const cursorY = ref(-20)
 const cursorBalance = ref(0)
 const cursorDate = ref(0)
 const cursorAnchor = ref('end')
