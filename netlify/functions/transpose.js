@@ -42,10 +42,13 @@ const sleep = async (milis = 2000) => {
   return new Promise((resolve) => setTimeout(resolve, milis))
 }
 
+// TODO remove sleeps, they're currently there because of Transpose's 3
+// queries/second rate limit. We will avoid this limitation on the higher tier
+// and by caching requests on Cloudflare Workers.
 export const handler = async function (event) {
   switch (event.queryStringParameters.query) {
     case 'stats': {
-      await sleep()
+      await sleep(1000)
       const vita = (await fetchQuery(stats))[0]
       return success({
         treasury: { totalUsdValue: '25,016,640', weeklyUsdChange: '+14% ($3,079,104)' },
@@ -54,9 +57,9 @@ export const handler = async function (event) {
       })
     }
     case 'tokens':
+      sleep(500)
       return success(await fetchQuery(tokens))
     case 'history':
-      await sleep(4000)
       return success(await fetchQuery(history))
     default:
       return failure({
