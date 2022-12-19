@@ -60,8 +60,6 @@ const props = defineProps({
   },
 })
 
-const areaPath = ref()
-const linePath = ref()
 var bisect = bisector(function (d) {
   return Date.parse(d.timestamp)
 }).right
@@ -128,35 +126,52 @@ const handleMove = (e) => {
   }
 }
 
-const x = ref()
-const y = ref()
+const minHeight = 150
+const minWidth = 54
 
-const resizeObserver = new ResizeObserver((entries) => {
-  if (Array.isArray(props.chartData)) {
-    const { blockSize: height, inlineSize: width } = entries[0].contentBoxSize[0]
+const height = ref(0)
+const width = ref(0)
 
-    x.value = scaleTime()
-      .domain(extent(props.chartData, (d) => Date.parse(d.timestamp)))
-      .rangeRound([2, width - 2])
+const x = computed(() =>
+  Array.isArray(props.chartData) && width.value > minWidth
+    ? scaleTime()
+        .domain(extent(props.chartData, (d) => Date.parse(d.timestamp)))
+        .rangeRound([2, width.value - 2])
+    : undefined,
+)
 
-    y.value = scaleLinear()
-      .domain(extent(props.chartData, (d) => d.balance))
-      .rangeRound([height - 30, 70])
+const y = computed(() =>
+  Array.isArray(props.chartData) && height.value > minHeight
+    ? scaleLinear()
+        .domain(extent(props.chartData, (d) => d.balance))
+        .rangeRound([height.value - 30, 70])
+    : undefined,
+)
 
-    const areaFn = area()
-      .x((d) => x.value(Date.parse(d.timestamp)))
-      .y0(() => height)
-      .y1((d) => y.value(d.balance))
+const areaFn = computed(() =>
+  typeof x.value === 'function' && typeof y.value === 'function'
+    ? area()
+        .x((d) => x.value(Date.parse(d.timestamp)))
+        .y0(() => height.value)
+        .y1((d) => y.value(d.balance))
+    : undefined,
+)
 
-    areaPath.value = areaFn(props.chartData)
+const areaPath = computed(() =>
+  typeof areaFn.value === 'function' ? areaFn.value(props.chartData) : undefined,
+)
 
-    const lineFn = areaFn.lineY1()
-
-    linePath.value = lineFn(props.chartData)
-  }
-})
+const linePath = computed(() =>
+  typeof areaFn.value === 'function' ? areaFn.value.lineY1()(props.chartData) : undefined,
+)
 
 const wrapper = ref(null)
+
+const resizeObserver = new ResizeObserver((entries) => {
+  const { blockSize, inlineSize } = entries[0].contentBoxSize[0]
+  height.value = blockSize
+  width.value = inlineSize
+})
 
 onMounted(() => {
   resizeObserver.observe(wrapper.value)

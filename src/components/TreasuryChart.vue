@@ -13,15 +13,16 @@
       <div class="flex gap-2 mt-3">
         <button
           v-for="option in timeRanges"
-          :key="option"
+          :key="option.label"
+          @click="selectedTimeRange = option"
           class="text-sm rounded-full border px-3"
           :class="[
-            option === selectedTimeRange
+            option.label === selectedTimeRange.label
               ? 'border-vita-purple text-white bg-vita-purple'
               : 'border-gray-300',
           ]"
         >
-          {{ option }}
+          {{ option.label }}
         </button>
       </div>
     </template>
@@ -35,13 +36,19 @@ import { getTreasuryUsdTimeseries } from '@/utils/queries'
 import { useQuery } from '@tanstack/vue-query'
 import { computed, ref } from 'vue'
 
-const selectedTimeRange = ref('1Y')
-const timeRanges = ['1M', '1Y', 'Max']
+const timeRanges = [
+  { label: '1M', value: -30 },
+  { label: '1Y', value: -365 },
+  { label: 'Max', value: 0 },
+]
+const selectedTimeRange = ref(timeRanges[1])
 
 // TODO handle error state
 const { data, status } = useQuery(['getTreasuryUsdTimeseries'], getTreasuryUsdTimeseries)
 
-const usdValues = computed(() => (Array.isArray(data.value) ? data.value.slice(-365) : undefined))
+const usdValues = computed(() =>
+  Array.isArray(data.value) ? data.value.slice(selectedTimeRange.value.value) : undefined,
+)
 
 const usdTotal = computed(() =>
   Array.isArray(usdValues.value)
