@@ -94,7 +94,7 @@ const usdWeekDelta = computed(() => {
     const delta = today - lastWeek
     const deltaPercent = (delta / today) * 100
     const sign = delta > 0 ? '+' : '-'
-    return `${sign}${deltaPercent.toPrecision(2)}% ($${delta.toLocaleString(undefined, {
+    return `${sign}${Number(deltaPercent.toPrecision(2))}% ($${delta.toLocaleString(undefined, {
       maximumFractionDigits: 0,
     })})`
   }

@@ -66,9 +66,12 @@ const usdDelta = computed(() => {
     const delta = end - start
     const deltaPercent = (delta / end) * 100
     const sign = delta > 0 ? '+' : ''
-    return `${sign}${deltaPercent.toPrecision(2)}% ($${Math.abs(delta).toLocaleString(undefined, {
-      maximumFractionDigits: 0,
-    })})`
+    return `${sign}${Number(deltaPercent.toPrecision(2))}% ($${Math.abs(delta).toLocaleString(
+      undefined,
+      {
+        maximumFractionDigits: 0,
+      },
+    )})`
   }
   return undefined
 })
