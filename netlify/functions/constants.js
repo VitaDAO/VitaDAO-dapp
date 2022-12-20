@@ -90,19 +90,38 @@ FROM
 ) carried_balances GROUP BY timestamp ORDER BY timestamp;
 `
 
-export const stats = `
-SELECT
-    et.supply / POWER(10, et.decimals) as circulating,
-    prices.price * (et.supply / POWER(10, et.decimals)) as market_cap
-FROM ethereum.tokens et
-JOIN
-    (SELECT
+// TODO confirm final list of addresses aggregated as non-circulating and
+// whether it's okay to commit to Git.
+export const vita = `
+WITH
+
+vita AS (
+    SELECT
         token_address,
-        price
-    FROM ethereum.token_prices etp
+        price AS usd
+    FROM ethereum.token_prices AS etp
     WHERE etp.token_address = '0x81f8f0bb1cB2A06649E51913A151F0E7Ef6FA321'
-    ORDER BY timestamp desc limit 1) as prices
-ON prices.token_address = et.contract_address
+    ORDER BY timestamp DESC LIMIT 1
+),
+
+nc AS (
+    SELECT
+        contract_address,
+        SUM(balance) AS non_circulating
+    FROM ethereum.token_owners
+    WHERE contract_address = '0x81f8f0bb1cB2A06649E51913A151F0E7Ef6FA321'
+    AND owner_address IN (
+        '0xf5307a74d1550739ef81c6488dc5c7a6a53e5ac2'
+    )
+    GROUP BY contract_address
+)
+
+SELECT
+    (et.supply - nc.non_circulating) / POWER(10, et.decimals) as circulating,
+    vita.usd * (et.supply / POWER(10, et.decimals)) as market_cap
+FROM ethereum.tokens AS et
+JOIN vita ON vita.token_address = et.contract_address
+JOIN nc ON nc.contract_address = et.contract_address
 WHERE et.contract_address = '0x81f8f0bb1cB2A06649E51913A151F0E7Ef6FA321';
 `
 

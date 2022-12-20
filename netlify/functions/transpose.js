@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import fetch from 'node-fetch'
 
-import { history, stats, tokens } from './constants'
+import { history, tokens, vita } from './constants'
 
 dotenv.config()
 
@@ -49,10 +49,8 @@ export const handler = async function (event) {
   switch (event.queryStringParameters.query) {
     case 'stats': {
       await sleep(1000)
-      const vita = (await fetchQuery(stats))[0]
       return success({
-        treasury: { totalUsdValue: '25,016,640', weeklyUsdChange: '+14% ($3,079,104)' },
-        vita,
+        vita: (await fetchQuery(vita))[0],
         totalInvestment: '424,242',
       })
     }
