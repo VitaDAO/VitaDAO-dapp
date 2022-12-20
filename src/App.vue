@@ -67,6 +67,10 @@ export default defineComponent({
         name: 'Proposals',
         to: '/proposals',
       },
+      {
+        name: 'Treasury',
+        to: '/treasury',
+      },
       { name: 'Wallet', to: '/wallet' },
     ]
 

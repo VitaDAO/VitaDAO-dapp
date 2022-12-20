@@ -38,12 +38,16 @@
   <div class="w-full">
     <hr class="border-black mb-8" />
     <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
-    <transition name="fade" mode="out-in">
-      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <treasury-chart />
-        <treasury-list />
-      </div>
-    </transition>
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <treasury-chart />
+      <treasury-list />
+    </div>
+    <router-link
+      to="/treasury"
+      class="mt-6 ml-auto w-max bg-white rounded-full border border-gray-300 text-center px-4 py-2 self-end flex gap-6 items-center"
+      >View more
+      <fa icon="chevron-right" class="text-xs" />
+    </router-link>
   </div>
   <div class="w-full">
     <hr class="border-black mb-8" />
