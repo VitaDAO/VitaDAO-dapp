@@ -128,7 +128,7 @@ WHERE et.contract_address = '0x81f8f0bb1cB2A06649E51913A151F0E7Ef6FA321';
 export const tokens = `
 WITH
 
-owned AS (
+erc20s AS (
     SELECT
         contract_address,
         balance AS raw_balance,
@@ -139,6 +139,16 @@ owned AS (
     WHERE eto.owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2' AND balance > 0
 ),
 
+eth AS (
+    SELECT
+    balance / POWER(10, 18) AS balance,
+    (SELECT price FROM ethereum.token_prices
+        WHERE token_address = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+        ORDER BY timestamp DESC LIMIT 1)
+    FROM ethereum.native_token_owners AS ento
+    WHERE ento.owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
+),
+
 tokens AS (
     SELECT
         et.name,
@@ -147,9 +157,18 @@ tokens AS (
         raw_balance / POWER(10, et.decimals) as balance,
         raw_balance / POWER(10, et.decimals) * price as usd_value,
         et.image_url
-    FROM owned
+    FROM erc20s
     JOIN ethereum.tokens AS et
-    ON owned.contract_address = et.contract_address
+    ON erc20s.contract_address = et.contract_address
+    UNION
+    SELECT
+        'Ethereum' AS name,
+        'ETH' AS symbol,
+        price,
+        balance,
+        balance * price AS usd_value,
+        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png' AS image_url
+    FROM eth
 )
 
 SELECT
