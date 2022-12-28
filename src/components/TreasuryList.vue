@@ -36,7 +36,10 @@
           </div>
           <div class="flex-grow">
             <div class="flex gap-2 font-medium items-center">
-              <span>{{ token.name }}</span>
+              <a v-if="token.address" :href="`https://etherscan.io/address/${token.address}`">{{
+                token.name
+              }}</a>
+              <span v-else>{{ token.name }}</span>
               <span class="text-[15px] px-1 rounded-lg bg-gray-200 leading-5">{{
                 token.percent
               }}</span>

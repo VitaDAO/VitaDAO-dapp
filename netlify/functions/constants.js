@@ -129,57 +129,71 @@ export const tokens = `
 WITH
 
 erc20s AS (
-    SELECT
-        contract_address,
-        balance AS raw_balance,
-        (SELECT price FROM ethereum.token_prices etp
-            WHERE etp.token_address = contract_address
-            ORDER BY timestamp DESC LIMIT 1) as price
-    FROM ethereum.token_owners AS eto
-    WHERE eto.owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2' AND balance > 0
-),
+SELECT
+    contract_address,
+    balance raw_balance,
+    (SELECT price FROM ethereum.token_prices etp
+    WHERE etp.token_address = contract_address
+    ORDER BY timestamp DESC LIMIT 1) price
+FROM ethereum.token_owners eto
+WHERE eto.owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
+AND balance > 0
+AND eto.contract_address IN (
+    '0x1249c510e066731FF14422500466A7102603da9e',
+    '0x350196326AEAA9b98f1903fb5e8fc2686f85318C',
+    '0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32',
+    '0x5aFE3855358E112B5647B952709E6165e1c1eEEe',
+    '0x777C45BD0a2AF1dA5fe4a532AD6B207D3CEd8b2d',
+    '0x7B50775383d3D6f0215A8F290f2C9e2eEBBEceb2',
+    '0x81f8f0bb1cB2A06649E51913A151F0E7Ef6FA321',
+    '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    '0xA6468eca7633246Dcb24E5599681767D27d1F978',
+    '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',
+    '0xba100000625a3754423978a60c9317c58a424e3D',
+    '0xcD4722B7c24C29e0413BDCd9e51404B4539D14aE',
+    '0xD057B63f5E69CF1B929b356b579Cba08D7688048')),
 
 eth AS (
-    SELECT
+SELECT
     balance / POWER(10, 18) AS balance,
     (SELECT price FROM ethereum.token_prices
-        WHERE token_address = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
-        ORDER BY timestamp DESC LIMIT 1)
-    FROM ethereum.native_token_owners AS ento
-    WHERE ento.owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
-),
+    WHERE token_address = '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'
+    ORDER BY timestamp DESC LIMIT 1)
+FROM ethereum.native_token_owners ento
+WHERE ento.owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'),
 
 tokens AS (
-    SELECT
-        et.name,
-        et.symbol,
-        price,
-        raw_balance / POWER(10, et.decimals) as balance,
-        raw_balance / POWER(10, et.decimals) * price as usd_value,
-        et.image_url
-    FROM erc20s
-    JOIN ethereum.tokens AS et
-    ON erc20s.contract_address = et.contract_address
-    UNION
-    SELECT
-        'Ethereum' AS name,
-        'ETH' AS symbol,
-        price,
-        balance,
-        balance * price AS usd_value,
-        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png' AS image_url
-    FROM eth
-)
+SELECT
+    et.name,
+    et.symbol,
+    price,
+    raw_balance / POWER(10, et.decimals) as balance,
+    raw_balance / POWER(10, et.decimals) * price as usd_value,
+    et.image_url,
+    et.contract_address
+FROM erc20s
+JOIN ethereum.tokens et
+ON erc20s.contract_address = et.contract_address
+UNION
+SELECT
+    'Ethereum' AS name,
+    'ETH' AS symbol,
+    price,
+    balance,
+    balance * price AS usd_value,
+    'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png' AS image_url,
+    NULL AS contract_address
+FROM eth)
 
 SELECT
     name,
     symbol,
-    price,
-    balance,
-    usd_value,
-    usd_value * 100 / (SELECT SUM(usd_value) FROM tokens) AS usd_percent,
-    image_url
+    ROUND(price, 2) AS price,
+    ROUND(balance::text::numeric) AS balance,
+    ROUND(usd_value::text::numeric) AS usd_value,
+    ROUND((usd_value * 100 / (SELECT SUM(usd_value) FROM tokens))::text::numeric, 2) AS usd_percent,
+    image_url,
+    contract_address
 FROM tokens
-WHERE usd_value >= 1
-ORDER BY usd_value DESC;
+ORDER BY usd_value DESC NULLS LAST;
 `
