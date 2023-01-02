@@ -1,93 +1,71 @@
 export const history = `
+WITH
+
+transfers AS (
+/* ERC-20 inflows */
+SELECT timestamp, contract_address, sum(quantity) quantity
+FROM ethereum.token_transfers
+WHERE to_address = '{{wallet}}'
+AND __confirmed = true
+GROUP BY timestamp, contract_address
+/* ERC-20 outflows */
+UNION ALL
+SELECT timestamp, contract_address, sum(-quantity) quantity
+FROM ethereum.token_transfers
+WHERE from_address = '{{wallet}}'
+AND __confirmed = true
+GROUP BY timestamp, contract_address
+/* ETH inflows */
+UNION ALL
+SELECT timestamp, '0x0000000000000000000000000000000000000000' AS contract_address, sum(quantity) quantity
+FROM ethereum.native_token_transfers
+WHERE to_address = '{{wallet}}'
+AND __confirmed = true
+GROUP BY timestamp, contract_address
+/* ETH outflows */
+UNION ALL
+SELECT timestamp, '0x0000000000000000000000000000000000000000' AS contract_address, sum(-quantity) quantity
+FROM ethereum.native_token_transfers
+WHERE from_address = '{{wallet}}'
+AND __confirmed = true
+GROUP BY timestamp, contract_address),
+
+/* partition over historical quantity to generate a cumulative sum */
+balances AS (
+SELECT
+    contract_address AS token_address, 
+    timestamp AS timestamp,
+    SUM(quantity) OVER (PARTITION BY contract_address ORDER BY timestamp) AS balance
+FROM transfers),
+
+tokens AS (
+SELECT dt.token_address, et.decimals
+FROM (SELECT DISTINCT token_address FROM balances) dt
+JOIN ethereum.tokens et ON et.contract_address = dt.token_address
+UNION SELECT '0x0000000000000000000000000000000000000000' AS token_address, 18 AS decimals),
+
+series AS (
+SELECT GENERATE_SERIES(NOW() - INTERVAL '{{interval}}', NOW(), INTERVAL '{{interval}}' / '{{samples}}') as timestamp)
+
+/* we take price * balance for each timestamp/token pair and aggregate by timestamp */
 SELECT
     timestamp,
-    SUM(COALESCE(bal
-        * (SELECT price FROM ethereum.token_prices p
-           WHERE contract_address = p.token_address
-             AND timestamp <= p.timestamp
-           ORDER BY timestamp DESC LIMIT 1)
+    SUM(COALESCE(
+        (SELECT price FROM ethereum.token_prices etp
+        WHERE etp.token_address = tokens.token_address
+        AND etp.timestamp <= series.timestamp
+        ORDER BY etp.timestamp DESC LIMIT 1)
+        *
+        (SELECT balance FROM balances b
+        WHERE b.token_address = tokens.token_address
+        AND b.timestamp <= series.timestamp
+        ORDER BY b.timestamp DESC LIMIT 1)
         /
-         POWER(10, (SELECT decimals FROM ethereum.tokens t
-                    WHERE carried_balances.contract_address = t.contract_address)), 0))
-        AS balance
-FROM
-(
-    SELECT
-        *,
-        coalesce(balance, first_value(balance) over (PARTITION BY contract_address, open_group ORDER BY timestamp)) as bal
-    FROM
-    (
-    select
-        timestamp,
-        contract_address,
-        balance,
-        count(balance) OVER (ORDER BY contract_address, timestamp) as open_group
-    FROM
-    (
-    SELECT
-        ts as timestamp,
-        contract_addresses.contract_address,
-        min(balance_series.min) as balance
-    FROM generate_series(
-        (SELECT date_trunc('day', created_timestamp) FROM ethereum.accounts WHERE address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2')::timestamp,
-         date_trunc('day', NOW())::timestamp,
-         '1 day'::interval) ts
-     CROSS JOIN (SELECT contract_address
-                 FROM ethereum.token_transfers
-                 WHERE from_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
-                    OR to_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
-                 GROUP BY contract_address) contract_addresses
-    LEFT OUTER JOIN
-    (
-        SELECT
-            date_trunc('day', timestamp) AS timestamp,
-            contract_address,
-            min(balance)
-        FROM
-            (SELECT
-                 timestamp,
-                 contract_address,
-                 (SELECT balance AS balance FROM ethereum.token_owners tok
-                  WHERE tok.contract_address = transfers.contract_address
-                    AND tok.owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2')
-                     -
-                 (SELECT COALESCE(SUM(quantity), 0) AS balance FROM ethereum.token_transfers
-                  WHERE contract_address = transfers.contract_address
-                    AND to_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
-                    AND timestamp > transfers.timestamp
-                    AND __confirmed = true)
-                     +
-                 (SELECT COALESCE(SUM(quantity), 0) AS balance FROM ethereum.token_transfers
-                  WHERE contract_address = transfers.contract_address
-                    AND from_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
-                    AND timestamp > transfers.timestamp
-                    AND __confirmed = true)
-                     AS balance
-
-             FROM ethereum.token_transfers transfers
-             WHERE from_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
-                OR to_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
-
-             UNION
-
-             (SELECT
-                  NOW() AS timestamp,
-                  contract_address,
-                  balance
-              FROM ethereum.token_owners
-              WHERE owner_address = '0xF5307a74d1550739ef81c6488DC5C7a6a53e5Ac2'
-              AND balance >0)
-             ) AS token_balances
-        WHERE balance >= 0
-        GROUP BY timestamp, contract_address
-        ORDER BY timestamp) balance_series
-    ON balance_series.contract_address = contract_addresses.contract_address
-    AND balance_series.timestamp = ts
-    GROUP BY ts, contract_addresses.contract_address
-    ORDER BY contract_addresses.contract_address, ts
-    ) balances
-    ) carry
-) carried_balances GROUP BY timestamp ORDER BY timestamp;
+        POWER(10, tokens.decimals)
+    , 0)) AS balance
+FROM tokens
+CROSS JOIN series
+GROUP BY timestamp;
 `
 
 // TODO confirm final list of addresses aggregated as non-circulating and

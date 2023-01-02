@@ -133,7 +133,7 @@ const height = ref(0)
 const width = ref(0)
 
 const x = computed(() =>
-  Array.isArray(props.chartData) && width.value > minWidth
+  Array.isArray(props.chartData) && width.value >= minWidth
     ? scaleTime()
         .domain(extent(props.chartData, (d) => Date.parse(d.timestamp)))
         .rangeRound([2, width.value - 2])
@@ -141,7 +141,7 @@ const x = computed(() =>
 )
 
 const y = computed(() =>
-  Array.isArray(props.chartData) && height.value > minHeight
+  Array.isArray(props.chartData) && height.value >= minHeight
     ? scaleLinear()
         .domain(extent(props.chartData, (d) => d.balance))
         .rangeRound([height.value - 30, 70])

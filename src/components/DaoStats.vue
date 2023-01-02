@@ -76,7 +76,7 @@ const {
   data: timeseriesData,
   error: timeseriesError,
   status: timeseriesStatus,
-} = useQuery(['getTreasuryUsdTimeseries'], getTreasuryUsdTimeseries)
+} = useQuery(['getTreasuryUsdTimeseries', '1W'], () => getTreasuryUsdTimeseries('1W'))
 
 const usdTotal = computed(() =>
   Array.isArray(timeseriesData.value)
@@ -89,7 +89,7 @@ const usdTotal = computed(() =>
 
 const usdWeekDelta = computed(() => {
   if (Array.isArray(timeseriesData.value)) {
-    const lastWeek = timeseriesData.value.at(-7).balance
+    const lastWeek = timeseriesData.value.at(0).balance
     const today = timeseriesData.value.at(-1).balance
     const delta = today - lastWeek
     const deltaPercent = (delta / today) * 100

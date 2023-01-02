@@ -35,6 +35,8 @@ export async function getTreasuryTokens() {
     )
 }
 
-export async function getTreasuryUsdTimeseries({ queryKey: [period] }) {
-  return fetch('.netlify/functions/transpose?query=history').then((res) => res.json())
+export async function getTreasuryUsdTimeseries(interval) {
+  return fetch(`.netlify/functions/transpose?query=history&interval=${interval}`).then((res) =>
+    res.json(),
+  )
 }
