@@ -12,12 +12,12 @@
       </div>
       <div class="flex gap-2 mt-3">
         <button
-          v-for="option in timeRanges"
+          v-for="option in intervals"
           :key="option"
-          @click="selectedTimeRange = option"
+          @click="selectedInterval = option"
           class="text-sm rounded-full border px-3"
           :class="[
-            option === selectedTimeRange
+            option === selectedInterval
               ? 'border-vita-purple text-white bg-vita-purple'
               : 'border-gray-300',
           ]"
@@ -32,41 +32,12 @@
 <script setup>
 import LineChart from '@/components/LineChart'
 import LoadingIndicator from '@/components/LoadingIndicator'
-import { getTreasuryUsdTimeseries } from '@/utils/queries'
-import { useQuery } from '@tanstack/vue-query'
-import { computed, ref } from 'vue'
+import { useUsdTimeseries } from '@/utils/queries'
+import { ref } from 'vue'
 
-const timeRanges = ['1M', '1Y', 'Max']
-const selectedTimeRange = ref('1Y')
+const intervals = ['1M', '1Y', 'Max']
+const selectedInterval = ref('1Y')
 
 // TODO handle error state
-const { data: usdValues, status } = useQuery(['getTreasuryUsdTimeseries', selectedTimeRange], () =>
-  getTreasuryUsdTimeseries(selectedTimeRange.value),
-)
-
-const usdTotal = computed(() =>
-  Array.isArray(usdValues.value)
-    ? usdValues.value.at(-1).balance?.toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      })
-    : undefined,
-)
-
-const usdDelta = computed(() => {
-  if (Array.isArray(usdValues.value)) {
-    const start = usdValues.value.at(0).balance
-    const end = usdValues.value.at(-1).balance
-    const delta = end - start
-    const deltaPercent = (delta / end) * 100
-    const sign = delta > 0 ? '+' : ''
-    return `${sign}${Number(deltaPercent.toPrecision(2))}% ($${Math.abs(delta).toLocaleString(
-      undefined,
-      {
-        maximumFractionDigits: 0,
-      },
-    )})`
-  }
-  return undefined
-})
+const { data: usdValues, status, usdTotal, usdDelta } = useUsdTimeseries(selectedInterval)
 </script>

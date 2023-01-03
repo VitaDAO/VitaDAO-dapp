@@ -13,8 +13,8 @@
             class="bg-vita-purple brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
           />
         </span>
-        <span v-if="usdWeekDelta" class="text-[20px]"
-          >{{ usdWeekDelta }} <span class="opacity-50">weekly</span></span
+        <span v-if="usdDelta" class="text-[20px]"
+          >{{ usdDelta }} <span class="opacity-50">weekly</span></span
         >
         <span
           v-else
@@ -63,41 +63,16 @@
 </template>
 
 <script setup>
-import { getDaoStats, getTreasuryUsdTimeseries } from '@/utils/queries'
+import { getDaoStats, useUsdTimeseries } from '@/utils/queries'
 import { useQuery } from '@tanstack/vue-query'
-import { computed } from 'vue'
+import { ref } from 'vue'
 
 const {
   data: statsData,
   error: statsError,
   status: statsStatus,
 } = useQuery(['getDaoStats'], getDaoStats)
-const {
-  data: timeseriesData,
-  error: timeseriesError,
-  status: timeseriesStatus,
-} = useQuery(['getTreasuryUsdTimeseries', '1W'], () => getTreasuryUsdTimeseries('1W'))
 
-const usdTotal = computed(() =>
-  Array.isArray(timeseriesData.value)
-    ? timeseriesData.value.at(-1).balance?.toLocaleString(undefined, {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      })
-    : undefined,
-)
-
-const usdWeekDelta = computed(() => {
-  if (Array.isArray(timeseriesData.value)) {
-    const lastWeek = timeseriesData.value.at(0).balance
-    const today = timeseriesData.value.at(-1).balance
-    const delta = today - lastWeek
-    const deltaPercent = (delta / today) * 100
-    const sign = delta > 0 ? '+' : '-'
-    return `${sign}${Number(deltaPercent.toPrecision(2))}% ($${delta.toLocaleString(undefined, {
-      maximumFractionDigits: 0,
-    })})`
-  }
-  return undefined
-})
+const interval = ref('1W')
+const { usdTotal, usdDelta } = useUsdTimeseries(interval)
 </script>

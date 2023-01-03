@@ -1,3 +1,6 @@
+import { useQuery } from '@tanstack/vue-query'
+import { computed } from 'vue'
+
 function format(n, decimals = 2) {
   return n?.toLocaleString(undefined, {
     minimumFractionDigits: decimals,
@@ -35,7 +38,46 @@ export async function getTreasuryTokens() {
     )
 }
 
-export async function getTreasuryUsdTimeseries(interval) {
+export function useUsdTimeseries(interval) {
+  const queryReturn = useQuery({
+    queryKey: ['getTreasuryUsdTimeseries', interval],
+    queryFn: () => getTreasuryUsdTimeseries(interval.value),
+  })
+
+  const usdTotal = computed(() =>
+    Array.isArray(queryReturn.data.value)
+      ? queryReturn.data.value.at(-1).balance?.toLocaleString(undefined, {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        })
+      : undefined,
+  )
+
+  const usdDelta = computed(() => {
+    if (Array.isArray(queryReturn.data.value)) {
+      const start = queryReturn.data.value.at(0).balance
+      const end = queryReturn.data.value.at(-1).balance
+      const delta = end - start
+      const deltaPercent = (delta / start) * 100
+      const sign = delta > 0 ? '+' : ''
+      return `${sign}${Number(deltaPercent.toPrecision(2))}% ($${Math.abs(delta).toLocaleString(
+        undefined,
+        {
+          maximumFractionDigits: 0,
+        },
+      )})`
+    }
+    return undefined
+  })
+
+  return {
+    ...queryReturn,
+    usdTotal,
+    usdDelta,
+  }
+}
+
+async function getTreasuryUsdTimeseries(interval) {
   return fetch(`.netlify/functions/transpose?query=history&interval=${interval}`).then((res) =>
     res.json(),
   )
