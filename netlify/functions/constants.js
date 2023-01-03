@@ -44,8 +44,9 @@ FROM (SELECT DISTINCT token_address FROM balances) dt
 JOIN ethereum.tokens et ON et.contract_address = dt.token_address
 UNION SELECT '0x0000000000000000000000000000000000000000' AS token_address, 18 AS decimals),
 
+/* Generating series from now - interval avoids rounding error showing up as inconsistent end timestamp */
 series AS (
-SELECT GENERATE_SERIES(NOW() - INTERVAL '{{interval}}', NOW(), INTERVAL '{{interval}}' / '{{samples}}') as timestamp)
+SELECT GENERATE_SERIES(NOW(), NOW() - INTERVAL '{{interval}}', INTERVAL '-{{interval}}' / '{{samples}}') as timestamp)
 
 /* we take price * balance for each timestamp/token pair and aggregate by timestamp */
 SELECT
