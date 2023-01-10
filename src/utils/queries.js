@@ -12,15 +12,23 @@ export function useDaoStats() {
   return useQuery({
     queryKey: ['useDaoStats'],
     queryFn: () =>
-      fetch('.netlify/functions/transpose?query=stats')
+      fetch('https://vitadao-dapp-api-worker.raulrpearson.workers.dev/stats')
         .then((res) => res.json())
-        .then((json) => ({
-          ...json,
-          vita: {
-            circulating: format(json.vita.circulating, 0),
-            marketCap: format(json.vita.market_cap, 0),
-          },
-        })),
+        .then((json) => {
+          if (json.status === 'success') {
+            const { circulating, market_cap } = json.results[0]
+            return {
+              vita: {
+                circulating: format(circulating, 0),
+                marketCap: format(market_cap, 0),
+              },
+              totalInvestment: '424,242',
+            }
+          } else if (json.status === 'error') {
+            throw new Error(json.message)
+          }
+          throw new Error('Unexpected response shape: ' + JSON.stringify(json))
+        }),
   })
 }
 
