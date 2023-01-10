@@ -63,15 +63,10 @@
 </template>
 
 <script setup>
-import { getDaoStats, useUsdTimeseries } from '@/utils/queries'
-import { useQuery } from '@tanstack/vue-query'
+import { useDaoStats, useUsdTimeseries } from '@/utils/queries'
 import { ref } from 'vue'
 
-const {
-  data: statsData,
-  error: statsError,
-  status: statsStatus,
-} = useQuery(['getDaoStats'], getDaoStats)
+const { data: statsData, error: statsError, status: statsStatus } = useDaoStats()
 
 const interval = ref('1W')
 const { usdTotal, usdDelta } = useUsdTimeseries(interval)

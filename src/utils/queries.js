@@ -8,40 +8,51 @@ function format(n, decimals = 2) {
   })
 }
 
-export async function getDaoStats() {
-  return fetch('.netlify/functions/transpose?query=stats')
-    .then((res) => res.json())
-    .then((json) => ({
-      ...json,
-      vita: {
-        circulating: format(json.vita.circulating, 0),
-        marketCap: format(json.vita.market_cap, 0),
-      },
-    }))
+export function useDaoStats() {
+  return useQuery({
+    queryKey: ['useDaoStats'],
+    queryFn: () =>
+      fetch('.netlify/functions/transpose?query=stats')
+        .then((res) => res.json())
+        .then((json) => ({
+          ...json,
+          vita: {
+            circulating: format(json.vita.circulating, 0),
+            marketCap: format(json.vita.market_cap, 0),
+          },
+        })),
+  })
 }
 
-export async function getTreasuryTokens() {
-  return fetch('.netlify/functions/transpose?query=tokens')
-    .then((res) => res.json())
-    .then((json) =>
-      json.map((token) => ({
-        name: token.name,
-        percent: token.usd_percent ? `${format(token.usd_percent)}%` : '',
-        value: token.usd_value ? `$${format(token.usd_value, 0)}` : '',
-        treasury: token.price
-          ? `${format(token.balance, 0)} ${token.symbol} · $${format(token.price)}`
-          : `${format(token.balance, 0)} ${token.symbol}`,
-        // stats: 'wip',
-        src: token.image_url,
-        address: token.contract_address,
-      })),
-    )
+export function useTreasuryTokens() {
+  return useQuery({
+    queryKey: ['useTreasuryTokens'],
+    queryFn: () =>
+      fetch('.netlify/functions/transpose?query=tokens')
+        .then((res) => res.json())
+        .then((json) =>
+          json.map((token) => ({
+            name: token.name,
+            percent: token.usd_percent ? `${format(token.usd_percent)}%` : '',
+            value: token.usd_value ? `$${format(token.usd_value, 0)}` : '',
+            treasury: token.price
+              ? `${format(token.balance, 0)} ${token.symbol} · $${format(token.price)}`
+              : `${format(token.balance, 0)} ${token.symbol}`,
+            // stats: 'wip',
+            src: token.image_url,
+            address: token.contract_address,
+          })),
+        ),
+  })
 }
 
 export function useUsdTimeseries(interval) {
   const queryReturn = useQuery({
-    queryKey: ['getTreasuryUsdTimeseries', interval],
-    queryFn: () => getTreasuryUsdTimeseries(interval.value),
+    queryKey: ['useUsdTimeseries', interval],
+    queryFn: () =>
+      fetch(`.netlify/functions/transpose?query=history&interval=${interval.value}`).then((res) =>
+        res.json(),
+      ),
   })
 
   const usdTotal = computed(() =>
@@ -75,10 +86,4 @@ export function useUsdTimeseries(interval) {
     usdTotal,
     usdDelta,
   }
-}
-
-async function getTreasuryUsdTimeseries(interval) {
-  return fetch(`.netlify/functions/transpose?query=history&interval=${interval}`).then((res) =>
-    res.json(),
-  )
 }

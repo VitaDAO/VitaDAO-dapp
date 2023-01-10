@@ -61,8 +61,7 @@
 </template>
 
 <script setup>
-import { getTreasuryTokens } from '@/utils/queries'
-import { useQuery } from '@tanstack/vue-query'
+import { useTreasuryTokens } from '@/utils/queries'
 import { computed, defineProps } from 'vue'
 
 const props = defineProps({
@@ -75,5 +74,5 @@ const props = defineProps({
 const title = computed(() => (props.onlyTopAssets ? 'Top assets' : 'All assets'))
 const sliceEnd = computed(() => (props.onlyTopAssets ? 5 : undefined))
 
-const { data: tokens, error, status } = useQuery(['getTreasuryTokens'], getTreasuryTokens)
+const { data: tokens, error, status } = useTreasuryTokens()
 </script>
