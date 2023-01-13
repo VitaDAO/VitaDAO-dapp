@@ -38,19 +38,25 @@ export function useTreasuryTokens() {
     queryFn: () =>
       fetch('https://vitadao-dapp-api-worker.raulrpearson.workers.dev/tokens')
         .then((res) => res.json())
-        .then((json) =>
-          json.map((token) => ({
-            name: token.name,
-            percent: token.usd_percent ? `${format(token.usd_percent)}%` : '',
-            value: token.usd_value ? `$${format(token.usd_value, 0)}` : '',
-            treasury: token.price
-              ? `${format(token.balance, 0)} ${token.symbol} · $${format(token.price)}`
-              : `${format(token.balance, 0)} ${token.symbol}`,
-            // stats: 'wip',
-            src: token.image_url,
-            address: token.contract_address,
-          })),
-        ),
+        .then((json) => {
+          if (json.status === 'success') {
+            const tokens = json.results
+            return tokens.map((token) => ({
+              name: token.name,
+              percent: token.usd_percent ? `${format(token.usd_percent)}%` : '',
+              value: token.usd_value ? `$${format(token.usd_value, 0)}` : '',
+              treasury: token.price
+                ? `${format(token.balance, 0)} ${token.symbol} · $${format(token.price)}`
+                : `${format(token.balance, 0)} ${token.symbol}`,
+              // stats: 'wip',
+              src: token.image_url,
+              address: token.contract_address,
+            }))
+          } else if (json.status === 'error') {
+            throw new Error(json.message)
+          }
+          throw new Error('Unexpected response shape: ' + JSON.stringify(json))
+        }),
   })
 }
 
@@ -60,7 +66,16 @@ export function useUsdTimeseries(interval) {
     queryFn: () =>
       fetch(
         `https://vitadao-dapp-api-worker.raulrpearson.workers.dev/history?interval=${interval.value}`,
-      ).then((res) => res.json()),
+      )
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.status === 'success') {
+            return json.results
+          } else if (json.status === 'error') {
+            throw new Error(json.message)
+          }
+          throw new Error('Unexpected response shape: ' + JSON.stringify(json))
+        }),
   })
 
   const usdTotal = computed(() =>
