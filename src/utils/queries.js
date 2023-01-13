@@ -12,7 +12,7 @@ export function useDaoStats() {
   return useQuery({
     queryKey: ['useDaoStats'],
     queryFn: () =>
-      fetch('https://vitadao-dapp-api-worker.raulrpearson.workers.dev/stats')
+      fetch('https://vitadao-dapp-api-worker.raulrpearson.workers.dev/vita')
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
@@ -36,7 +36,7 @@ export function useTreasuryTokens() {
   return useQuery({
     queryKey: ['useTreasuryTokens'],
     queryFn: () =>
-      fetch('.netlify/functions/transpose?query=tokens')
+      fetch('https://vitadao-dapp-api-worker.raulrpearson.workers.dev/tokens')
         .then((res) => res.json())
         .then((json) =>
           json.map((token) => ({
@@ -58,9 +58,9 @@ export function useUsdTimeseries(interval) {
   const queryReturn = useQuery({
     queryKey: ['useUsdTimeseries', interval],
     queryFn: () =>
-      fetch(`.netlify/functions/transpose?query=history&interval=${interval.value}`).then((res) =>
-        res.json(),
-      ),
+      fetch(
+        `https://vitadao-dapp-api-worker.raulrpearson.workers.dev/history?interval=${interval.value}`,
+      ).then((res) => res.json()),
   })
 
   const usdTotal = computed(() =>
