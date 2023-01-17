@@ -31,7 +31,7 @@
         v-else
         class="bg-vita-sunrise brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
       />
-      <span>Circulating supply</span>
+      <span>$VITA circulating supply</span>
     </div>
     <div class="bg-vita-sunrise rounded-2xl px-8 py-5 flex flex-col justify-between flex-1 gap-3">
       <span class="flex items-start text-xl gap-1">
