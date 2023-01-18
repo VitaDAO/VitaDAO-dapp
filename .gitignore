@@ -28,6 +28,3 @@ pnpm-debug.log*
 *.sw?
 
 /storybook-static
-
-# Local Netlify folder
-.netlify
