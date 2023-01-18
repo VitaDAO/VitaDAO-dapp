@@ -23,7 +23,7 @@
           <img v-if="token.src" :src="token.src" alt="" class="rounded-full h-[40px]" />
           <div
             v-else
-            class="rounded-full h-[40px] w-[40px] bg-gray-300 flex items-center justify-center"
+            class="rounded-full h-[40px] w-[40px] flex-shrink-0 bg-gray-300 flex items-center justify-center"
           >
             <span class="text-sm">{{
               token.name
