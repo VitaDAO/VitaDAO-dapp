@@ -22,7 +22,7 @@ export function useDaoStats() {
                 circulating: format(circulating, 0),
                 marketCap: format(market_cap, 0),
               },
-              totalInvestment: '424,242',
+              totalInvestment: '3,570,000',
             }
           } else if (json.status === 'error') {
             throw new Error(json.message)
