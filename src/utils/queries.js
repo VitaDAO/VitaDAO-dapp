@@ -21,7 +21,7 @@ export function useDaoStats() {
               vita: {
                 circulating: format(circulating, 0),
                 marketCap: format(market_cap, 0),
-                price: format(price, 3),
+                price: format(price, 2),
               },
               totalInvestment: format(3.5, 1) + 'M+',
             }
