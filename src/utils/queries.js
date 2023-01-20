@@ -16,13 +16,14 @@ export function useDaoStats() {
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
-            const { circulating, market_cap } = json.results[0]
+            const { circulating, market_cap, price } = json.results[0]
             return {
               vita: {
                 circulating: format(circulating, 0),
                 marketCap: format(market_cap, 0),
+                price: format(price, 2),
               },
-              totalInvestment: '3.570.000',
+              totalInvestment: format(3.5, 1) + 'M+',
             }
           } else if (json.status === 'error') {
             throw new Error(json.message)
