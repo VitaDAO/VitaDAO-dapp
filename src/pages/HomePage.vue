@@ -37,20 +37,6 @@
   </div>
   <div class="w-full">
     <hr class="border-black mb-8" />
-    <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-      <treasury-chart />
-      <treasury-list />
-    </div>
-    <router-link
-      to="/treasury"
-      class="mt-6 ml-auto w-max bg-white rounded-full border border-gray-300 text-center px-4 py-2 self-end flex gap-6 items-center"
-      >View more
-      <fa icon="chevron-right" class="text-xs" />
-    </router-link>
-  </div>
-  <div class="w-full">
-    <hr class="border-black mb-8" />
     <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Past proposals</h2>
     <transition name="fade" mode="out-in">
       <loading-indicator v-if="loading">Loading past proposals…</loading-indicator>
@@ -90,8 +76,6 @@
 import DaoStats from '@/components/DaoStats.vue'
 import LoadingIndicator from '@/components/LoadingIndicator'
 import SnapshotProposalBox from '@/components/SnapshotProposalBox.vue'
-import TreasuryChart from '@/components/TreasuryChart.vue'
-import TreasuryList from '@/components/TreasuryList.vue'
 import { shortenAddress } from '@/utils'
 import { useQuery } from '@vue/apollo-composable'
 import dayjs from 'dayjs'
@@ -100,7 +84,7 @@ import gql from 'graphql-tag'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  components: { DaoStats, SnapshotProposalBox, LoadingIndicator, TreasuryChart, TreasuryList },
+  components: { DaoStats, SnapshotProposalBox, LoadingIndicator },
   setup() {
     dayjs.extend(relativeTime)
 
