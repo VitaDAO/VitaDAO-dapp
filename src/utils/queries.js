@@ -111,3 +111,20 @@ export function useUsdTimeseries(interval) {
     usdDelta,
   }
 }
+
+export function useNfts({ owner, contract = 'all' }) {
+  return useQuery({
+    queryKey: ['useNfts', unref(owner), unref(contract)],
+    queryFn: () =>
+      fetch(API_URL + `/nfts?owner=${unref(owner)}&contract=${unref(contract)}`)
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.status === 'success') {
+            return json.results
+          } else if (json.status === 'error') {
+            throw new Error(json.message)
+          }
+          throw new Error('Unexpected response shape: ' + JSON.stringify(json))
+        }),
+  })
+}
