@@ -5,18 +5,18 @@
     <div class="grid grid-cols-1 gap-6">
       <div class="border border-gray-300 p-6 rounded-2xl">
         <h3 class="text-xl pb-3 border-b border-gray-300 mb-5">vitadao.eth ERC-20 tokens</h3>
-        <Erc20List :tokens="vitadaoEthTokens" />
+        <TokenList :tokens="vitadaoEthTokens" />
       </div>
       <div class="border border-gray-300 p-6 rounded-2xl">
         <h3 class="text-xl pb-3 border-b border-gray-300 mb-5">ops.vitadao.eth ERC-20 tokens</h3>
-        <Erc20List :tokens="opsVitadaoEthTokens" />
+        <TokenList :tokens="opsVitadaoEthTokens" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import Erc20List from '@/components/Erc20List.vue'
+import TokenList from '@/components/TokenList.vue'
 import { useTreasuryTokens } from '@/utils/queries'
 
 const { data: vitadaoEthTokens } = useTreasuryTokens('0xf5307a74d1550739ef81c6488dc5c7a6a53e5ac2')
