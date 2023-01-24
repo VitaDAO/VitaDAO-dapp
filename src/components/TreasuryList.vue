@@ -74,5 +74,9 @@ const props = defineProps({
 const title = computed(() => (props.onlyTopAssets ? 'Top assets' : 'All assets'))
 const sliceEnd = computed(() => (props.onlyTopAssets ? 5 : undefined))
 
-const { data: tokens, error, status } = useTreasuryTokens()
+const {
+  data: tokens,
+  error,
+  status,
+} = useTreasuryTokens('0xf5307a74d1550739ef81c6488dc5c7a6a53e5ac2')
 </script>

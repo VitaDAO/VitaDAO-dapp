@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
-import { computed } from 'vue'
+import { computed, unref } from 'vue'
 
 function format(n, decimals = 2) {
   return n?.toLocaleString(undefined, {
@@ -8,11 +8,13 @@ function format(n, decimals = 2) {
   })
 }
 
+const API_URL = 'https://vitadao-dapp-api-worker.raulrpearson.workers.dev'
+
 export function useDaoStats() {
   return useQuery({
     queryKey: ['useDaoStats'],
     queryFn: () =>
-      fetch('https://vitadao-dapp-api-worker.raulrpearson.workers.dev/vita')
+      fetch(API_URL + '/vita')
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
@@ -33,11 +35,11 @@ export function useDaoStats() {
   })
 }
 
-export function useTreasuryTokens() {
+export function useTreasuryTokens(address) {
   return useQuery({
-    queryKey: ['useTreasuryTokens'],
+    queryKey: ['useTreasuryTokens', unref(address)],
     queryFn: () =>
-      fetch('https://vitadao-dapp-api-worker.raulrpearson.workers.dev/tokens')
+      fetch(API_URL + `/tokens?address=${unref(address)}`)
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
@@ -63,11 +65,9 @@ export function useTreasuryTokens() {
 
 export function useUsdTimeseries(interval) {
   const queryReturn = useQuery({
-    queryKey: ['useUsdTimeseries', interval],
+    queryKey: ['useUsdTimeseries', unref(interval)],
     queryFn: () =>
-      fetch(
-        `https://vitadao-dapp-api-worker.raulrpearson.workers.dev/history?interval=${interval.value}`,
-      )
+      fetch(API_URL + `/history?interval=${unref(interval)}`)
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
