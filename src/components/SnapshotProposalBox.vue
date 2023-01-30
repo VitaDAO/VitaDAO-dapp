@@ -344,61 +344,63 @@
     </span>
     <span v-else class="font-medium text-gray-600">Pending</span>
 
-    <transition name="fade" mode="out-in">
-      <div v-if="loadingScores" class="text-sm text-gray-600" key="loading">
-        <fa icon="spinner" spin class="mr-0.5" />
-        Loading results…
-      </div>
-      <div v-else class="flex flex-col items-center" key="results">
-        <div class="bg-gray-400 flex h-1.5 overflow-hidden w-full">
-          <div
-            class="bg-success duration-1000 ease-in-out h-full transition-all"
-            :style="{
-              width: yesPercentage - 0.5 + '%',
-            }"
-          />
-          <div class="bg-white" style="width: 1%" />
-          <div
-            class="bg-danger duration-1000 ease-in-out h-full transition-all"
-            :style="{
-              width: noPercentage - 0.5 + '%',
-            }"
-          />
+    <div v-if="proposal.state != 'active'">
+      <transition name="fade" mode="out-in">
+        <div v-if="loadingScores" class="text-sm text-gray-600" key="loading">
+          <fa icon="spinner" spin class="mr-0.5" />
+          Loading results…
         </div>
-        <div class="mt-3 font-medium text-gray-300">
-          <span class="text-success">{{ yesPercentage.toFixed(2) }}% Yes</span> •
-          <span class="text-danger">{{ noPercentage.toFixed(2) }}% No</span>
-        </div>
-        <span class="text-gray-600" v-if="!wasOnChainProposal">
-          {{ new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(numTotalVotes) }}
-          Total Votes
-          <span v-if="quorumReached || !proposal.state == 'active'"
-            >({{ Math.round(quorumPercentage) }}% of quorum)</span
-          >
-        </span>
-        <!-- the replayed proposals don't reach quorum numbers because of the replay,
+        <div v-else class="flex flex-col items-center" key="results">
+          <div class="bg-gray-400 flex h-1.5 overflow-hidden w-full">
+            <div
+              class="bg-success duration-1000 ease-in-out h-full transition-all"
+              :style="{
+                width: yesPercentage - 0.5 + '%',
+              }"
+            />
+            <div class="bg-white" style="width: 1%" />
+            <div
+              class="bg-danger duration-1000 ease-in-out h-full transition-all"
+              :style="{
+                width: noPercentage - 0.5 + '%',
+              }"
+            />
+          </div>
+          <div class="mt-3 font-medium text-gray-300">
+            <span class="text-success">{{ yesPercentage.toFixed(2) }}% Yes</span> •
+            <span class="text-danger">{{ noPercentage.toFixed(2) }}% No</span>
+          </div>
+          <span class="text-gray-600" v-if="!wasOnChainProposal">
+            {{ new Intl.NumberFormat('en', { maximumFractionDigits: 0 }).format(numTotalVotes) }}
+            Total Votes
+            <span v-if="quorumReached || !proposal.state == 'active'"
+              >({{ Math.round(quorumPercentage) }}% of quorum)</span
+            >
+          </span>
+          <!-- the replayed proposals don't reach quorum numbers because of the replay,
              this is a workaround to show the correct outcome -->
-        <div
-          v-if="
-            (proposal.state == 'active' || proposal.state == 'closed') &&
-            !quorumReached &&
-            !wasOnChainProposal
-          "
-          class="mt-2 bg-orange-50 font-semibold text-sm px-4 py-1.5 rounded-full text-orange-400"
-        >
-          <fa icon="exclamation-triangle" class="mr-0.5 text-orange-300" />
-          Quorum not met ({{ quorumPercentage.toFixed(2) }}%)
+          <div
+            v-if="
+              (proposal.state == 'active' || proposal.state == 'closed') &&
+              !quorumReached &&
+              !wasOnChainProposal
+            "
+            class="mt-2 bg-orange-50 font-semibold text-sm px-4 py-1.5 rounded-full text-orange-400"
+          >
+            <fa icon="exclamation-triangle" class="mr-0.5 text-orange-300" />
+            Quorum not met ({{ quorumPercentage.toFixed(2) }}%)
+          </div>
+          <div
+            v-if="wasOnChainProposal"
+            class="mt-2 bg-gray-50 text-xs px-4 py-1.5 rounded-xl text-gray-500"
+          >
+            <fa icon="exclamation-triangle" class="mr-0.5 text-gray-400" />
+            This was originally an on-chain proposal and has been mirrored to Snapshot for
+            completeness.
+          </div>
         </div>
-        <div
-          v-if="wasOnChainProposal"
-          class="mt-2 bg-gray-50 text-xs px-4 py-1.5 rounded-xl text-gray-500"
-        >
-          <fa icon="exclamation-triangle" class="mr-0.5 text-gray-400" />
-          This was originally an on-chain proposal and has been mirrored to Snapshot for
-          completeness.
-        </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
 
     <div class="flex-grow" />
 
@@ -417,7 +419,6 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-// import snapshot from '@snapshot-labs/snapshot.js'
 import BaseButton from '@/components/BaseButton.vue'
 
 export default defineComponent({
@@ -447,7 +448,8 @@ export default defineComponent({
       }
 
       if (votesQueryResult.value) {
-        calculateScores(votesQueryResult.value.votes)
+        // Not needed with shielded voting enabled
+        //calculateScores(votesQueryResult.value.votes)
       }
     })
 
@@ -471,7 +473,8 @@ export default defineComponent({
     )
 
     onResult((queryResult) => {
-      calculateScores(queryResult.data.votes)
+      // Not needed with shielded voting enabled
+      //calculateScores(queryResult.data.votes)
     })
 
     async function calculateScores(votes) {
