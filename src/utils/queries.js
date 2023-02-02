@@ -135,3 +135,10 @@ export function useContentType(url) {
     queryFn: () => fetch(url, { method: 'HEAD' }).then((res) => res.headers.get('content-type')),
   })
 }
+
+export function usePortfolio() {
+  return useQuery({
+    queryKey: ['usePortfolio'],
+    queryFn: () => fetch(API_URL + '/portfolio').then((res) => res.json()),
+  })
+}
