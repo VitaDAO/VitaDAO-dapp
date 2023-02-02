@@ -128,3 +128,10 @@ export function useNfts({ owner, contract = 'all' }) {
         }),
   })
 }
+
+export function useContentType(url) {
+  return useQuery({
+    queryKey: ['useContentType', unref(url)],
+    queryFn: () => fetch(url, { method: 'HEAD' }).then((res) => res.headers.get('content-type')),
+  })
+}
