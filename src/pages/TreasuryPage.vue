@@ -90,17 +90,12 @@
           </table>
         </div>
       </template>
-      <div class="border border-gray-300 p-6 rounded-2xl">
-        <h3 class="text-xl pb-3 border-b border-gray-300 mb-5">IP-NFTs</h3>
-        <NftList :nfts="vitadaoEthNfts" />
-      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import NftList from '@/components/NftList.vue'
-import { useNfts, usePortfolio } from '@/utils/queries'
+import { usePortfolio } from '@/utils/queries'
 
 const { data: portfolio, status } = usePortfolio()
 
@@ -137,9 +132,4 @@ function initials(name) {
 const capitalize = (label) => {
   return label && label.length > 0 ? label[0].toUpperCase() + label.slice(1) : ''
 }
-
-const { data: vitadaoEthNfts } = useNfts({
-  owner: '0xf5307a74d1550739ef81c6488dc5c7a6a53e5ac2',
-  contract: '0x42D2354EF0b54279516f5799791086F2f499086E',
-})
 </script>
