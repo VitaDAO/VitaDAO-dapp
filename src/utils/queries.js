@@ -8,13 +8,11 @@ function format(n, decimals = 2) {
   })
 }
 
-const API_URL = 'https://vitadao-dapp-api-worker.raulrpearson.workers.dev'
-
 export function useDaoStats() {
   return useQuery({
     queryKey: ['useDaoStats'],
     queryFn: () =>
-      fetch(API_URL + '/vita')
+      fetch(process.env.VUE_APP_API_URL + '/vita')
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
@@ -39,7 +37,7 @@ export function useTreasuryTokens(address) {
   return useQuery({
     queryKey: ['useTreasuryTokens', unref(address)],
     queryFn: () =>
-      fetch(API_URL + `/tokens?address=${unref(address)}`)
+      fetch(process.env.VUE_APP_API_URL + `/tokens?address=${unref(address)}`)
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
@@ -67,7 +65,7 @@ export function useUsdTimeseries(interval) {
   const queryReturn = useQuery({
     queryKey: ['useUsdTimeseries', unref(interval)],
     queryFn: () =>
-      fetch(API_URL + `/history?interval=${unref(interval)}`)
+      fetch(process.env.VUE_APP_API_URL + `/history?interval=${unref(interval)}`)
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
@@ -116,7 +114,7 @@ export function useNfts({ owner, contract = 'all' }) {
   return useQuery({
     queryKey: ['useNfts', unref(owner), unref(contract)],
     queryFn: () =>
-      fetch(API_URL + `/nfts?owner=${unref(owner)}&contract=${unref(contract)}`)
+      fetch(process.env.VUE_APP_API_URL + `/nfts?owner=${unref(owner)}&contract=${unref(contract)}`)
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
@@ -139,6 +137,6 @@ export function useContentType(url) {
 export function usePortfolio() {
   return useQuery({
     queryKey: ['usePortfolio'],
-    queryFn: () => fetch(API_URL + '/portfolio').then((res) => res.json()),
+    queryFn: () => fetch(process.env.VUE_APP_API_URL + '/portfolio').then((res) => res.json()),
   })
 }
