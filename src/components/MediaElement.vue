@@ -1,26 +1,18 @@
 <template>
-  <div v-if="status === 'loading'" :class="props.class" class="bg-gray-300 animate-pulse" />
-  <div
-    v-else-if="status === 'error'"
-    :class="props.class"
-    class="bg-red-100 flex items-center justify-center"
-  >
-    <span class="text-red-500 p-3 text-center text-sm">{{ error.message }}</span>
-  </div>
-  <img v-else-if="contentType.startsWith('image')" v-bind="props" />
+  <img v-if="display.as === 'image'" v-bind="props" @error="tryVideo" />
   <video
-    v-else-if="contentType.startsWith('video')"
+    v-else-if="display.as === 'video'"
     :src="props.src"
     :class="props.class"
     autoplay
     loop
+    @error="fallbackToPlaceholder"
   />
+  <div v-else-if="display.as === 'placeholder'" class="bg-gray-300" :class="props.class" />
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
-
-import { useContentType } from '@/utils/queries'
+import { defineProps, reactive } from 'vue'
 
 const props = defineProps({
   src: {
@@ -37,5 +29,7 @@ const props = defineProps({
   },
 })
 
-const { data: contentType, status, error } = useContentType(props.src)
+const display = reactive({ as: 'image' })
+const tryVideo = () => (display.as = 'video')
+const fallbackToPlaceholder = () => (display.as = 'placeholder')
 </script>
