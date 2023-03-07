@@ -25,7 +25,7 @@
         >
           <h3 class="text-base sm:text-lg md:text-xl flex items-center gap-3 justify-between">
             <span>{{ `${section.title} · $${format(section.value)}` }}</span>
-            <span class="text-xs sm:text-sm bg-gray-300 rounded-full px-2 py-1 leading-none">
+            <span class="text-xs sm:text-sm bg-gray-200 rounded-full px-2 py-1 leading-none">
               {{ `${format(section.percent)}%` }}
             </span>
           </h3>
@@ -81,7 +81,7 @@
                   />
                   <div
                     v-else
-                    class="h-5 w-5 sm:h-9 sm:w-9 bg-gray-300 rounded-full flex-shrink-0 flex items-center justify-center"
+                    class="h-5 w-5 sm:h-9 sm:w-9 bg-gray-200 rounded-full flex-shrink-0 flex items-center justify-center"
                   >
                     {{ initials(row.asset.name) }}
                   </div>
