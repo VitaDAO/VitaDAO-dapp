@@ -2,28 +2,32 @@
   <div class="w-full">
     <hr class="border-black mb-8" />
     <template v-if="status === 'loading'">
-      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
+      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-xl sm:text-2xl md:text-3xl">
+        Treasury
+      </h2>
       <LoadingIndicator>Loading treasury data…</LoadingIndicator>
     </template>
     <template v-else-if="status === 'error'">
-      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
-      <ErrorIndicator>Error while fetching treasury data.</ErrorIndicator>
+      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-xl sm:text-2xl md:text-3xl">
+        Treasury
+      </h2>
+      <ErrorIndicator>{{ error.message || 'Error while fetching treasury data.' }}</ErrorIndicator>
     </template>
     <template v-else-if="status === 'success'">
-      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">
+      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-xl sm:text-2xl md:text-3xl">
         {{ `Treasury · $${format(portfolio.value)}` }}
       </h2>
       <div class="grid grid-cols-1 gap-6">
         <div
           v-for="section in portfolio.sections"
-          class="border border-gray-300 p-6 rounded-2xl flex flex-col gap-3"
+          class="border border-gray-300 p-3 sm:p-6 rounded-2xl flex flex-col gap-3"
           :key="section.title"
         >
-          <h3 class="text-xl flex items-center gap-3">
+          <h3 class="text-base sm:text-lg md:text-xl flex items-center gap-3 justify-between">
             <span>{{ `${section.title} · $${format(section.value)}` }}</span>
-            <span class="text-sm bg-gray-300 rounded-full px-2 py-1 leading-none">{{
-              `${format(section.percent)}%`
-            }}</span>
+            <span class="text-xs sm:text-sm bg-gray-300 rounded-full px-2 py-1 leading-none">
+              {{ `${format(section.percent)}%` }}
+            </span>
           </h3>
           <table
             v-for="table in section.tables"
@@ -33,10 +37,14 @@
             <colgroup>
               <col />
               <col
-                v-for="heading in Object.values(table.headings).slice(1)"
-                :key="heading"
+                v-if="table.headings.price"
                 class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]"
               />
+              <col
+                v-if="table.headings.balance"
+                class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]"
+              />
+              <col class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]" />
             </colgroup>
             <thead class="text-left text-uppercase">
               <tr>
@@ -76,8 +84,12 @@
                     </div>
                   </div>
                 </td>
-                <td v-if="row.price" class="px-2 py-3">{{ '$' + format(row.price) }}</td>
-                <td v-if="row.balance != null" class="px-2 py-3">{{ format(row.balance) }}</td>
+                <td v-if="row.price" class="px-2 py-3">
+                  {{ '$' + format(row.price) }}
+                </td>
+                <td v-if="row.balance != null" class="px-2 py-3">
+                  {{ format(row.balance) }}
+                </td>
                 <td class="px-2 py-3">
                   {{ '$' + format(row.value.value, 0) }}
                 </td>
@@ -96,7 +108,7 @@ import LoadingIndicator from '@/components/LoadingIndicator'
 import MediaElement from '@/components/MediaElement'
 import { usePortfolio } from '@/utils/queries'
 
-const { data: portfolio, status } = usePortfolio()
+const { data: portfolio, status, error } = usePortfolio()
 
 function format(n, decimals) {
   if (decimals) {
