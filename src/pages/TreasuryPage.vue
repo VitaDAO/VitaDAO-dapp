@@ -26,6 +26,14 @@
             :key="table.headings.asset"
             class="text-xs sm:text-sm lg:text-base w-full"
           >
+            <colgroup>
+              <col />
+              <col
+                v-for="heading in Object.values(table.headings).slice(1)"
+                :key="heading"
+                class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]"
+              />
+            </colgroup>
             <thead class="text-left text-uppercase">
               <tr>
                 <th v-for="heading in Object.values(table.headings)" :key="heading" class="p-2">
