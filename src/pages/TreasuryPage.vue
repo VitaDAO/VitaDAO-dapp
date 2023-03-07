@@ -7,7 +7,7 @@
     </template>
     <template v-else-if="status === 'error'">
       <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
-      <p>Error</p>
+      <ErrorIndicator>Error while fetching treasury data.</ErrorIndicator>
     </template>
     <template v-else-if="status === 'success'">
       <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">
@@ -91,6 +91,7 @@
 </template>
 
 <script setup>
+import ErrorIndicator from '@/components/ErrorIndicator'
 import LoadingIndicator from '@/components/LoadingIndicator'
 import MediaElement from '@/components/MediaElement'
 import { usePortfolio } from '@/utils/queries'
