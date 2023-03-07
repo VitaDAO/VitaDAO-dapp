@@ -40,11 +40,11 @@
                 class="border-t"
               >
                 <td class="flex gap-3 items-center px-2 py-3">
-                  <img
+                  <MediaElement
                     v-if="row.asset.iconUrl"
                     :src="row.asset.iconUrl"
                     alt=""
-                    class="h-5 w-5 sm:h-9 sm:w-9"
+                    class="h-5 w-5 sm:h-9 sm:w-9 object-cover"
                   />
                   <div
                     v-else
@@ -95,6 +95,7 @@
 </template>
 
 <script setup>
+import MediaElement from '@/components/MediaElement'
 import { usePortfolio } from '@/utils/queries'
 
 const { data: portfolio, status } = usePortfolio()
