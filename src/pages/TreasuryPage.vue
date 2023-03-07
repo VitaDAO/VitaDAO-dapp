@@ -36,20 +36,33 @@
           >
             <colgroup>
               <col />
-              <col
-                v-if="table.headings.price"
-                class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]"
-              />
-              <col
-                v-if="table.headings.balance"
-                class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]"
-              />
+              <template v-if="isOverSmBreakpoint">
+                <col
+                  v-if="table.headings.price"
+                  class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]"
+                />
+                <col
+                  v-if="table.headings.balance"
+                  class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]"
+                />
+              </template>
               <col class="w-[80px] sm:w-[95px] md:w-[110px] lg:w-[170px]" />
             </colgroup>
             <thead class="text-left text-uppercase">
               <tr>
-                <th v-for="heading in Object.values(table.headings)" :key="heading" class="p-2">
-                  {{ heading }}
+                <th class="p-2">
+                  {{ table.headings.asset }}
+                </th>
+                <template v-if="isOverSmBreakpoint">
+                  <th v-if="table.headings.price" class="p-2">
+                    {{ table.headings.price }}
+                  </th>
+                  <th v-if="table.headings.balance" class="p-2">
+                    {{ table.headings.balance }}
+                  </th>
+                </template>
+                <th class="p-2">
+                  {{ table.headings.value }}
                 </th>
               </tr>
             </thead>
@@ -84,12 +97,14 @@
                     </div>
                   </div>
                 </td>
-                <td v-if="row.price" class="px-2 py-3">
-                  {{ '$' + format(row.price) }}
-                </td>
-                <td v-if="row.balance != null" class="px-2 py-3">
-                  {{ format(row.balance) }}
-                </td>
+                <template v-if="isOverSmBreakpoint">
+                  <td v-if="row.price" class="px-2 py-3">
+                    {{ '$' + format(row.price) }}
+                  </td>
+                  <td v-if="row.balance != null" class="px-2 py-3">
+                    {{ format(row.balance) }}
+                  </td>
+                </template>
                 <td class="px-2 py-3">
                   {{ '$' + format(row.value.value, 0) }}
                 </td>
@@ -107,8 +122,11 @@ import ErrorIndicator from '@/components/ErrorIndicator'
 import LoadingIndicator from '@/components/LoadingIndicator'
 import MediaElement from '@/components/MediaElement'
 import { usePortfolio } from '@/utils/queries'
+import { useMediaQuery } from '@vueuse/core'
 
 const { data: portfolio, status, error } = usePortfolio()
+
+const isOverSmBreakpoint = useMediaQuery('(min-width: 640px)')
 
 function format(n, decimals) {
   if (decimals) {
