@@ -137,6 +137,12 @@ export function useContentType(url) {
 export function usePortfolio() {
   return useQuery({
     queryKey: ['usePortfolio'],
-    queryFn: () => fetch(process.env.VUE_APP_API_URL + '/portfolio').then((res) => res.json()),
+    queryFn: () =>
+      fetch(process.env.VUE_APP_API_URL + '/portfolio').then((response) => {
+        if (response.status !== 200) {
+          throw new Error('Error while fetching treasury.')
+        }
+        return response.json()
+      }),
   })
 }
