@@ -1,15 +1,19 @@
 <template>
   <div class="w-full">
     <hr class="border-black mb-8" />
-    <h2
-      v-if="status === 'success'"
-      class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl"
-    >
-      {{ `Treasury · $${format(portfolio.value)}` }}
-    </h2>
-    <h2 v-else class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
-    <div class="grid grid-cols-1 gap-6">
-      <template v-if="status === 'success'">
+    <template v-if="status === 'loading'">
+      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
+      <LoadingIndicator>Loading treasury data…</LoadingIndicator>
+    </template>
+    <template v-else-if="status === 'error'">
+      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">Treasury</h2>
+      <p>Error</p>
+    </template>
+    <template v-else-if="status === 'success'">
+      <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-2xl sm:text-3xl">
+        {{ `Treasury · $${format(portfolio.value)}` }}
+      </h2>
+      <div class="grid grid-cols-1 gap-6">
         <div
           v-for="section in portfolio.sections"
           class="border border-gray-300 p-6 rounded-2xl flex flex-col gap-3"
@@ -81,12 +85,13 @@
             </tbody>
           </table>
         </div>
-      </template>
-    </div>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
+import LoadingIndicator from '@/components/LoadingIndicator'
 import MediaElement from '@/components/MediaElement'
 import { usePortfolio } from '@/utils/queries'
 
