@@ -62,13 +62,13 @@
                   </div>
                   <div>
                     <div class="font-bold">{{ row.asset.name }}</div>
-                    <div v-if="row.asset.position_type">
+                    <div v-if="row.asset.chain || row.asset.position_type">
                       {{
-                        `${capitalize(row.asset.chain)} · ${capitalize(row.asset.position_type)}`
+                        [row.asset.chain, row.asset.position_type]
+                          .filter(Boolean)
+                          .map(capitalize)
+                          .join(' · ')
                       }}
-                    </div>
-                    <div v-else>
-                      {{ capitalize(row.asset.chain) }}
                     </div>
                   </div>
                 </td>
