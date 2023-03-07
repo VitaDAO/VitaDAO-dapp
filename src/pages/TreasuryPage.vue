@@ -67,23 +67,7 @@
                 <td v-if="row.price" class="px-2 py-3">{{ '$' + format(row.price) }}</td>
                 <td v-if="row.balance" class="px-2 py-3">{{ format(row.balance) }}</td>
                 <td class="px-2 py-3">
-                  <div>{{ '$' + format(row.value.value, 0) }}</div>
-                  <template v-if="row.value.absolute_1d && row.value.percent_1d">
-                    <div v-if="row.value.absolute_1d > 0" class="text-green-500">
-                      {{
-                        `+${format(row.value.percent_1d)}% ($${format(
-                          Math.abs(row.value.absolute_1d),
-                        )})`
-                      }}
-                    </div>
-                    <div v-else class="text-red-500">
-                      {{
-                        `${format(row.value.percent_1d)}% ($${format(
-                          Math.abs(row.value.absolute_1d),
-                        )})`
-                      }}
-                    </div>
-                  </template>
+                  {{ '$' + format(row.value.value, 0) }}
                 </td>
               </tr>
             </tbody>
