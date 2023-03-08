@@ -15,11 +15,11 @@
     </template>
     <template v-else-if="status === 'success'">
       <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-xl sm:text-2xl md:text-3xl">
-        {{ `Treasury · $${format(portfolio.value)}` }}
+        {{ `Treasury · $${format(treasury.value)}` }}
       </h2>
       <div class="grid grid-cols-1 gap-6">
         <div
-          v-for="section in portfolio.sections"
+          v-for="section in treasury.sections"
           class="border border-gray-300 p-3 sm:p-6 rounded-2xl flex flex-col gap-3"
           :key="section.title"
         >
@@ -121,10 +121,10 @@
 import ErrorIndicator from '@/components/ErrorIndicator'
 import LoadingIndicator from '@/components/LoadingIndicator'
 import MediaElement from '@/components/MediaElement'
-import { usePortfolio } from '@/utils/queries'
+import { useTreasury } from '@/utils/queries'
 import { useMediaQuery } from '@vueuse/core'
 
-const { data: portfolio, status, error } = usePortfolio()
+const { data: treasury, status, error } = useTreasury()
 
 const isOverSmBreakpoint = useMediaQuery('(min-width: 640px)')
 
