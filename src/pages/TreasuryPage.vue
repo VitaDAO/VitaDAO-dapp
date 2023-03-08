@@ -54,14 +54,14 @@
                   {{ table.headings.asset }}
                 </th>
                 <template v-if="isOverSmBreakpoint">
-                  <th v-if="table.headings.price" class="p-2">
+                  <th v-if="table.headings.price" class="p-2 text-right">
                     {{ table.headings.price }}
                   </th>
-                  <th v-if="table.headings.balance" class="p-2">
+                  <th v-if="table.headings.balance" class="p-2 text-right">
                     {{ table.headings.balance }}
                   </th>
                 </template>
-                <th class="p-2">
+                <th class="p-2 text-right">
                   {{ table.headings.value }}
                 </th>
               </tr>
@@ -98,14 +98,14 @@
                   </div>
                 </td>
                 <template v-if="isOverSmBreakpoint">
-                  <td v-if="row.price" class="px-2 py-3">
+                  <td v-if="row.price" class="px-2 py-3 text-right">
                     {{ '$' + format(row.price) }}
                   </td>
-                  <td v-if="row.balance != null" class="px-2 py-3">
+                  <td v-if="row.balance != null" class="px-2 py-3 text-right">
                     {{ format(row.balance) }}
                   </td>
                 </template>
-                <td class="px-2 py-3">
+                <td class="px-2 py-3 text-right">
                   {{ '$' + format(row.value.value, 0) }}
                 </td>
               </tr>
