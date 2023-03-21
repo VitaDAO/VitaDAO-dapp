@@ -50,7 +50,7 @@
           class="bg-vita-sunrise brightness-[0.9] animate-pulse h-[42px] w-[8ch] text-[42px] rounded-sm"
         />
       </span>
-      <span>Invested in research</span>
+      <span>Funded research</span>
     </div>
   </div>
 </template>
