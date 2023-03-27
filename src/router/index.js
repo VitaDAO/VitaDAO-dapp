@@ -18,6 +18,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "TreasuryPage" */ '../pages/TreasuryPage.vue'),
   },
   {
+    path: '/split-treasury',
+    name: 'SplitTreasuryPage',
+    component: () =>
+      import(/* webpackChunkName: "SplitTreasuryPage" */ '../pages/SplitTreasuryPage.vue'),
+  },
+  {
     path: '/wallet',
     name: 'WalletPage',
     component: () => import(/* webpackChunkName: "WalletPage" */ '../pages/WalletPage.vue'),

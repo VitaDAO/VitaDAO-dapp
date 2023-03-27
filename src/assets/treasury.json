@@ -1,0 +1,819 @@
+{
+  "title": "Treasury",
+  "value": 12732914.827168265,
+  "percent": 100,
+  "children": [
+    {
+      "title": "Liquid assets",
+      "value": 424242.42,
+      "percent": 33.33,
+      "children": [
+        {
+          "title": "vitadao.eth wallet",
+          "value": 5134940.850547555,
+          "percent": 40.328086068644026,
+          "children": [
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png",
+                "name": "USD Coin",
+                "chain": "ethereum"
+              },
+              "balance": 1566451.711824,
+              "price": 1.004872068570752,
+              "value": 1574083.5719767783
+            },
+            {
+              "asset": { "name": "VitaDAO Balancer Pool", "chain": "ethereum" },
+              "balance": 80174.21743013835,
+              "price": 4.954262122210837,
+              "value": 397204.0885920303
+            },
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0xae7ab96520de3a18e5e111b5eaab095312d7fe84.png",
+                "name": "Lido staked Ether 2.0",
+                "chain": "ethereum"
+              },
+              "balance": 204.5706789136141,
+              "price": 1754.521312064,
+              "value": 358923.6159773375
+            },
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/eth.png",
+                "name": "Ethereum",
+                "chain": "ethereum"
+              },
+              "balance": 100.43576975504018,
+              "price": 1758.16,
+              "value": 176582.15295252146
+            },
+            {
+              "asset": { "name": "Aura", "chain": "ethereum" },
+              "balance": 492.88482901794674,
+              "price": 2.9153281672,
+              "value": 1436.9210252215762
+            },
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0xba100000625a3754423978a60c9317c58a424e3d.png",
+                "name": "Balancer",
+                "chain": "ethereum"
+              },
+              "balance": 141.878189124337,
+              "price": 6.617992258208089,
+              "value": 938.9487572334455
+            }
+          ]
+        },
+        {
+          "title": "Uniswap V3",
+          "value": 1099819.2357746863,
+          "percent": 8.637607733211237,
+          "children": [
+            {
+              "title": "Uniswap V3 VITA/ETH Pool",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/eth.png",
+                    "name": "Ethereum",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 350.3632932464262,
+                  "value": 615994.7276541367
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/eth.png",
+                    "name": "Ethereum",
+                    "chain": "ethereum",
+                    "position_type": "reward"
+                  },
+                  "balance": 0.4401568850692767,
+                  "value": 773.8662290533996
+                }
+              ]
+            },
+            {
+              "title": "Uniswap V3 BANK/VITA Pool",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0x2d94aa3e47d9d5024503ca8491fce9a2fb4da198.png",
+                    "name": "Bankless Token",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 1063251.0104458728,
+                  "value": 8132.294491913446
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0x2d94aa3e47d9d5024503ca8491fce9a2fb4da198.png",
+                    "name": "Bankless Token",
+                    "chain": "ethereum",
+                    "position_type": "reward"
+                  },
+                  "balance": 1522.3132368269974,
+                  "value": 11.643440193509552
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Aura Finance",
+          "value": 994326.0392227841,
+          "percent": 7.809099901471005,
+          "children": [
+            {
+              "title": "Aura Finance Farming: VITA/ETH Pool",
+              "value": 994326.0392227841,
+              "percent": 7.809099901471005,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/eth.png",
+                    "name": "Ethereum",
+                    "chain": "ethereum",
+                    "position_type": "staked"
+                  },
+                  "balance": 193.02554748093146,
+                  "value": 339369.7965590745
+                },
+                {
+                  "asset": { "name": "Aura", "chain": "ethereum", "position_type": "reward" },
+                  "balance": 79.10746805135082,
+                  "value": 230.62422984597717
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xba100000625a3754423978a60c9317c58a424e3d.png",
+                    "name": "Balancer",
+                    "chain": "ethereum",
+                    "position_type": "reward"
+                  },
+                  "balance": 22.855804119760197,
+                  "value": 151.25953471969353
+                }
+              ]
+            },
+            {
+              "title": "Aura Finance Farming: stETH/ETH Pool",
+              "value": 994326.0392227841,
+              "percent": 7.809099901471005,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xae7ab96520de3a18e5e111b5eaab095312d7fe84.png",
+                    "name": "Lido staked Ether 2.0",
+                    "chain": "ethereum",
+                    "position_type": "staked"
+                  },
+                  "balance": 90.95339235673589,
+                  "value": 159579.66529441206
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/eth.png",
+                    "name": "Ethereum",
+                    "chain": "ethereum",
+                    "position_type": "staked"
+                  },
+                  "balance": 85.0840530575414,
+                  "value": 149591.37872364698
+                },
+                {
+                  "asset": { "name": "Aura", "chain": "ethereum", "position_type": "reward" },
+                  "balance": 55.66674666377643,
+                  "value": 162.28683452529407
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xba100000625a3754423978a60c9317c58a424e3d.png",
+                    "name": "Balancer",
+                    "chain": "ethereum",
+                    "position_type": "reward"
+                  },
+                  "balance": 16.083288835710153,
+                  "value": 106.43908100125438
+                }
+              ]
+            },
+            {
+              "title": "Aura Finance Farming: D2D/USDC Pool",
+              "value": 994326.0392227841,
+              "percent": 7.809099901471005,
+              "children": [
+                {
+                  "asset": { "name": "Prime", "chain": "ethereum", "position_type": "staked" },
+                  "balance": 140503.80838100603,
+                  "value": 3900.5748949843314
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png",
+                    "name": "USD Coin",
+                    "chain": "ethereum",
+                    "position_type": "staked"
+                  },
+                  "balance": 963.790429,
+                  "value": 968.4860820579224
+                },
+                {
+                  "asset": { "name": "Aura", "chain": "ethereum", "position_type": "reward" },
+                  "balance": 10.376426681319261,
+                  "value": 30.25068897893566
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xba100000625a3754423978a60c9317c58a424e3d.png",
+                    "name": "Balancer",
+                    "chain": "ethereum",
+                    "position_type": "reward"
+                  },
+                  "balance": 2.997966962326974,
+                  "value": 19.840522147043536
+                }
+              ]
+            },
+            {
+              "title": "Aura Finance Farming: GNO/COW Pool",
+              "value": 994326.0392227841,
+              "percent": 7.809099901471005,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xdef1ca1fb7fbcdc777520aa7f396b4e015f497ab.png",
+                    "name": "CoW Protocol",
+                    "chain": "ethereum",
+                    "position_type": "staked"
+                  },
+                  "balance": 11988.107280826658,
+                  "value": 1005.1626401331674
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0x6810e776880c02933d47db1b9fc05908e5386b96.png",
+                    "name": "Gnosis Token",
+                    "chain": "ethereum",
+                    "position_type": "staked"
+                  },
+                  "balance": 9.256166608055356,
+                  "value": 997.3795803572115
+                },
+                {
+                  "asset": { "name": "Aura", "chain": "ethereum", "position_type": "reward" },
+                  "balance": 0.7771207266221338,
+                  "value": 2.2655619436364374
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xba100000625a3754423978a60c9317c58a424e3d.png",
+                    "name": "Balancer",
+                    "chain": "ethereum",
+                    "position_type": "reward"
+                  },
+                  "balance": 0.2245264517068298,
+                  "value": 1.485914319158732
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "ops.vitadao.eth wallet",
+          "value": 949096.914002666,
+          "percent": 7.453885672568661,
+          "children": [
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png",
+                "name": "USD Coin",
+                "chain": "ethereum"
+              },
+              "balance": 684348.823793,
+              "price": 1.004872068570752,
+              "value": 687683.0181888329
+            },
+            {
+              "asset": {
+                "iconUrl": "https://s3.amazonaws.com/token-icons/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
+                "name": "Wrapped Ether",
+                "chain": "ethereum"
+              },
+              "balance": 5.755168123045452,
+              "price": 1758.46286112,
+              "value": 10120.249403877126
+            },
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/eth.png",
+                "name": "Ethereum",
+                "chain": "ethereum"
+              },
+              "balance": 2.5297856963260377,
+              "price": 1758.16,
+              "value": 4447.768019852587
+            },
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0xe8df08526cbdfb8187f3656f8fab90ed015830bf.png",
+                "name": "Bancor VITA Pool",
+                "chain": "ethereum"
+              },
+              "balance": 1000,
+              "price": 2.1624518192799025,
+              "value": 2162.4518192799023
+            },
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0x1f573d6fb3f13d689ff844b4ce37794d79a7ff1c.png",
+                "name": "Bancor Network Token",
+                "chain": "ethereum"
+              },
+              "balance": 14.680970206818042,
+              "price": 0.5626094834602153,
+              "value": 8.25965306475271
+            }
+          ]
+        },
+        {
+          "title": "Balancer V2",
+          "value": 499201.11995755474,
+          "percent": 3.920556500483358,
+          "children": [
+            {
+              "title": "Balancer V2 VITA/ETH Pool",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/eth.png",
+                    "name": "Ethereum",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 45.09938920135438,
+                  "value": 79291.94211825321
+                }
+              ]
+            },
+            {
+              "title": "Balancer V2 Locked",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xba100000625a3754423978a60c9317c58a424e3d.png",
+                    "name": "Balancer",
+                    "chain": "ethereum",
+                    "position_type": "locked"
+                  },
+                  "balance": 12218.572135012602,
+                  "value": 80862.41579587047
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/eth.png",
+                    "name": "Ethereum",
+                    "chain": "ethereum",
+                    "position_type": "locked"
+                  },
+                  "balance": 11.470452630185994,
+                  "value": 20166.89099628781
+                }
+              ]
+            },
+            {
+              "title": "Balancer V2 USDT/DAI/USDC Pool",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://s3.amazonaws.com/token-icons/0x6b175474e89094c44da98b954eedeac495271d0f.png",
+                    "name": "Dai",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 391.12307325330187,
+                  "value": 393.4054574108309
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png",
+                    "name": "USD Coin",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 351.78232,
+                  "value": 353.49622758501823
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xdac17f958d2ee523a2206206994597c13d831ec7.png",
+                    "name": "Tether USD",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 131.822894,
+                  "value": 131.80565137144774
+                }
+              ]
+            },
+            {
+              "title": "Balancer V2 USDT/USDC/DAI Pool",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://s3.amazonaws.com/token-icons/0x6b175474e89094c44da98b954eedeac495271d0f.png",
+                    "name": "Dai",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 37.5898233886047,
+                  "value": 37.809177405929326
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png",
+                    "name": "USD Coin",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 37.254451,
+                  "value": 37.43595723983772
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0xdac17f958d2ee523a2206206994597c13d831ec7.png",
+                    "name": "Tether USD",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 13.773904,
+                  "value": 13.772102353084355
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Gnosis Chain",
+          "value": 133478.50020900078,
+          "percent": 1.048294927130096,
+          "children": [
+            {
+              "title": "Uniswap V2",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://s3.amazonaws.com/token-icons/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
+                    "name": "Wrapped Ether",
+                    "chain": "Gnosis Chain",
+                    "position_type": "deposit"
+                  },
+                  "price": 1758.16,
+                  "balance": 38.34635522559322,
+                  "value": 67419.02790342899
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "VITA",
+      "value": 6969.69,
+      "percent": 33.33,
+      "children": [
+        {
+          "title": "vitadao.eth wallet",
+          "value": 5134940.850547555,
+          "percent": 40.328086068644026,
+          "children": [
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0x81f8f0bb1cb2a06649e51913a151f0e7ef6fa321.png",
+                "name": "VitaDAO Token",
+                "chain": "ethereum"
+              },
+              "balance": 1864341.4627851807,
+              "price": 1.4084177111309455,
+              "value": 2625771.535782423
+            }
+          ]
+        },
+        {
+          "title": "Uniswap V3",
+          "value": 1099819.2357746863,
+          "percent": 8.637607733211237,
+          "children": [
+            {
+              "title": "Uniswap V3 VITA/ETH Pool",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0x81f8f0bb1cb2a06649e51913a151f0e7ef6fa321.png",
+                    "name": "VitaDAO Token",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 336307.9619269599,
+                  "value": 473662.08997228206
+                },
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0x81f8f0bb1cb2a06649e51913a151f0e7ef6fa321.png",
+                    "name": "VitaDAO Token",
+                    "chain": "ethereum",
+                    "position_type": "reward"
+                  },
+                  "balance": 883.6966315255319,
+                  "value": 1244.6139871073162
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Aura Finance",
+          "value": 994326.0392227841,
+          "percent": 7.809099901471005,
+          "children": [
+            {
+              "title": "Aura Finance Farming: VITA/ETH Pool",
+              "value": 994326.0392227841,
+              "percent": 7.809099901471005,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0x81f8f0bb1cb2a06649e51913a151f0e7ef6fa321.png",
+                    "name": "VitaDAO Token",
+                    "chain": "ethereum",
+                    "position_type": "staked"
+                  },
+                  "balance": 240134.11675223702,
+                  "value": 338209.1430806369
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "ops.vitadao.eth wallet",
+          "value": 949096.914002666,
+          "percent": 7.453885672568661,
+          "children": [
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0x81f8f0bb1cb2a06649e51913a151f0e7ef6fa321.png",
+                "name": "VitaDAO Token",
+                "chain": "ethereum"
+              },
+              "balance": 173723.438,
+              "price": 1.4084177111309455,
+              "value": 244675.16691775876
+            }
+          ]
+        },
+        {
+          "title": "Balancer V2",
+          "value": 499201.11995755474,
+          "percent": 3.920556500483358,
+          "children": [
+            {
+              "title": "Balancer V2 VITA/ETH Pool",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0x81f8f0bb1cb2a06649e51913a151f0e7ef6fa321.png",
+                    "name": "VitaDAO Token",
+                    "chain": "ethereum",
+                    "position_type": "deposit"
+                  },
+                  "balance": 225722.91157748704,
+                  "value": 317912.1464737771
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Gnosis Chain",
+          "value": 133478.50020900078,
+          "percent": 1.048294927130096,
+          "children": [
+            {
+              "title": "Uniswap V2",
+              "value": 123,
+              "percent": 12.3,
+              "children": [
+                {
+                  "asset": {
+                    "iconUrl": "https://token-icons.s3.amazonaws.com/0x81f8f0bb1cb2a06649e51913a151f0e7ef6fa321.png",
+                    "name": "VitaDAO Token from Mainnet",
+                    "chain": "Gnosis Chain",
+                    "position_type": "deposit"
+                  },
+                  "price": 1.3473672983441691,
+                  "balance": 49028.55545533484,
+                  "value": 66059.47230557178
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Bancor",
+          "value": 422052.1674540165,
+          "percent": 3.3146547603811998,
+          "children": [
+            {
+              "asset": {
+                "iconUrl": "https://token-icons.s3.amazonaws.com/0x81f8f0bb1cb2a06649e51913a151f0e7ef6fa321.png",
+                "name": "VitaDAO Token",
+                "chain": "ethereum",
+                "position_type": "staked"
+              },
+              "balance": 299664.05855199933,
+              "value": 422052.1674540165
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Projects",
+      "value": 123.321,
+      "percent": 33.33,
+      "children": [
+        {
+          "title": "Equity deals",
+          "value": 123,
+          "percent": 12.3,
+          "children": [
+            {
+              "asset": {
+                "iconUrl": "https://uploads-ssl.webflow.com/6051e4503fa860602f4a2762/6238c35027c7a61cd640048b_Turn-Biotechnologies.jpg",
+                "name": "Turn Biotechnologies",
+                "position_type": "equity"
+              },
+              "value": 1000000
+            },
+            {
+              "asset": {
+                "iconUrl": "https://uploads-ssl.webflow.com/6051e4503fa860602f4a2762/6239c36aff4910831605a8e9_Rubedo.jpg",
+                "name": "Rubedo.Life",
+                "position_type": "equity"
+              },
+              "value": 350000
+            },
+            {
+              "asset": {
+                "iconUrl": "",
+                "name": "Brain Cell Replacement Therapy (Jean Hebert)",
+                "position_type": "equity"
+              },
+              "value": 100000
+            },
+            {
+              "asset": {
+                "iconUrl": "https://uploads-ssl.webflow.com/6051e4503fa860602f4a2762/631f6a914379ac216485e65c_maxresdefault-p-1080.jpg",
+                "name": "Longevity Hackers Film Participation",
+                "position_type": "equity"
+              },
+              "value": 100000
+            },
+            {
+              "asset": {
+                "iconUrl": "https://uploads-ssl.webflow.com/625b40f0881bd61039bf2c2a/6362cee1871bd864a5dce698_immuneage%20pharma%20(1)-p-500.png",
+                "name": "ImmuneAGE Pharma",
+                "position_type": "equity"
+              },
+              "value": 50000
+            },
+            {
+              "asset": {
+                "iconUrl": "",
+                "name": "Jack Scannell: Etheros Pharma",
+                "position_type": "equity"
+              },
+              "value": 50000
+            },
+            {
+              "asset": {
+                "iconUrl": "https://uploads-ssl.webflow.com/6051e4503fa860602f4a2762/63f4bc96d179891484103740_repair_logo.jpg",
+                "name": "Repair Biotechnologies",
+                "position_type": "equity"
+              },
+              "value": 50000
+            },
+            {
+              "asset": {
+                "iconUrl": "https://uploads-ssl.webflow.com/6051e4503fa860602f4a2762/63f6af2da68c266a16f2accd_Untitled-1-p-1080.png",
+                "name": "Hyperspectral Imaging for AD",
+                "position_type": "equity"
+              },
+              "value": 30000
+            }
+          ]
+        },
+        {
+          "title": "IP-NFTs",
+          "value": 123,
+          "percent": 12.3,
+          "children": [
+            {
+              "asset": {
+                "name": "Autophagy Activator Drug Discovery Platform",
+                "chain": "Ethereum",
+                "position_type": "",
+                "iconUrl": "https://arweave.net/veriClf6CwRggbWlZ45sRm6brcoVKN3n1ANwk6O8r_s"
+              },
+              "value": 300000
+            },
+            {
+              "asset": {
+                "name": "Towards reversing periodontal disease using Geroscience",
+                "chain": "Ethereum",
+                "position_type": "",
+                "iconUrl": "https://arweave.net/gNrFZwaYinNbqCF9wkixl_SmlucWLMfgu2pB4GaNTGQ"
+              },
+              "value": 330000
+            },
+            {
+              "asset": {
+                "name": "Novel mitophagy activators for Alzheimer’s disease",
+                "chain": "Ethereum",
+                "position_type": "",
+                "iconUrl": "https://arweave.net/AtCLltiftkzQUpSoq_GD8mPOVi5vH8_z1UPfU4MzDYg"
+              },
+              "value": 250000
+            },
+            {
+              "asset": {
+                "name": "The Longevity Molecule (IPNFT)",
+                "chain": "Ethereum",
+                "position_type": "",
+                "iconUrl": "https://arweave.net/gQm_NpkJIjEFD6sOVHLEJ-tZIKhRvgmYEl5es0g-YdQ"
+              },
+              "value": 550000
+            },
+            {
+              "asset": {
+                "name": "ApoptoSENS - Senolytic CAR-NK cells",
+                "chain": "Ethereum",
+                "position_type": "",
+                "iconUrl": "https://arweave.net/dFfQICe4uekW3m9igEQOW4a8-Luqdcoy_ePWeSvyz3c"
+              },
+              "value": 250000
+            }
+          ]
+        },
+        {
+          "title": "Other",
+          "value": 123,
+          "percent": 12.3,
+          "children": [
+            {
+              "asset": {
+                "iconUrl": "",
+                "name": "Dr. Brad Stanfield: The effect of regular exercise & intermittent rapamycin dosing on muscle performance in older adults",
+                "position_type": "other"
+              },
+              "value": 50000
+            },
+            {
+              "asset": {
+                "iconUrl": "",
+                "name": "CrowdFundedCures pay-for-success feasibility study",
+                "position_type": "other"
+              },
+              "value": 40000
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
