@@ -18,6 +18,15 @@
         {{ `Treasury · $${format(treasury.value)}` }}
       </h2>
       <div class="grid grid-cols-1 gap-6">
+        <div class="flex flex-col gap-3">
+          <p>
+            The data provided on this page is either updated manually or gathered from third party
+            APIs and is offered for informational pusposes only. We strive to make this data as
+            accurate as possible but some of it could be missing or out of date. If you think you
+            found a mistake, let us know on our
+            <a href="https://discord.com/invite/3S3ftnmZYD" class="underline">Discord</a>.
+          </p>
+        </div>
         <div
           v-for="section in treasury.sections"
           class="border border-gray-300 p-3 sm:p-6 rounded-2xl flex flex-col gap-3"
