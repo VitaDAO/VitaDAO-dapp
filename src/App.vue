@@ -71,10 +71,6 @@ export default defineComponent({
         name: 'Treasury',
         to: '/treasury',
       },
-      {
-        name: 'Split Treasury',
-        to: '/split-treasury',
-      },
       { name: 'Wallet', to: '/wallet' },
     ]
 
