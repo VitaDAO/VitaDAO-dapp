@@ -19,7 +19,7 @@
       </h2>
       <div class="grid grid-cols-1 gap-3 sm:gap-6">
         <div class="flex flex-col gap-3">
-          <p class="text-xs sm:text-sm">
+          <p class="text-xs sm:text-base">
             The data provided on this page is either updated manually or gathered from third party
             APIs and is offered for informational pusposes only. We strive to make this data as
             accurate as possible but some of it could be missing or out of date. If you think you
@@ -39,7 +39,7 @@
               {{ `${format(section.percent)}%` }}
             </span>
           </h3>
-          <p v-if="section.comment" class="text-xs sm:text-sm">{{ section.comment }}</p>
+          <p v-if="section.comment" class="text-xs sm:text-base">{{ section.comment }}</p>
           <!-- Section has subsections -->
           <template v-if="typeOfChildren(section) === 'group'">
             <div v-for="subsection of section.children" :key="subsection.label">
