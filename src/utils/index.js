@@ -38,3 +38,24 @@ export function capitalize(word) {
     .map((letter, index) => (index ? letter.toLowerCase() : letter.toUpperCase()))
     .join('')
 }
+
+export function formatNumber(n, decimals) {
+  if (decimals) {
+    return n?.toLocaleString(undefined, {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    })
+  }
+
+  if (n >= 1000) {
+    return n.toLocaleString(undefined, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    })
+  } else {
+    return n?.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  }
+}

@@ -15,7 +15,7 @@
     </template>
     <template v-else-if="status === 'success'">
       <h2 class="font-medium mb-1.5 sm:mb-4 text-black text-xl sm:text-2xl md:text-3xl">
-        {{ `Treasury · $${format(treasury.value)}` }}
+        {{ `Treasury · $${formatNumber(treasury.value)}` }}
       </h2>
       <div class="grid grid-cols-1 gap-3 sm:gap-6">
         <div class="flex flex-col gap-3">
@@ -34,9 +34,9 @@
           :key="section.label"
         >
           <h3 class="text-base sm:text-lg md:text-xl flex items-center gap-3 justify-between">
-            <span>{{ `${section.label} · $${format(section.value)}` }}</span>
+            <span>{{ `${section.label} · $${formatNumber(section.value)}` }}</span>
             <span class="text-xs sm:text-sm bg-gray-200 rounded-full px-2 py-1 leading-none">
-              {{ `${format(section.percent)}%` }}
+              {{ `${formatNumber(section.percent)}%` }}
             </span>
           </h3>
           <p v-if="section.comment" class="text-xs sm:text-base">{{ section.comment }}</p>
@@ -76,30 +76,10 @@
 import AssetRow from '@/components/AssetRow'
 import ErrorIndicator from '@/components/ErrorIndicator'
 import LoadingIndicator from '@/components/LoadingIndicator'
+import { formatNumber } from '@/utils'
 import { useTreasury } from '@/utils/queries'
 
 const { data: treasury, status, error } = useTreasury()
-
-function format(n, decimals) {
-  if (decimals) {
-    return n?.toLocaleString(undefined, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    })
-  }
-
-  if (n >= 1000) {
-    return n.toLocaleString(undefined, {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    })
-  } else {
-    return n?.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-  }
-}
 
 const typeOfChildren = (node) => {
   return Array.isArray(node.children) && node.children.length > 0

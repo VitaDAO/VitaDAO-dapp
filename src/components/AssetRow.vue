@@ -23,9 +23,9 @@
         </div>
       </div>
       <div class="px-2 py-3 text-right flex flex-col flex-shrink-0">
-        <span>${{ format(props.asset.value, 0) }}</span>
+        <span>${{ formatNumber(props.asset.value, 0) }}</span>
         <span v-if="props.asset.balance">{{
-          `${format(props.asset.balance)} ${props.asset.symbol}`
+          `${formatNumber(props.asset.balance)} ${props.asset.symbol}`
         }}</span>
       </div>
     </div>
@@ -34,6 +34,7 @@
 </template>
 
 <script setup>
+import { formatNumber } from '@/utils'
 import { useMediaQuery } from '@vueuse/core'
 import { defineProps } from 'vue'
 import MediaElement from './MediaElement'
@@ -46,27 +47,6 @@ const props = defineProps({
 })
 
 const isOverSmBreakpoint = useMediaQuery('(min-width: 640px)')
-
-function format(n, decimals) {
-  if (decimals) {
-    return n?.toLocaleString(undefined, {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals,
-    })
-  }
-
-  if (n >= 1000) {
-    return n.toLocaleString(undefined, {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    })
-  } else {
-    return n?.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-  }
-}
 
 function initials(name, maxInitials = 3) {
   return name

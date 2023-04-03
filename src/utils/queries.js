@@ -1,12 +1,5 @@
+import { formatNumber } from '@/utils'
 import { useQuery } from '@tanstack/vue-query'
-import { unref } from 'vue'
-
-function format(n, decimals = 2) {
-  return n?.toLocaleString(undefined, {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  })
-}
 
 export function useDaoStats() {
   return useQuery({
@@ -19,24 +12,17 @@ export function useDaoStats() {
             const { circulating, market_cap, price } = json.results[0]
             return {
               vita: {
-                circulating: format(circulating, 0),
-                marketCap: format(market_cap, 0),
-                price: format(price, 2),
+                circulating: formatNumber(circulating, 0),
+                marketCap: formatNumber(market_cap, 0),
+                price: formatNumber(price, 2),
               },
-              totalInvestment: format(3.5, 1) + 'M+',
+              totalInvestment: formatNumber(3.5, 1) + 'M+',
             }
           } else if (json.status === 'error') {
             throw new Error(json.message)
           }
           throw new Error('Unexpected response shape: ' + JSON.stringify(json))
         }),
-  })
-}
-
-export function useContentType(url) {
-  return useQuery({
-    queryKey: ['useContentType', unref(url)],
-    queryFn: () => fetch(url, { method: 'HEAD' }).then((res) => res.headers.get('content-type')),
   })
 }
 
