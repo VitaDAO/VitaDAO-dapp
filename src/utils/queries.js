@@ -5,7 +5,7 @@ export function useDaoStats() {
   return useQuery({
     queryKey: ['useDaoStats'],
     queryFn: () =>
-      fetch(process.env.VUE_APP_API_URL + '/v1/token/vita')
+      fetch(process.env.VUE_APP_TREASURY_API_URL + '/v1/token/vita')
         .then((res) => res.json())
         .then((json) => {
           if (json.status === 'success') {
@@ -30,7 +30,7 @@ export function useTreasury() {
   return useQuery({
     queryKey: ['useTreasury'],
     queryFn: () =>
-      fetch(process.env.VUE_APP_API_URL + '/v1/treasury/vitadao').then((response) => {
+      fetch(process.env.VUE_APP_TREASURY_API_URL + '/v1/treasury/vitadao').then((response) => {
         if (response.status !== 200) {
           throw new Error('Error while fetching treasury.')
         }
