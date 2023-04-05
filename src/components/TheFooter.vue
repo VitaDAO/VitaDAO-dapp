@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="bg-black px-6 pt-10 text-white bg-50 bg-no-repeat bg-right flex justify-center pb-20 lg:pb-10"
+    class="bg-black px-3 sm:px-6 md:px-8 lg:px-10 pt-10 text-white bg-50 bg-no-repeat bg-right flex justify-center pb-20 lg:pb-10"
   >
     <div class="max-w-8xl w-full">
       <img src="../assets/images/logo_white.svg" class="h-8 w-auto" />
@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
 import dayjs from 'dayjs'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   components: {},
