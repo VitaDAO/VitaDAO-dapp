@@ -35,7 +35,7 @@
         >
           <h3 class="text-base sm:text-lg md:text-xl flex items-center gap-3 justify-between">
             <span>{{ `${section.label} · $${formatNumber(section.value)}` }}</span>
-            <span class="text-xs sm:text-sm bg-gray-200 rounded-full px-2 py-1 leading-none">
+            <span class="text-xs sm:text-sm bg-gray-200 rounded-full px-3 py-1 leading-none">
               {{ `${formatNumber(section.percent)}%` }}
             </span>
           </h3>
