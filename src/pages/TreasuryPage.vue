@@ -20,10 +20,10 @@
       <div class="grid grid-cols-1 gap-3 sm:gap-6">
         <div class="flex flex-col gap-3">
           <p class="text-xs sm:text-base">
-            The data provided on this page is either updated manually or gathered from third party
-            APIs and is offered for informational pusposes only. We strive to make this data as
-            accurate as possible but some of it could be missing or out of date. If you think you
-            found a mistake, let us know on our
+            The data presented on this page is obtained through manual updates or collected from
+            third-party APIs, and is provided solely for informational purposes. While we strive to
+            maintain the highest level of accuracy, some data may be incomplete or outdated. If you
+            identify any errors, please notify us via our
             <a href="https://discord.com/invite/3S3ftnmZYD" class="underline">Discord</a>.
           </p>
         </div>
