@@ -40,7 +40,7 @@ export function capitalize(word) {
 }
 
 export function formatNumber(n, decimals) {
-  if (decimals) {
+  if (decimals || decimals == 0) {
     return n?.toLocaleString(undefined, {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
