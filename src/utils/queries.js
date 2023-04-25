@@ -16,7 +16,7 @@ export function useDaoStats() {
                 marketCap: formatNumber(market_cap, 0),
                 price: formatNumber(price, 2),
               },
-              totalInvestment: formatNumber(3.5, 1) + 'M+',
+              totalInvestment: formatNumber(4, 0) + 'M+',
             }
           } else if (json.status === 'error') {
             throw new Error(json.message)
