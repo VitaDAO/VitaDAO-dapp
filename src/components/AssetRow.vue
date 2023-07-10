@@ -27,6 +27,9 @@
         <span v-if="props.asset.balance">{{
           `${formatNumber(props.asset.balance)} ${props.asset.symbol}`
         }}</span>
+        <span v-else-if="props.asset.moleculesBalance"
+          >{{ `${formatNumber(props.asset.moleculesBalance)} ${props.asset.moleculesSymbol}` }}
+        </span>
       </div>
     </div>
   </div>
