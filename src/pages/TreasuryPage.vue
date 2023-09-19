@@ -42,18 +42,20 @@
           <p v-if="section.comment" class="text-xs sm:text-base">{{ section.comment }}</p>
           <!-- Section has subsections -->
           <template v-if="typeOfChildren(section) === 'group'">
-            <div v-for="subsection of section.children" :key="subsection.label">
-              <h4 class="font-bold py-2 text-xs sm:text-base">{{ subsection.label }}</h4>
-              <template
-                v-if="['fungible-asset', 'generic-asset'].includes(typeOfChildren(subsection))"
-              >
-                <AssetRow
-                  v-for="asset of subsection.children.filter((asset) => asset.value > 1)"
-                  :key="asset.label + asset.secondaryLabel"
-                  :asset="asset"
-                />
-              </template>
-            </div>
+            <template v-for="subsection of section.children" :key="subsection.label">
+              <div v-if="subsection.value >= 100">
+                <h4 class="font-bold py-2 text-xs sm:text-base">{{ subsection.label }}</h4>
+                <template
+                  v-if="['fungible-asset', 'generic-asset'].includes(typeOfChildren(subsection))"
+                >
+                  <AssetRow
+                    v-for="asset of subsection.children.filter((asset) => asset.value > 1)"
+                    :key="asset.label + asset.secondaryLabel"
+                    :asset="asset"
+                  />
+                </template>
+              </div>
+            </template>
           </template>
           <!-- Section just contains a list of assets -->
           <template v-if="['fungible-asset', 'generic-asset'].includes(typeOfChildren(section))">
