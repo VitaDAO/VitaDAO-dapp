@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="px-2 py-3 text-right flex flex-col flex-shrink-0">
-        <span>${{ formatNumber(props.asset.value, 0) }}</span>
+        <span>${{ formatNumber(props.asset.value, { decimals: 0 }) }}</span>
         <span v-if="props.asset.balance">{{
           `${formatNumber(props.asset.balance)} ${props.asset.symbol}`
         }}</span>

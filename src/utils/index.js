@@ -39,7 +39,7 @@ export function capitalize(word) {
     .join('')
 }
 
-export function formatNumber(n, decimals) {
+export function formatNumber(n, { decimals, cutoff = 1000 } = {}) {
   if (decimals || decimals == 0) {
     return n?.toLocaleString(undefined, {
       minimumFractionDigits: decimals,
@@ -47,7 +47,7 @@ export function formatNumber(n, decimals) {
     })
   }
 
-  if (n >= 1000) {
+  if (n >= cutoff) {
     return n.toLocaleString(undefined, {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,

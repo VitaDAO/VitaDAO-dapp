@@ -12,11 +12,11 @@ export function useDaoStats() {
             const { circulating, market_cap, price } = json.results[0]
             return {
               vita: {
-                circulating: formatNumber(circulating, 0),
-                marketCap: formatNumber(market_cap, 0),
-                price: formatNumber(price, 2),
+                circulating: formatNumber(circulating, { decimals: 0 }),
+                marketCap: formatNumber(market_cap, { decimals: 0 }),
+                price: formatNumber(price, { decimals: 2 }),
               },
-              totalInvestment: formatNumber(4, 0) + 'M+',
+              totalInvestment: formatNumber(4, { decimals: 0 }) + 'M+',
             }
           } else if (json.status === 'error') {
             throw new Error(json.message)
